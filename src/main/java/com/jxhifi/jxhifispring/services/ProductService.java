@@ -3,7 +3,6 @@ package com.jxhifi.jxhifispring.services;
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +17,12 @@ import java.util.Optional;
 public class ProductService {
     private static long idNumber = 100012300000L;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     /**
      * Initializes the idNumber with the next available unique identifier.
      * This method runs after the bean's properties have been initialized.
@@ -62,7 +65,7 @@ public class ProductService {
         return productRepository.save(product);
      }
     /**
-     * Generates a new, unique identifier for products.
+     * Generates a new unique identifier for products.
      *
      * @return a long value representing the new unique product identifier.
      */
