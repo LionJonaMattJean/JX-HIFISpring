@@ -33,7 +33,7 @@ public class ProductService {
 
         if(lastProductOptional.isPresent()){
             String lastId = lastProductOptional.get().getId();
-            idNumber = Long.parseLong(lastId.substring(3)) + 537;
+            idNumber = Long.parseLong(lastId.substring(3));
         }
     }
     /**
@@ -62,6 +62,7 @@ public class ProductService {
      */
      public Product createNewProduct(Product product) {
         product.setId("PRO"+generateNewId());
+
         return productRepository.save(product);
      }
     /**
@@ -70,6 +71,6 @@ public class ProductService {
      * @return a long value representing the new unique product identifier.
      */
     private synchronized long generateNewId() {
-        return idNumber++;
+        return idNumber+337;
     }
 }
