@@ -1,7 +1,7 @@
 package com.jxhifi.jxhifispring.services;
 
 import com.jxhifi.jxhifispring.entities.Category;
-import com.jxhifi.jxhifispring.entities.Product;
+
 import com.jxhifi.jxhifispring.repositories.CategoryRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -9,9 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for managing operations related to Category entities.
+ * This class provides methods for retrieving, creating, and managing
+ * categories in the repository.
+ */
 @Service
 public class CategoryService {
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
     private static long idNumber = 111L;
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;

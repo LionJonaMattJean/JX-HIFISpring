@@ -7,9 +7,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class for managing image-related operations. It handles interactions
+ * with the ImageRepository to perform CRUD operations on Image entities.
+ */
 @Service
 public class ImageService {
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
     private static Long idNumber=310100L;
     public ImageService(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
