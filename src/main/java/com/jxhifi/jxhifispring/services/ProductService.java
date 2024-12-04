@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 @Service
 public class ProductService {
-    private static long idNumber = 100012300000L;
+    private static long idNumber = 1L;
 
     private final ProductRepository productRepository;
 
@@ -71,6 +71,6 @@ public class ProductService {
      * @return a long value representing the new unique product identifier.
      */
     private synchronized long generateNewId() {
-        return idNumber+337;
+        return idNumber+1;
     }
 }

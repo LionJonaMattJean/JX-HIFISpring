@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class SpecificationDetailsService {
 
-    private static long idNumber = 100012300000L;
+    private static long idNumber = 1L;
     private final SpecificationDetailsRepository specificationDetailsRepository;
 
     public SpecificationDetailsService(SpecificationDetailsRepository specificationDetailsRepository) {

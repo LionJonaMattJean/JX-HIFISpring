@@ -65,6 +65,6 @@ public class ShortSpecificationService {
      * @return a long value representing the new unique product identifier.
      */
     private synchronized long generateNewId() {
-        return ++idNumber;
+        return idNumber+1;
     }
 }

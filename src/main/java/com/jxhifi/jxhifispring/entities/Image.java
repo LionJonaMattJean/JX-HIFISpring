@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -13,6 +14,7 @@ public class Image {
     private String url;
     @ManyToOne
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
     public String getId() {

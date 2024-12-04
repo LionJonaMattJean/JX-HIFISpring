@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ImageService {
     private final ImageRepository imageRepository;
-    private static Long idNumber=310100L;
+    private static Long idNumber=1L;
     public ImageService(ImageRepository imageRepository) {
         this.imageRepository = imageRepository;
     }
@@ -72,6 +72,6 @@ public class ImageService {
      * @return a long value representing the new unique product identifier.
      */
     private synchronized long generateNewId() {
-        return idNumber+3;
+        return idNumber+1;
     }
 }

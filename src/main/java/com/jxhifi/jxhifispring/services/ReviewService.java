@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 public class ReviewService {
-    private static long idNumber = 1130000L;
+    private static long idNumber = 1L;
     private final ReviewRepository reviewRepository;
 
     public ReviewService(ReviewRepository reviewRepository) {
