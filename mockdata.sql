@@ -221,54 +221,54 @@ INSERT INTO review (id, review, star, title, product_id) VALUES
 
 INSERT INTO image (id, url, product_id) VALUES
 -- Images for PRO1
-('IMG1', 'https://example.com/images/dell_inspiron_front.jpg', 'PRO1'),
-('IMG2', 'https://example.com/images/dell_inspiron_side.jpg', 'PRO1'),
-('IMG3', 'https://example.com/images/dell_inspiron_back.jpg', 'PRO1'),
+('IMG1', 'https://picsum.photos/seed/desktop_1/300/300', 'PRO1'),
+('IMG2', 'https://picsum.photos/seed/desktop_2/300/300', 'PRO1'),
+('IMG3', 'https://picsum.photos/seed/desktop_3/300/300', 'PRO1'),
 
 -- Images for PRO2
-('IMG4', 'https://example.com/images/hp_pavilion_front.jpg', 'PRO2'),
-('IMG5', 'https://example.com/images/hp_pavilion_side.jpg', 'PRO2'),
-('IMG6', 'https://example.com/images/hp_pavilion_back.jpg', 'PRO2'),
+('IMG4', 'https://picsum.photos/seed/desktop_4/300/300', 'PRO2'),
+('IMG5', 'https://picsum.photos/seed/desktop_5/300/300', 'PRO2'),
+('IMG6', 'https://picsum.photos/seed/desktop_6/300/300', 'PRO2'),
 
 -- Images for PRO3
-('IMG7', 'https://example.com/images/macbook_air_front.jpg', 'PRO3'),
-('IMG8', 'https://example.com/images/macbook_air_side.jpg', 'PRO3'),
-('IMG9', 'https://example.com/images/macbook_air_back.jpg', 'PRO3'),
+('IMG7', 'https://picsum.photos/seed/desktop_7/300/300', 'PRO3'),
+('IMG8', 'https://picsum.photos/seed/desktop_8/300/300', 'PRO3'),
+('IMG9', 'https://picsum.photos/seed/desktop_9/300/300', 'PRO3'),
 
 -- Images for PRO4
-('IMG10', 'https://example.com/images/lenovo_ideapad_front.jpg', 'PRO4'),
-('IMG11', 'https://example.com/images/lenovo_ideapad_side.jpg', 'PRO4'),
-('IMG12', 'https://example.com/images/lenovo_ideapad_back.jpg', 'PRO4'),
+('IMG10', 'https://picsum.photos/seed/desktop_10/300/300', 'PRO4'),
+('IMG11', 'https://picsum.photos/seed/desktop_11/300/300', 'PRO4'),
+('IMG12', 'https://picsum.photos/seed/desktop_12/300/300', 'PRO4'),
 
 -- Images for PRO5
-('IMG13', 'https://example.com/images/galaxy_s22_front.jpg', 'PRO5'),
-('IMG14', 'https://example.com/images/galaxy_s22_side.jpg', 'PRO5'),
-('IMG15', 'https://example.com/images/galaxy_s22_back.jpg', 'PRO5'),
+('IMG13', 'https://picsum.photos/seed/desktop_13/300/300', 'PRO5'),
+('IMG14', 'https://picsum.photos/seed/desktop_14/300/300', 'PRO5'),
+('IMG15', 'https://picsum.photos/seed/desktop_15/300/300', 'PRO5'),
 
 -- Images for PRO6
-('IMG16', 'https://example.com/images/iphone_14_front.jpg', 'PRO6'),
-('IMG17', 'https://example.com/images/iphone_14_side.jpg', 'PRO6'),
-('IMG18', 'https://example.com/images/iphone_14_back.jpg', 'PRO6'),
+('IMG16', 'https://picsum.photos/seed/desktop_16/300/300', 'PRO6'),
+('IMG17', 'https://picsum.photos/seed/desktop_17/300/300', 'PRO6'),
+('IMG18', 'https://picsum.photos/seed/desktop_18/300/300', 'PRO6'),
 
 -- Images for PRO7
-('IMG19', 'https://example.com/images/dell_ultrasharp_front.jpg', 'PRO7'),
-('IMG20', 'https://example.com/images/dell_ultrasharp_side.jpg', 'PRO7'),
-('IMG21', 'https://example.com/images/dell_ultrasharp_back.jpg', 'PRO7'),
+('IMG19', 'https://picsum.photos/seed/desktop_19/300/300', 'PRO7'),
+('IMG20', 'https://picsum.photos/seed/desktop_10/300/300', 'PRO7'),
+('IMG21', 'https://picsum.photos/seed/desktop_21/300/300', 'PRO7'),
 
 -- Images for PRO8
-('IMG22', 'https://example.com/images/lg_ultrafine_front.jpg', 'PRO8'),
-('IMG23', 'https://example.com/images/lg_ultrafine_side.jpg', 'PRO8'),
-('IMG24', 'https://example.com/images/lg_ultrafine_back.jpg', 'PRO8'),
+('IMG22', 'https://picsum.photos/seed/desktop_22/300/300', 'PRO8'),
+('IMG23', 'https://picsum.photos/seed/desktop_23/300/300', 'PRO8'),
+('IMG24', 'https://picsum.photos/seed/desktop_24/300/300', 'PRO8'),
 
 -- Images for PRO9
-('IMG25', 'https://example.com/images/sony_wh1000xm4_front.jpg', 'PRO9'),
-('IMG26', 'https://example.com/images/sony_wh1000xm4_side.jpg', 'PRO9'),
-('IMG27', 'https://example.com/images/sony_wh1000xm4_back.jpg', 'PRO9'),
+('IMG25', 'https://picsum.photos/seed/desktop_25/300/300', 'PRO9'),
+('IMG26', 'https://picsum.photos/seed/desktop_26/300/300', 'PRO9'),
+('IMG27', 'https://picsum.photos/seed/desktop_27/300/300', 'PRO9'),
 
 -- Images for PRO10
-('IMG28', 'https://example.com/images/bose_quietcomfort_front.jpg', 'PRO10'),
-('IMG29', 'https://example.com/images/bose_quietcomfort_side.jpg', 'PRO10'),
-('IMG30', 'https://example.com/images/bose_quietcomfort_back.jpg', 'PRO10');
+('IMG28', 'https://picsum.photos/seed/desktop_28/300/300', 'PRO10'),
+('IMG29', 'https://picsum.photos/seed/desktop_29/300/300', 'PRO10'),
+('IMG30', 'https://picsum.photos/seed/desktop_30/300/300', 'PRO10');
 
 INSERT INTO product_colors (product_id, colors) VALUES
 -- Colors for PRO1
