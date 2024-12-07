@@ -3,10 +3,7 @@ package com.jxhifi.jxhifispring.controlleur;
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.services.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +24,10 @@ public class ProductController {
     @GetMapping("/products/{id}")
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable String id) {
         return ResponseEntity.ok(productService.getProductById(id));
+    }
+    @PostMapping("/products/create")
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        this.productService.createNewProduct(product);
+        return ResponseEntity.ok(product);
     }
 }
