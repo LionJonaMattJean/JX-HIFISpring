@@ -54,6 +54,30 @@ public class ProductService {
     public Optional<Product> getProductById(String id) {
         return productRepository.findById(id);
     }
+
+    /**
+     * Retrieves a list of products that are currently on sale.
+     *
+     * @param onSale a boolean flag indicating whether to filter products that are on sale.
+     *               If true, returns products that are on sale; if false, returns products
+     *               that are not on sale.
+     * @return an Optional containing a list of Product objects that match the on-sale
+     *         condition if found, or an empty Optional if no such products are found.
+     */
+    public Optional<List<Product>> findByOnSale(boolean onSale){
+        return productRepository.findByOnSale(onSale);
+    }
+
+    /**
+     * Retrieves a list of products belonging to the specified category.
+     *
+     * @param categoryId the unique identifier of the category for which products are to be retrieved.
+     * @return an Optional containing a list of Product objects belonging to the specified category
+     *         if found, or an empty Optional if no products are found for the given category.
+     */
+    public Optional<List<Product>> getProductByCategory(String categoryId){
+      return productRepository.findByCategory_Id(categoryId);
+    }
     /**
      * Creates a new product with a unique identifier and saves it to the repository.
      *

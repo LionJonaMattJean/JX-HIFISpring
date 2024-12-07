@@ -25,9 +25,19 @@ public class ProductController {
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable String id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
+    @GetMapping("/products/category/{CATid}")
+    public ResponseEntity<Optional<List<Product>>> getProductByCategory(@PathVariable String CATid) {
+        return ResponseEntity.ok(productService.getProductByCategory(CATid));
+    }
+    @GetMapping("/products/onSale")
+    public ResponseEntity<Optional<List<Product>>> getProductBySale() {
+        return ResponseEntity.ok(productService.findByOnSale(true));
+    }
+    
     @PostMapping("/products/create")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         this.productService.createNewProduct(product);
         return ResponseEntity.ok(product);
     }
+    
 }
