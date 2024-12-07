@@ -28,7 +28,7 @@ public class ImageService {
      */
     @PostConstruct
     private void initNumber(){
-        Optional<Image> lastImageOptional= this.imageRepository.findTopByOrderByIdDesc();
+        Optional<Image> lastImageOptional= this.imageRepository.findTopByIdNumericPart();
 
         if(lastImageOptional.isPresent()){
             String lastId = lastImageOptional.get().getId();

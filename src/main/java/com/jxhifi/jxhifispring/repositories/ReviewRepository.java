@@ -1,8 +1,12 @@
 package com.jxhifi.jxhifispring.repositories;
 
 import com.jxhifi.jxhifispring.entities.Review;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, String> {
-    Optional<Review> findTopByOrderByIdDesc();
+    @Query(value = "SELECT * FROM review ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED) DESC LIMIT 1", nativeQuery = true)
+    Optional<Review> findTopByIdNumericPart();
 }

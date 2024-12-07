@@ -22,7 +22,7 @@ public class ReviewService {
      */
     @PostConstruct
     private void initNumber() {
-        Optional<Review> lastProductOptional = this.reviewRepository.findTopByOrderByIdDesc();
+        Optional<Review> lastProductOptional = this.reviewRepository.findTopByIdNumericPart();
 
         if (lastProductOptional.isPresent()) {
             String lastId = lastProductOptional.get().getId();

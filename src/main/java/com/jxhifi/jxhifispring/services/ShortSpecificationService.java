@@ -27,7 +27,7 @@ public class ShortSpecificationService {
      */
     @PostConstruct
     private  void initNumber(){
-        Optional<ShortSpecification> lastProductOptional= this.shortSpecificationRepository.findTopByOrderByIdDesc();
+        Optional<ShortSpecification> lastProductOptional= this.shortSpecificationRepository.findTopByIdNumericPart();
 
         if(lastProductOptional.isPresent()){
             String lastId = lastProductOptional.get().getId();

@@ -28,7 +28,7 @@ public class CategoryService {
      */
     @PostConstruct
     private  void initNumber(){
-        Optional<Category> lastCategoryOptional= this.categoryRepository.findTopByOrderByIdDesc();
+        Optional<Category> lastCategoryOptional= this.categoryRepository.findTopByIdNumericPart();
 
         if(lastCategoryOptional.isPresent()){
             String lastId = lastCategoryOptional.get().getId();

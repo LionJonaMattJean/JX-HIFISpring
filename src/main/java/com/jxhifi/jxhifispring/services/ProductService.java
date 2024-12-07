@@ -29,7 +29,7 @@ public class ProductService {
      */
     @PostConstruct
     private  void initNumber(){
-        Optional<Product> lastProductOptional= this.productRepository.findTopByOrderByIdDesc();
+        Optional<Product> lastProductOptional= this.productRepository.findTopByIdNumericPart();
 
         if(lastProductOptional.isPresent()){
             String lastId = lastProductOptional.get().getId();
@@ -42,7 +42,8 @@ public class ProductService {
      * @return a List of Product objects.
      */
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+
+        return productRepository.findAllOrderByIdNumericPart();
     }
 
     /**

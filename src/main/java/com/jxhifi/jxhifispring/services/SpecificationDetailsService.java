@@ -31,7 +31,7 @@ public class SpecificationDetailsService {
      */
     @PostConstruct
     private  void initNumber(){
-        Optional<SpecificationDetails> lastSpecificationOptional= this.specificationDetailsRepository.findTopByOrderByIdDesc();
+        Optional<SpecificationDetails> lastSpecificationOptional= this.specificationDetailsRepository.findTopByIdNumericPart();
 
         if(lastSpecificationOptional.isPresent()){
             String lastId = lastSpecificationOptional.get().getId();
