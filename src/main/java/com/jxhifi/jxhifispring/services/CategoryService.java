@@ -45,6 +45,7 @@ public class CategoryService {
     public Optional<Category> getCategoryById(String id) {
         return categoryRepository.findById(id);
     }
+
     /**
      * Retrieves a list of all category entities from the repository.
      *
@@ -53,6 +54,7 @@ public class CategoryService {
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
+
     /**
      * Creates a new category by assigning a unique identifier and saving it to the repository.
      *
@@ -63,6 +65,7 @@ public class CategoryService {
         category.setId("CAT"+generateNewId());
         return categoryRepository.save(category);
     }
+
     /**
      * Generates a new unique identifier for products.
      *

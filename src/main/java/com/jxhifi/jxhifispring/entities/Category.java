@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
-
 @Entity
 @Table(name = "category")
 public class Category {
@@ -15,6 +13,7 @@ public class Category {
     private String id;
 
     private String name;
+
     @Column(name = "description", nullable = false,length = 2000)
     private String description;
 
