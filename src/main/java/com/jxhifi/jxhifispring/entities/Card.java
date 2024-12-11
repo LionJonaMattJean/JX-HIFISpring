@@ -1,14 +1,11 @@
 package com.jxhifi.jxhifispring.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -18,10 +15,20 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(length = 16, nullable = false)
     private int cardNumber;
-    private Date expiryDate;
+
+    /*  j'ai utiliser LocalDate psq ce type d'objet peu etre utiliser pour juste des dates
+        sans temps, ce qui est plus proche de ce qu'on veut pour les dates d'expiration
+        open to change back to Date type if needed
+     */
+    @Column(nullable = false)
+    private LocalDate expiryDate;
+    @Column(nullable = false)
     private String paymentMethod;
+    @Column(nullable = false)
     private int cvc;
+    @Column(nullable = false)
     private String nameHolder;
 
     /*

@@ -19,7 +19,9 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(nullable = false)
     private int quantity;
+    @Column(nullable = false)
     private double subTotal;
 
     /*Je laisserai ca ici commenter au cas ou ce n'est pas necessaire*/
