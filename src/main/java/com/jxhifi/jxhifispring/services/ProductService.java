@@ -2,12 +2,10 @@ package com.jxhifi.jxhifispring.services;
 
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
-
 
 /**
  * Service class for handling operations related to products.
@@ -28,14 +26,15 @@ public class ProductService {
      * This method runs after the bean's properties have been initialized.
      */
     @PostConstruct
-    private  void initNumber(){
-        Optional<Product> lastProductOptional= this.productRepository.findTopByIdNumericPart();
+    private void initNumber() {
+        Optional<Product> lastProductOptional = this.productRepository.findTopByIdNumericPart();
 
-        if(lastProductOptional.isPresent()){
+        if (lastProductOptional.isPresent()) {
             String lastId = lastProductOptional.get().getId();
             idNumber = Long.parseLong(lastId.substring(3));
         }
     }
+
     /**
      * Retrieves a list of all products.
      *
@@ -63,9 +62,9 @@ public class ProductService {
      *               If true, returns products that are on sale; if false, returns products
      *               that are not on sale.
      * @return an Optional containing a list of Product objects that match the on-sale
-     *         condition if found, or an empty Optional if no such products are found.
+     * condition if found, or an empty Optional if no such products are found.
      */
-    public Optional<List<Product>> findByOnSale(boolean onSale){
+    public Optional<List<Product>> findByOnSale(boolean onSale) {
         return productRepository.findByOnSale(onSale);
     }
 
@@ -74,28 +73,30 @@ public class ProductService {
      *
      * @param categoryId the unique identifier of the category for which products are to be retrieved.
      * @return an Optional containing a list of Product objects belonging to the specified category
-     *         if found, or an empty Optional if no products are found for the given category.
+     * if found, or an empty Optional if no products are found for the given category.
      */
-    public Optional<List<Product>> getProductByCategory(String categoryId){
-      return productRepository.findByCategory_Id(categoryId);
+    public Optional<List<Product>> getProductByCategory(String categoryId) {
+        return productRepository.findByCategory_Id(categoryId);
     }
+
     /**
      * Creates a new product with a unique identifier and saves it to the repository.
      *
      * @param product the Product object to be created.
      * @return the created Product object.
      */
-     public Product createNewProduct(Product product) {
-        product.setId("PRO"+generateNewId());
+    public Product createNewProduct(Product product) {
+        product.setId("PRO" + generateNewId());
 
         return productRepository.save(product);
-     }
+    }
+
     /**
      * Generates a new unique identifier for products.
      *
      * @return a long value representing the new unique product identifier.
      */
     private synchronized long generateNewId() {
-        return idNumber+1;
+        return idNumber + 1;
     }
 }

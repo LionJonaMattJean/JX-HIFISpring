@@ -2,19 +2,17 @@ package com.jxhifi.jxhifispring.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.Data;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "user")
-public class User {
+@MappedSuperclass //Empeche Spring de mapper cette classe et précise que c'est un super Type pour d'autre classes
+public abstract class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(unique = true, nullable = false)
