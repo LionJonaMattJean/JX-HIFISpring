@@ -6,35 +6,41 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.smartcardio.Card;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String idCustomer;
-    //private Card card;
-    //private OrderItem[] orderItems;
+
+    @ManyToOne
+    @JoinColumn(name = "card_id")
+    private Card card;
+
+    //je laisserai ceci en commentaire au cas ou on ne l'utilisera pas
+    @OneToMany//(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems;
+
     private double TPS;
     private double stateTax;
     private double TTC;
     private String status;
     private Date orderDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "shipping_address_id")
     private Address shippingAddress;
-
-
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+
 }
