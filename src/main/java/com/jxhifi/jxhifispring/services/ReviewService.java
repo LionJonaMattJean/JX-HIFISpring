@@ -56,16 +56,18 @@ public class ReviewService {
      * @return the saved Review object with the newly assigned ID.
      */
     public Review createNewReview(Review review) {
-        review.setId("REV" + generateNewId());
+        review.setId(generateNewId());
         return reviewRepository.save(review);
     }
 
     /**
      * Generates a new unique identifier for products.
      *
-     * @return a long value representing the new unique product identifier.
+     * @return a String value representing the new unique product identifier.
      */
-    private synchronized long generateNewId() {
-        return idNumber + 1;
+    public synchronized String generateNewId() {
+        String id = "REV"+idNumber;
+        idNumber++;
+        return id ;
     }
 }

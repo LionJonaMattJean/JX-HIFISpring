@@ -62,16 +62,18 @@ public class ImageService {
      * @return the saved Image object with the newly assigned ID.
      */
     public Image createNewImage(Image image) {
-        image.setId("IMG"+generateNewId());
+        image.setId(generateNewId());
         return imageRepository.save(image);
     }
 
     /**
      * Generates a new unique identifier for products.
      *
-     * @return a long value representing the new unique product identifier.
+     * @return a String value representing the new unique product identifier.
      */
-    private synchronized long generateNewId() {
-        return idNumber+1;
+    public synchronized String generateNewId() {
+        String id = "IMG"+idNumber;
+        idNumber++;
+        return id ;
     }
 }

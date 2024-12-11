@@ -46,7 +46,7 @@ public class ShortSpecificationService {
     }
 
     public ShortSpecification createNewShortSpecification(ShortSpecification shortSpecification) {
-        shortSpecification.setId("QSPE"+generateNewId());
+        shortSpecification.setId(generateNewId());
         return shortSpecificationRepository.save(shortSpecification);
     }
     /**
@@ -62,9 +62,11 @@ public class ShortSpecificationService {
     /**
      * Generates a new unique identifier for products.
      *
-     * @return a long value representing the new unique product identifier.
+     * @return a String value representing the new unique product identifier.
      */
-    private synchronized long generateNewId() {
-        return idNumber+1;
+    public synchronized String generateNewId() {
+        String id = "QSPE"+idNumber;
+        idNumber++;
+        return id ;
     }
 }

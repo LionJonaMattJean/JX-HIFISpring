@@ -86,7 +86,7 @@ public class ProductService {
      * @return the created Product object.
      */
     public Product createNewProduct(Product product) {
-        product.setId("PRO" + generateNewId());
+        product.setId(generateNewId());
 
         return productRepository.save(product);
     }
@@ -94,9 +94,22 @@ public class ProductService {
     /**
      * Generates a new unique identifier for products.
      *
-     * @return a long value representing the new unique product identifier.
+     * @return a String value representing the new unique product identifier.
      */
-    private synchronized long generateNewId() {
-        return idNumber + 1;
+    public synchronized String generateNewId() {
+        String id = "PRO"+idNumber;
+        idNumber++;
+        return id ;
     }
+
+    /**
+     * Updates an existing product by saving the provided product to the repository.
+     *
+     * @param product the Product object to be updated.
+     */
+    public void updateProduct(Product product) {
+        productRepository.save(product);
+    }
+
+
 }

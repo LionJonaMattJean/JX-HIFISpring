@@ -71,7 +71,7 @@ public class CategoryService {
      *
      * @return a long value representing the new unique product identifier.
      */
-    private synchronized long generateNewId() {
+    public synchronized long generateNewId() {
         return idNumber+111;
     }
 }

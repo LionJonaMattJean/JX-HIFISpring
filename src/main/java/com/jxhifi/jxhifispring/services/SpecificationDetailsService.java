@@ -57,15 +57,17 @@ public class SpecificationDetailsService {
      * @return the saved SpecificationDetails object, now with a unique identifier
      */
     public SpecificationDetails createNewSpecificationDetails(SpecificationDetails specificationDetails) {
-        specificationDetails.setId("SPE"+generateNewId());
+        specificationDetails.setId(generateNewId());
         return specificationDetailsRepository.save(specificationDetails);
     }
     /**
      * Generates a new unique identifier for products.
      *
-     * @return a long value representing the new unique product identifier.
+     * @return a String value representing the new unique product identifier.
      */
-    private synchronized long generateNewId() {
-        return idNumber+1;
+    public synchronized String generateNewId() {
+        String id = "SPE"+idNumber;
+        idNumber++;
+        return id ;
     }
 }
