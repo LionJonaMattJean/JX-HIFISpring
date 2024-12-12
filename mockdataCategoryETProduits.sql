@@ -1,4 +1,5 @@
 INSERT INTO category (id, name, description) VALUES
+                                                 ('CAT111','Sales','Every product in sales right now and for a limited time.'),
                                                  ('CAT222', 'Desktop', 'Pre-built computer for your daily work from home or office.'),
                                                  ('CAT333', 'Laptop', 'Powerful computer for your remote life.'),
                                                  ('CAT444', 'Phone', 'Flagship from the biggest company in the world.'),
