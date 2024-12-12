@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 @Transactional
 public class CardService {
@@ -24,13 +26,23 @@ public class CardService {
         return cardRepository.getCardByCardNumber(number);
     }
 
-    public void updateCard(Card card) {
-        cardRepository.updateCardNumber( card.getCardNumber());
-        cardRepository.updateName(card.getNameHolder());
-        cardRepository.updateCvc(card.getCvc());
-        cardRepository.updateExpDate(card.getExpiryDate());
-        cardRepository.updatePayMethod(card.getPaymentMethod());
+
+    public void updateCardNumber(String id, int newNumber) {
+        cardRepository.updateCardNumber(id, newNumber);
     }
+    public void updateCardExDate(String id, LocalDate newDate) {
+        cardRepository.updateExpDate(id, newDate);
+    }
+    public void updateCardCvc(String id, int newCvc) {
+        cardRepository.updateCvc(id, newCvc);
+    }
+    public void updateCardNameHolder(String id, String nameHolder) {
+        cardRepository.updateName(id, nameHolder);
+    }
+    public void updatePaymentType(String id, String paymentType){
+        cardRepository.updatePayMethod(id, paymentType);
+    }
+
 
 
     public void deleteCardbyId(String id){

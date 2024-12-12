@@ -26,17 +26,17 @@ public class StoreService {
     }
 
 
-    public void updateStoreAddress(Address address) {
-        storeRepository.updateAddress(address);
+    public void updateStoreAddress(String id, Address address) {
+        storeRepository.updateAddress(id, address);
     }
-    public void updateStoreManager(String manager){
-        storeRepository.updateManager(manager);
+    public void updateStoreManager(String id, String manager){
+        storeRepository.updateManager(id, manager);
     }
-    public void updateStorePhone(String phone){
-        storeRepository.updateTelephone(phone);
+    public void updateStorePhone(String id, String phone){
+        storeRepository.updateTelephone(id, phone);
     }
-    public void updateStoreEmail(String email){
-        storeRepository.updateEmail(email);
+    public void updateStoreEmail(String id,String email){
+        storeRepository.updateEmail(id, email);
     }
 
 

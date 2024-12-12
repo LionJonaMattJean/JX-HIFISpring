@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+//CHANGE THE UPDATE QUERY TO TAKE IN 2 PARAMETERS INSTEAD OF ONE
 
 public interface CardRepository extends CrudRepository<Card, Integer> {
 
@@ -18,24 +19,24 @@ public interface CardRepository extends CrudRepository<Card, Integer> {
 
     //-MODIFYING QUERRIES-----------------------------------------------
     @Modifying
-    @Query("update Card c set c.cardNumber =: newCardNumber")
-    public void updateCardNumber(@Param("newCardNumber") int newCardNumber);
+    @Query("update Card c set c.cardNumber =?2 where c.id =? 1")
+    public void updateCardNumber(@Param("id")String id, @Param("newCardNumber") int newCardNumber);
 
     @Modifying
-    @Query("update Card c set c.nameHolder =: newName")
-    public void updateName(@Param("newName") String newName);
+    @Query("update Card c set c.nameHolder = ?2 where c.id = ?1")
+    public void updateName(@Param("id") String id, @Param("newName") String newName);
 
     @Modifying
-    @Query("update  Card c set c.cvc =: newCvc")
-    public void updateCvc(@Param("newCvc") int newCvc);
+    @Query("update  Card c set c.cvc =?2 where c.id = ?1")
+    public void updateCvc(@Param("id")String id, @Param("newCvc") int newCvc);
 
     @Modifying
-    @Query("update Card c set c.expiryDate =: newExpDate")
-    public void updateExpDate(@Param("newExpDate") LocalDate newExpDate);
+    @Query("update Card c set c.expiryDate =?2 where c.id =?1")
+    public void updateExpDate(@Param("id") String id, @Param("newExpDate") LocalDate newExpDate);
 
     @Modifying
-    @Query("update Card c set c.paymentMethod =: newPayMethod")
-    public void updatePayMethod(@Param("newPayMethod") String newPayMethod);
+    @Query("update Card c set c.paymentMethod =?2 where c.id =?1")
+    public void updatePayMethod(@Param("id")String id, @Param("newPayMethod") String newPayMethod);
 
 
 
