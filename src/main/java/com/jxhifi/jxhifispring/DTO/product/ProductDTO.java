@@ -1,4 +1,4 @@
-package com.jxhifi.jxhifispring.DTO;
+package com.jxhifi.jxhifispring.DTO.product;
 
 
 

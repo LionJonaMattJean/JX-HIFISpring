@@ -1,8 +1,9 @@
 package com.jxhifi.jxhifispring.controlleur;
-import com.jxhifi.jxhifispring.DTO.ImageDTO;
-import com.jxhifi.jxhifispring.DTO.ProductDTO;
-import com.jxhifi.jxhifispring.DTO.ShortSpecificationDTO;
-import com.jxhifi.jxhifispring.DTO.SpecificationDetailsDTO;
+import com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO;
+import com.jxhifi.jxhifispring.DTO.product.ImageDTO;
+import com.jxhifi.jxhifispring.DTO.product.ProductDTO;
+import com.jxhifi.jxhifispring.DTO.product.ShortSpecificationDTO;
+import com.jxhifi.jxhifispring.DTO.product.SpecificationDetailsDTO;
 import com.jxhifi.jxhifispring.entities.*;
 import com.jxhifi.jxhifispring.services.*;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,20 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
+    }
+    @GetMapping("/table/products")
+    public ResponseEntity<List<ProductSummaryTableDTO>> getProductsTable() {
+        List<ProductSummaryTableDTO> productSummaries = productService.getAllProducts().stream()
+                .map(product -> new ProductSummaryTableDTO(
+                        product.getId(),
+                        product.getName(),
+                        product.getSellPrice(),
+                        product.getBrand(),
+                        product.getStock(),
+                        product.getCategory() != null ? product.getCategory().getId() : null
+                ))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(productSummaries);
     }
 
     @GetMapping("/products/{id}")
@@ -126,7 +141,11 @@ public class ProductController {
         productService.updateProduct(prod);
         return ResponseEntity.ok(prod);
     }
-
+    @DeleteMapping("/products/delete/{id}")
+ public void deleteProduct(@PathVariable String id) {
+        Product prod = productService.getProductById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        productService.deleteProduct(prod);
+ }
     private void updateImages(Product product, List<ImageDTO> imageDTOs) {
         // Remove images not in the new list
         product.getImages().removeIf(image ->

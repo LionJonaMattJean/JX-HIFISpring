@@ -15,6 +15,7 @@ import java.util.Optional;
  * It provides methods to retrieve, create, and manage product entities.
  */
 @Service
+@Transactional
 public class ProductService {
     private static long idNumber = 1L;
 
@@ -97,7 +98,9 @@ public class ProductService {
 
         return productRepository.save(product);
     }
-
+    public void deleteProduct(Product product){
+        productRepository.delete(product);
+    }
     /**
      * Generates a new unique identifier for products.
      *
@@ -108,6 +111,7 @@ public class ProductService {
         idNumber++;
         return id ;
     }
+
 
     /**
      * Updates an existing product by saving the provided product to the repository.
