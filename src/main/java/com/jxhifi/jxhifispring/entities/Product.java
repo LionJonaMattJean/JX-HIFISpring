@@ -34,16 +34,16 @@ public class Product {
     @ElementCollection
     private List<String> colors;
 
-    @OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<SpecificationDetails> specificationDetails;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ShortSpecification> shortSpecifications;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
 }

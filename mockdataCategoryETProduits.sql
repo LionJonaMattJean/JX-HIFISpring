@@ -120,6 +120,7 @@ INSERT INTO specification_details (id, description, title, product_id) VALUES
 ('SPE80', 'Durable build for frequent use', 'Durability', 'PRO10');
 
 INSERT INTO short_specification (id, description, title, product_id) VALUES
+
 -- Specifications for PRO1
 ('QSPE5', 'Powerful performance with Intel i5', 'Key Features', 'PRO1'),
 ('QSPE6', 'Compact design with easy setup', 'Design Features', 'PRO1'),

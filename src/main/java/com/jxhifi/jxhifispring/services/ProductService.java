@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.services;
 
+
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ public class ProductService {
     private static long idNumber = 1L;
 
     private final ProductRepository productRepository;
+    private final ImageService imageService;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ImageService imageService) {
         this.productRepository = productRepository;
+        this.imageService = imageService;
     }
 
     /**
@@ -110,6 +113,8 @@ public class ProductService {
     public void updateProduct(Product product) {
         productRepository.save(product);
     }
+
+
 
 
 }
