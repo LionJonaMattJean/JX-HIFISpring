@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
-//CHANGE THE UPDATE QUERY TO TAKE IN 2 PARAMETERS INSTEAD OF ONE
 
 public interface CardRepository extends CrudRepository<Card, Integer> {
 

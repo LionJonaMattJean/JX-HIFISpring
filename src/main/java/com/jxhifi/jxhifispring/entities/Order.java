@@ -38,6 +38,8 @@ public class Order {
     @Column(nullable = false)
     private String status;
 
+    //order should probably have a Coupon attribute
+
     /*  j'ai utiliser LocalDate psq ce type d'objet peu etre utiliser pour juste des dates
        sans temps, ce qui est plus proche de ce qu'on veut pour les dates d'expiration
        open to change back to Date type if needed
