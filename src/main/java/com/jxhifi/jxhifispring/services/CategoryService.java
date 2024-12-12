@@ -65,7 +65,12 @@ public class CategoryService {
         category.setId("CAT"+generateNewId());
         return categoryRepository.save(category);
     }
-
+    public void deleteCategory(String id){
+        categoryRepository.deleteById(id);
+    }
+    public Category updateCategory(Category category){
+        return categoryRepository.save(category);
+    }
     /**
      * Generates a new unique identifier for products.
      *

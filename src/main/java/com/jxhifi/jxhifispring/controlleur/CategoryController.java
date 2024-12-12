@@ -1,7 +1,7 @@
 package com.jxhifi.jxhifispring.controlleur;
 
 import com.jxhifi.jxhifispring.entities.Category;
-import com.jxhifi.jxhifispring.repositories.CategoryRepository;
+import com.jxhifi.jxhifispring.services.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,30 +9,37 @@ import java.util.List;
 
 @RestController
 public class CategoryController {
-    private final CategoryRepository categoryRepository;
-    public CategoryController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private final CategoryService categoryService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> getAllCategories() {
-        return ResponseEntity.ok(categoryRepository.findAll());
+        return ResponseEntity.ok(categoryService.getAllCategories());
     }
 
     @GetMapping( "/categories/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(categoryRepository.findById(id).orElseThrow(
-                ()->new RuntimeException("Category not found")
-        ));
+        return ResponseEntity.ok(categoryService.getCategoryById(id).orElseThrow(RuntimeException::new)
+        );
     }
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/categories/delete/{id}")
     public ResponseEntity<?> deleteCategory(@PathVariable("id") String id) {
-        categoryRepository.deleteById(id);
+        categoryService.deleteCategory(id);
         return ResponseEntity.ok().build();
     }
-    @PostMapping( "/categories/modify")
+    @PostMapping( "/categories/create")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        return ResponseEntity.ok(categoryRepository.save(category));
+        return ResponseEntity.ok(
+                categoryService.createNewCategory(category)
+        );
+    }
+    @PutMapping("/categories/modify")
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category) {
+        return ResponseEntity.ok(
+                categoryService.updateCategory(category)
+        );
     }
 
 }
