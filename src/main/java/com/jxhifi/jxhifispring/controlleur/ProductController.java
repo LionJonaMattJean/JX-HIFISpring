@@ -157,19 +157,19 @@ public class ProductController {
             }
         }
     }
-    private void updateSpecifications(Product product, List<SpecificationDetailsDTO> specificationDetailsDTOs){
-        product.getSpecificationDetails().removeIf(specificationDetails ->
-                specificationDetailsDTOs.stream().noneMatch(dto -> specificationDetails.getTitle().equals(dto.getTitle())));
+    private void updateSpecifications(Product product, List<SpecificationDetailsDTO> specificationDetailsDTOs) {
+        // Clear the collection to ensure uniqueness
+        List<SpecificationDetails> existingDetails = product.getSpecificationDetails();
+        existingDetails.clear();
 
+        // Add specification details safely
         for (SpecificationDetailsDTO dto : specificationDetailsDTOs) {
-            if (product.getSpecificationDetails().stream().noneMatch(specificationDetails -> specificationDetails.getTitle().equals(dto.getTitle()))) {
-                SpecificationDetails newSpecificationDetails = new SpecificationDetails();
-                newSpecificationDetails.setId(specificationDetailsService.generateNewId());
-                newSpecificationDetails.setProduct(product);
-                newSpecificationDetails.setTitle(dto.getTitle());
-                newSpecificationDetails.setDescription(dto.getDescription());
-                product.getSpecificationDetails().add(newSpecificationDetails);
-            }
+            SpecificationDetails newSpecificationDetails = new SpecificationDetails();
+            newSpecificationDetails.setId(specificationDetailsService.generateNewId()); // Generate unique ID
+            newSpecificationDetails.setProduct(product); // Maintain relationship
+            newSpecificationDetails.setTitle(dto.getTitle());
+            newSpecificationDetails.setDescription(dto.getDescription());
+            existingDetails.add(newSpecificationDetails);
         }
     }
 }

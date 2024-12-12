@@ -3,6 +3,8 @@ package com.jxhifi.jxhifispring.services;
 
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
@@ -17,11 +19,13 @@ public class ProductService {
     private static long idNumber = 1L;
 
     private final ProductRepository productRepository;
-    private final ImageService imageService;
 
-    public ProductService(ProductRepository productRepository, ImageService imageService) {
+    private final EntityManager entityManager;
+
+    public ProductService(ProductRepository productRepository,EntityManager entityManager) {
         this.productRepository = productRepository;
-        this.imageService = imageService;
+        this.entityManager = entityManager;
+
     }
 
     /**
@@ -110,8 +114,10 @@ public class ProductService {
      *
      * @param product the Product object to be updated.
      */
+    @Transactional
     public void updateProduct(Product product) {
-        productRepository.save(product);
+        Product managedProduct = entityManager.merge(product);
+        productRepository.save(managedProduct);
     }
 
 
