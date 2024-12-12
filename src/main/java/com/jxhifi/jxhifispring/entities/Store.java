@@ -12,14 +12,20 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(nullable = true)
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
+    @Column(nullable = false)
     private String telephone;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String manager;
 
 }
