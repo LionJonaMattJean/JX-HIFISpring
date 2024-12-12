@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.repositories;
 
+import com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO;
 import com.jxhifi.jxhifispring.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -32,6 +33,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
   @Query(value = "SELECT * FROM product ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED)", nativeQuery = true)
   List<Product> findAllOrderByIdNumericPart();
 
+  @Query(value = "SELECT  new com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO(p.id, p.name,p.sellPrice,p.brand,p.stock,p.category.id)"+" from Product p")
+  List<ProductSummaryTableDTO> findAllProductSummaryTableDTO();
 
   Optional<List<Product>> findByCategory_Id(String categoryId);
 

@@ -1,6 +1,7 @@
 package com.jxhifi.jxhifispring.services;
 
 
+import com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO;
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
 import jakarta.persistence.EntityManager;
@@ -91,12 +92,12 @@ public class ProductService {
      * Creates a new product with a unique identifier and saves it to the repository.
      *
      * @param product the Product object to be created.
-     * @return the created Product object.
+     *
      */
-    public Product createNewProduct(Product product) {
+    public void createNewProduct(Product product) {
         product.setId(generateNewId());
 
-        return productRepository.save(product);
+       productRepository.save(product);
     }
     public void deleteProduct(Product product){
         productRepository.delete(product);
@@ -124,7 +125,9 @@ public class ProductService {
         productRepository.save(managedProduct);
     }
 
-
+    public List<ProductSummaryTableDTO> getProductsTable(){
+        return productRepository.findAllProductSummaryTableDTO();
+    }
 
 
 }

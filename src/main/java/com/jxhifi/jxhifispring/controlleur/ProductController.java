@@ -36,16 +36,7 @@ public class ProductController {
     }
     @GetMapping("/table/products")
     public ResponseEntity<List<ProductSummaryTableDTO>> getProductsTable() {
-        List<ProductSummaryTableDTO> productSummaries = productService.getAllProducts().stream()
-                .map(product -> new ProductSummaryTableDTO(
-                        product.getId(),
-                        product.getName(),
-                        product.getSellPrice(),
-                        product.getBrand(),
-                        product.getStock(),
-                        product.getCategory() != null ? product.getCategory().getId() : null
-                ))
-                .collect(Collectors.toList());
+        List<ProductSummaryTableDTO> productSummaries = productService.getProductsTable();
         return ResponseEntity.ok(productSummaries);
     }
 
