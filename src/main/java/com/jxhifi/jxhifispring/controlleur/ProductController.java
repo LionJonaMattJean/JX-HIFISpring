@@ -1,4 +1,5 @@
 package com.jxhifi.jxhifispring.controlleur;
+
 import com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO;
 import com.jxhifi.jxhifispring.DTO.product.ImageDTO;
 import com.jxhifi.jxhifispring.DTO.product.ProductDTO;
@@ -24,7 +25,7 @@ public class ProductController {
 
     public ProductController(ProductService productService, CategoryService categoryService, ImageService imageService, ShortSpecificationService shortSpecificationService, SpecificationDetailsService specificationDetailsService) {
         this.productService = productService;
-        this.categoryService=categoryService;
+        this.categoryService = categoryService;
         this.imageService = imageService;
         this.shortSpecificationService = shortSpecificationService;
         this.specificationDetailsService = specificationDetailsService;
@@ -34,6 +35,7 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(productService.getAllProducts());
     }
+
     @GetMapping("/table/products")
     public ResponseEntity<List<ProductSummaryTableDTO>> getProductsTable() {
         List<ProductSummaryTableDTO> productSummaries = productService.getProductsTable();
@@ -57,8 +59,8 @@ public class ProductController {
 
     @PostMapping("/products/create")
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) {
-       Product product=new Product();
-       product.setId(productService.generateNewId());
+        Product product = new Product();
+        product.setId(productService.generateNewId());
         product.setName(productDTO.getName());
         product.setBrand(productDTO.getBrand());
         product.setDescription(productDTO.getDescription());
@@ -105,9 +107,10 @@ public class ProductController {
         productService.createNewProduct(product);
         return ResponseEntity.ok(product);
     }
+
     @PutMapping("/products/modify/{id}")
     public ResponseEntity<Product> modifyProduct(@RequestBody ProductDTO productDTO, @PathVariable String id) {
-        Product prod=productService.getProductById(id)
+        Product prod = productService.getProductById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         prod.setName(productDTO.getName());
         prod.setBrand(productDTO.getBrand());
@@ -123,7 +126,6 @@ public class ProductController {
         prod.setCategory(category);
 
 
-
         updateImages(prod, productDTO.getImages());
 
         updateShortDescription(prod, productDTO.getShortSpecifications());
@@ -132,11 +134,13 @@ public class ProductController {
         productService.updateProduct(prod);
         return ResponseEntity.ok(prod);
     }
+
     @DeleteMapping("/products/delete/{id}")
- public void deleteProduct(@PathVariable String id) {
+    public void deleteProduct(@PathVariable String id) {
         Product prod = productService.getProductById(id).orElseThrow(() -> new RuntimeException("Product not found"));
         productService.deleteProduct(prod);
- }
+    }
+
     private void updateImages(Product product, List<ImageDTO> imageDTOs) {
         // Remove images not in the new list
         product.getImages().removeIf(image ->
@@ -153,7 +157,8 @@ public class ProductController {
             }
         }
     }
-    private void updateShortDescription(Product product, List<ShortSpecificationDTO> shortSpecificationsDTOs){
+
+    private void updateShortDescription(Product product, List<ShortSpecificationDTO> shortSpecificationsDTOs) {
         product.getShortSpecifications().removeIf(shortSpecification ->
                 shortSpecificationsDTOs.stream().noneMatch(dto -> shortSpecification.getTitle().equals(dto.getTitle())));
         for (ShortSpecificationDTO dto : shortSpecificationsDTOs) {
@@ -167,6 +172,7 @@ public class ProductController {
             }
         }
     }
+
     private void updateSpecifications(Product product, List<SpecificationDetailsDTO> specificationDetailsDTOs) {
         // Clear the collection to ensure uniqueness
         List<SpecificationDetails> existingDetails = product.getSpecificationDetails();

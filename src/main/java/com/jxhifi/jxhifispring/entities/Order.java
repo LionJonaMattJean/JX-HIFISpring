@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "`order`")
 public class Order {
     @Id
-
     private String id;
     private String idCustomer;
 
