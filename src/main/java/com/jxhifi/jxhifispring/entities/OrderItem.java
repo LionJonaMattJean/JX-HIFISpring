@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_items")
 public class OrderItem {
     @Id
-
     private String id;
 
     @OneToOne
