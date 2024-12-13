@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Card {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @Column(length = 16, nullable = false)
     private int cardNumber;
@@ -32,8 +32,8 @@ public class Card {
     private String nameHolder;
 
     /*
-    * je laisserai commenter ici au cas ou ce n'ai pas necessaire
-    * */
+     * je laisserai commenter ici au cas ou ce n'ai pas necessaire
+     * */
 
     // @OneToMany(mappedBy = "card")
     // private List<Order> orders;

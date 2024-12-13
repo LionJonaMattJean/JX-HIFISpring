@@ -6,6 +6,6 @@ import java.util.List;
 @Entity
 @Table(name = "customer")
 public class Customer extends User {
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 }

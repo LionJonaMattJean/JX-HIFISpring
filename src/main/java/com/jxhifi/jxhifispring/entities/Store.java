@@ -10,13 +10,13 @@ import lombok.*;
 @Entity
 public class Store {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "address_id", nullable = false)
+    @JoinColumn(nullable = false)
     private Address address;
 
     @Column(nullable = false)
