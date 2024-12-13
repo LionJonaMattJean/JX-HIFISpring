@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface StoreRepository extends CrudRepository<Store, Integer> {
     //-FIND QUERRIES-----------------------------------------------------
     @Query("select s from Store s where s.id=: id")
@@ -17,6 +19,9 @@ public interface StoreRepository extends CrudRepository<Store, Integer> {
     //implementation optionel, au cas ou on voulait search by address
     @Query("select s from Store s where s.address=: addresse")
     public Store findByAddress(@Param("addresse") Address addresse);
+
+    @Query("select'*' from Store")
+    public List<Store> findAllStores();
 
     //-MODIFYING QUERRIES--------------------------------------------------
     @Modifying

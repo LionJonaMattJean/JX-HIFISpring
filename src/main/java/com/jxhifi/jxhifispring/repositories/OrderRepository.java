@@ -4,14 +4,15 @@ import com.jxhifi.jxhifispring.entities.Address;
 import com.jxhifi.jxhifispring.entities.Card;
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.entities.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface OrderRepository extends CrudRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("select order from Order order where order.id =: id")
     public Order findOrderById(@Param("id") String id);
@@ -24,6 +25,12 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
 
     @Query("select order.orderItems from Order order where order.id =: id")
     public List<OrderItem> getOrderItemsByOrderId(@Param("id") String id);
+
+    @Query("select order from Order order where order.idCustomer =:id")
+    public List<Order> getAllOrdersByCustomerId(@Param("id") String id);
+
+
+
 
     //TBD si je cree des get et update pour le reste, je ne vois pas l'utilitee
 
