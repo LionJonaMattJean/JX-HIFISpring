@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "`order`")
 public class Order {
     @Id
-    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String id;
     private String idCustomer;
 

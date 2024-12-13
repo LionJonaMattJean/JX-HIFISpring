@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "address")
 public class Address {
     @Id
-    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String id;
 
     @Column(nullable = false)
