@@ -18,7 +18,7 @@ public abstract class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column( nullable = false)
     private String password;
 
     @Column(nullable = false)
@@ -36,6 +36,7 @@ public abstract class User {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
     private Address address;
 }

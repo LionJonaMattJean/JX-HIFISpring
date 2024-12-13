@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "order_items")
 public class OrderItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @OneToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn()
     private Product product;
 
     @Column(nullable = false)
@@ -26,12 +27,10 @@ public class OrderItem {
     private double subTotal;
 
     /*Je laisserai ca ici commenter au cas ou ce n'est pas necessaire*/
-    /*
-    * @ManyToOne
-    @JoinColumn(name = "order_id")
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Order order;
-    *
-    *
-    * */
+
 
 }

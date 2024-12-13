@@ -4,20 +4,18 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Table(name = "`order`")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String idCustomer;
 
@@ -26,7 +24,7 @@ public class Order {
     private Card card;
 
     //je laisserai ceci en commentaire au cas ou on ne l'utilisera pas
-    @OneToMany//(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
     @Column(nullable = false)
@@ -48,11 +46,11 @@ public class Order {
     private LocalDate orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "shipping_address_id")
+    @JoinColumn
     private Address shippingAddress;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn
     private Customer customer;
 
 
