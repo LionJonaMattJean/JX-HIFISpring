@@ -30,14 +30,39 @@ public class OrderController {
     }
 
     @PostMapping("/createOrder")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO order){
+    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto){
         Order newOrder = new Order();
         newOrder.setId(orderService.generateNewId());
+        newOrder.setOrderDate(orderDto.getOrderDate());
 
+        newOrder.setOrderItems(orderDto.getOrderItems());
 
+        newOrder.setCard(orderDto.getCard());
+        newOrder.setStatus(orderDto.getStatus());
+        newOrder.setCustomer(orderDto.getCustomer());
+        newOrder.setIdCustomer(orderDto.getIdCustomer());
+        newOrder.setShippingAddress(orderDto.getShippingAddress());
+        newOrder.setStateTax(orderDto.getStateTax());
+        newOrder.setTPS(orderDto.getTPS());
+        newOrder.setTTC(orderDto.getTTC());
         return ResponseEntity.ok(newOrder);
     }
 
+    @PutMapping("order/modify/{id}")
+    public ResponseEntity<Order> modifyOrder(@PathVariable String id, @RequestBody OrderDTO orderDto){
+        Order updatedOrder = orderService.getOrderById(id);
+        updatedOrder.setOrderDate(orderDto.getOrderDate());
+        updatedOrder.setOrderItems(orderDto.getOrderItems());
+        updatedOrder.setCard(orderDto.getCard());
+        updatedOrder.setStatus(orderDto.getStatus());
+        updatedOrder.setCustomer(orderDto.getCustomer());
+        updatedOrder.setIdCustomer(id);
+        updatedOrder.setShippingAddress(orderDto.getShippingAddress());
+        updatedOrder.setStateTax(orderDto.getStateTax());
+        updatedOrder.setTPS(orderDto.getTPS());
+        updatedOrder.setTTC(orderDto.getTTC());
+        return ResponseEntity.ok(updatedOrder);
+    }
 
 
 
