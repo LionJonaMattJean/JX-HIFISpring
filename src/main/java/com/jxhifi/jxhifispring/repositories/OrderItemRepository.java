@@ -25,6 +25,12 @@ public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> 
     @Query("update OrderItem item set item.quantity = ?2 where item.id = ?1")
     public void updateQuantity(@Param("id") String id, int newQuantity);
 
+    //---Shopping Cart Service methods
+    List<OrderItem> findByCustomerId(String customerId);
+
+    OrderItem findByCustomerIdAndProductId(String customerId, String productId);
+
+    void deleteByCustomerIdAndProductId(String customerId, String productId);
 
 
 }
