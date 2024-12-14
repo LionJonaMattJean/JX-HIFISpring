@@ -1,12 +1,16 @@
 package com.jxhifi.jxhifispring.repositories;
 
 import com.jxhifi.jxhifispring.entities.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> {
+import java.util.List;
+
+
+public interface OrderItemRepository extends CrudRepository<OrderItem, Integer>{
 
     //-FIND QUERRIES--------------------------
     @Query("select oItem from OrderItem oItem where oItem.id=: id")
@@ -18,6 +22,14 @@ public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> 
     @Modifying
     @Query("update OrderItem item set item.quantity = ?2 where item.id = ?1")
     public void updateQuantity(@Param("id") String id, int newQuantity);
+
+
+    //--- méthodes pour ShoppingCartService ---
+    List<OrderItem> findByCustomerId(String customerId);
+
+    OrderItem findByCustomerIdAndProductId(String customerId, String productId);
+
+    void deleteByCustomerIdAndProductId(String customerId, String productId);
 
 
 
