@@ -1,5 +1,5 @@
  -- Insertions dans la table `address`
-INSERT INTO address (id, street, city, state, postal_code, country)
+INSERT INTO address (id, address, city, province, postal_code, country)
 VALUES
     ('ADR1', '10 Main St', 'Montreal', 'QC', 'H1A 2B3', 'Canada'),
     ('ADR2', '20 Elm St', 'Toronto', 'ON', 'M4B 1B4', 'Canada'),

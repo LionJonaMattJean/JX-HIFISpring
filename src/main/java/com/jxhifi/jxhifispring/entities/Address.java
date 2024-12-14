@@ -20,13 +20,13 @@ public class Address {
     private String id;
 
     @Column(nullable = false)
-    private String street;
+    private String address;
 
     @Column(nullable = false)
     private String city;
 
     @Column(nullable = false)
-    private String state;
+    private String province;
 
     @Column(nullable = false)
     private String postalCode;

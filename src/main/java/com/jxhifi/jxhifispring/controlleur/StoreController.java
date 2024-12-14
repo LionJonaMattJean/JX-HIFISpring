@@ -51,8 +51,8 @@ public class StoreController {
     private void addressDtoToAddress(StoreDto storeDTO, Address address) {
 
         address.setId(addressService.generateId());
-        address.setStreet(storeDTO.getAddress().getAddress());
-        address.setState(storeDTO.getAddress().getProvince());
+        address.setAddress(storeDTO.getAddress().getAddress());
+        address.setProvince(storeDTO.getAddress().getProvince());
         address.setCity(storeDTO.getAddress().getCity());
         address.setCountry(storeDTO.getAddress().getCountry());
         address.setPostalCode(storeDTO.getAddress().getPostalCode());
