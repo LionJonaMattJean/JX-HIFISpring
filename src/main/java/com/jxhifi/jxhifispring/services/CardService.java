@@ -24,6 +24,10 @@ public class CardService {
         return cardRepository.save(card);
     }
 
+    public Card getCardById(String id){
+        return cardRepository.getCardById(id);
+    }
+
     public Card getCardByOrderId(String id) {
         return cardRepository.findCardByOrderId(id);
     }
@@ -31,6 +35,7 @@ public class CardService {
         return cardRepository.getCardByCardNumber(number);
     }
 
+    @Transactional
     public void updateCard(Card card){
         Card managedCard = entityManager.merge(card);
         cardRepository.save(managedCard);

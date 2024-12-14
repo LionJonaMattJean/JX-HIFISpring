@@ -25,5 +25,17 @@ public class CardController {
         return ResponseEntity.ok(cardService.addCard(card));
     }
 
+    @PutMapping("/{customerId}/editCard")
+    public ResponseEntity<Card> editCard(@PathVariable String customerId, @PathVariable String cardId, @RequestBody Card card) {
+        Card newCard = cardService.getCardById(card.getId());
+        newCard.setCardNumber( card.getCardNumber());
+        newCard.setCvc(card.getCvc());
+        newCard.setExpiryDate(card.getExpiryDate());
+        newCard.setNameHolder(card.getNameHolder());
+        newCard.setPaymentMethod(card.getPaymentMethod());
+        cardService.updateCard(newCard);
+        return ResponseEntity.ok(newCard);
+    }
+
 
 }

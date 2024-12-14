@@ -63,6 +63,7 @@ public class OrderController {
         updatedOrder.setStateTax(orderDto.getStateTax());
         updatedOrder.setTPS(orderDto.getTPS());
         updatedOrder.setTTC(orderDto.getTTC());
+        orderService.updateOrder(updatedOrder);
         return ResponseEntity.ok(updatedOrder);
     }
 
