@@ -8,8 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
+
+    @Query(value = "select * from OrderItem ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED) DESC LIMIT 1", nativeQuery = true)
+    Optional<OrderItem> findFirstByOrderById();
+
+
 
     //-FIND QUERIES--------------------------
     @Query("select oItem from OrderItem oItem where oItem.id = :id")
