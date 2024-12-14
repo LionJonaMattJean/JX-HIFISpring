@@ -1,6 +1,6 @@
 package com.jxhifi.jxhifispring.services;
 
-import com.jxhifi.jxhifispring.entities.Address;
+
 import com.jxhifi.jxhifispring.entities.Card;
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.entities.OrderItem;
@@ -47,13 +47,13 @@ public class OrderService {
         return orderRepository.getAllOrdersByCustomerId(id);
     }
 
-    private void updateShippingAddress(String id, Address address){
+ /*   private void updateShippingAddress(String id, Address address){
         orderRepository.updateShippingAddress(id, address);
     }
 
     private void updateOrderStatus(String id, String newStatus){
         orderRepository.updateOrderStatus(id, newStatus);
-    }
+    }*/
 
     private void updateOrder(Order order){
         Order managedOrder = entityManager.merge(order);

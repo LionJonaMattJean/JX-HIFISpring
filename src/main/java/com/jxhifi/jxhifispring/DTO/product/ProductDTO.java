@@ -9,7 +9,7 @@ import java.util.List;
 @Setter
 @Getter
 
-public class ProductDTO {
+public class ProductDTO implements java.io.Serializable {
 
 
     private String id;
