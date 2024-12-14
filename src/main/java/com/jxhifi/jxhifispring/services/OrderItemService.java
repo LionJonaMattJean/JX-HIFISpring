@@ -19,7 +19,7 @@ public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final EntityManager entityManager;
 
-
+/*
     @PostConstruct
     private void initNumber(){
         Optional<OrderItem> lastOrderItemOptional = this.orderItemRepository.findFirstByOrderById();
@@ -27,7 +27,7 @@ public class OrderItemService {
             String lastId = lastOrderItemOptional.get().getId();
             idNumber = Long.parseLong(lastId.substring(3));
         }
-    }
+    }*/
 
     public synchronized String generateNewId() {
         String id = "PRO"+idNumber;

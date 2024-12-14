@@ -22,14 +22,14 @@ public class OrderService {
     private final EntityManager entityManager;
 
 
-    @PostConstruct
+ /*   @PostConstruct
     private void initNumber(){
         Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
         if(lastOrderOptional.isPresent()){
             String lastId = lastOrderOptional.get().getId();
             idNumber = Long.parseLong(lastId.substring(3));
         }
-    }
+    }*/
 
     public synchronized String generateNewId() {
         String id = "PRO"+idNumber;
