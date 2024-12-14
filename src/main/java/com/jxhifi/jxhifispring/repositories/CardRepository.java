@@ -19,6 +19,9 @@ public interface CardRepository extends JpaRepository<Card, Integer> {
     @Query("select c from Card c where c.cardNumber=:cardNumber")
      Card getCardByCardNumber(@Param("cardNumber") int cardNumber);
 
+    @Query("SELECT o.card FROM Order o WHERE o.id = :orderId")
+    Card findCardByOrderId(@Param("orderId") String orderId);
+
     //-MODIFYING QUERRIES-----------------------------------------------
     @Transactional
     @Modifying

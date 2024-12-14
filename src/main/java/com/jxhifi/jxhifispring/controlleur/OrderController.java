@@ -29,6 +29,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));
     }
 
+
     @PostMapping("/createOrder")
     public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto){
         Order newOrder = new Order();
@@ -45,6 +46,7 @@ public class OrderController {
         newOrder.setStateTax(orderDto.getStateTax());
         newOrder.setTPS(orderDto.getTPS());
         newOrder.setTTC(orderDto.getTTC());
+        orderService.addOrder(newOrder);
         return ResponseEntity.ok(newOrder);
     }
 
