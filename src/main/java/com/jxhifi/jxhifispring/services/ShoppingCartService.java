@@ -26,7 +26,7 @@ public class ShoppingCartService {
     private OrderItemRepository orderItemRepository;
     @Autowired
     private ProductRepository productRepository;
-
+    /*
     // Add item to cart
     public ShoppingCart addItem(String customerId, ShoppingCartItemDTO itemDTO) {
         // search for item
@@ -70,7 +70,7 @@ public class ShoppingCartService {
         return new ShoppingCart(customerId);
     }
 
-
+    */
     public Order checkout(ShoppingCart cart, String addressId, String cardId) {
 
         //Get for the customer

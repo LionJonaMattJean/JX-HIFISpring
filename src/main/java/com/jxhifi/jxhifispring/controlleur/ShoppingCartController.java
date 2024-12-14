@@ -18,7 +18,7 @@ public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
 
-
+/*
     @GetMapping("/{customerId}")
     public ResponseEntity<ShoppingCart> getCart(@PathVariable String customerId) {
         ShoppingCart cart = shoppingCartService.getCart(customerId);
@@ -50,5 +50,5 @@ public class ShoppingCartController {
         return ResponseEntity.ok(order);
     }
 
-
+*/
 }
