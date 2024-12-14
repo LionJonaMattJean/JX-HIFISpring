@@ -22,7 +22,11 @@ public class OrderService {
     private final EntityManager entityManager;
 
 
+<<<<<<< Updated upstream
  /*   @PostConstruct
+=======
+    /*@PostConstruct
+>>>>>>> Stashed changes
     private void initNumber(){
         Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
         if(lastOrderOptional.isPresent()){
@@ -42,23 +46,23 @@ public class OrderService {
         this.entityManager = entityManager;
     }
 
-    private void addOrder(Order order){
+    public void addOrder(Order order){
         orderRepository.save(order);
     }
 
-    private Order getOrderById(String id){
+    public Order getOrderById(String id){
         return orderRepository.findOrderById(id);
     }
 
-    private String getIdCustomerByOrderId(String id){
+    public String getIdCustomerByOrderId(String id){
         return orderRepository.findIdCustomerByOrder(id);
     }
 
-    private Card getCardByOrderId(String id){
+    public Card getCardByOrderId(String id){
         return orderRepository.findCardByOrderId(id);
     }
 
-    private List<OrderItem> getOrderItemsByOrderId(String id){
+    public List<OrderItem> getOrderItemsByOrderId(String id){
         return orderRepository.getOrderItemsByOrderId(id);
     }
 
@@ -66,20 +70,20 @@ public class OrderService {
         return orderRepository.getAllOrdersByCustomerId(id);
     }
 
-    private void updateShippingAddress(String id, Address address){
+    public void updateShippingAddress(String id, Address address){
         orderRepository.updateShippingAddress(id, address);
     }
 
-    private void updateOrderStatus(String id, String newStatus){
+    public void updateOrderStatus(String id, String newStatus){
         orderRepository.updateOrderStatus(id, newStatus);
     }
 
-    private void updateOrder(Order order){
+    public void updateOrder(Order order){
         Order managedOrder = entityManager.merge(order);
         orderRepository.save(managedOrder);
     }
 
-    private void deleteOrder(String id){
+    public void deleteOrder(String id){
         int converted = Integer.parseInt(id);
         orderRepository.deleteById(converted);
     }
