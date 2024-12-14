@@ -37,5 +37,16 @@ public class CardController {
         return ResponseEntity.ok(newCard);
     }
 
+    @DeleteMapping("/card/delete/{id}")
+    public void deleteCard(@PathVariable String id) {
+        Card card = cardService.getCardById(id);
+        if (card != null) {
+            cardService.deleteCard(card);
+        }
+        else{
+            throw new RuntimeException("Card not found");
+        }
+    }
+
 
 }
