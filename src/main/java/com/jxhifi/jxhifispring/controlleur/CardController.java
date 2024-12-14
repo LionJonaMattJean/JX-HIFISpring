@@ -15,7 +15,7 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @GetMapping("/{TBD/{orderId}")
+    @GetMapping("/{TBD}/{orderId}")
     public ResponseEntity<Card> getCardByNumber(@PathVariable String orderId) {
         return ResponseEntity.ok(cardService.getCardByOrderId(orderId));
     }
