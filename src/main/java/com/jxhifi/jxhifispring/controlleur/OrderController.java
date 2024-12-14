@@ -32,12 +32,9 @@ public class OrderController {
     @PostMapping("/createOrder")
     public ResponseEntity<Order> createOrder(@RequestBody OrderDTO order){
         Order newOrder = new Order();
-        /*
-        *
-        *
-        *
-        *
-        * */
+        newOrder.setId(orderService.generateNewId());
+
+
         return ResponseEntity.ok(newOrder);
     }
 

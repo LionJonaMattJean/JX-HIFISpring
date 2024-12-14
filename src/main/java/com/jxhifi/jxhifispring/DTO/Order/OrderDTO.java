@@ -12,7 +12,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class OrderDTO {
+public class OrderDTO  implements java.io.Serializable{
     private String id;
     private String idCustomer;
     private Card card;

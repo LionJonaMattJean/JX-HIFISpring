@@ -31,6 +31,12 @@ public class OrderService {
         }
     }
 
+    public synchronized String generateNewId() {
+        String id = "PRO"+idNumber;
+        idNumber++;
+        return id ;
+    }
+
     public OrderService(OrderRepository orderRepository, EntityManager entityManager) {
         this.orderRepository = orderRepository;
         this.entityManager = entityManager;

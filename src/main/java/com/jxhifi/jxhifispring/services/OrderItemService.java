@@ -29,6 +29,12 @@ public class OrderItemService {
         }
     }
 
+    public synchronized String generateNewId() {
+        String id = "PRO"+idNumber;
+        idNumber++;
+        return id ;
+    }
+
     public OrderItemService(OrderItemRepository orderItemRepository, EntityManager entityManager) {
         this.orderItemRepository = orderItemRepository;
         this.entityManager = entityManager;

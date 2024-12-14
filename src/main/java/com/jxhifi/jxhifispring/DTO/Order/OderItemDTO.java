@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class OderItemDTO {
+public class OderItemDTO implements java.io.Serializable {
     private String id;
     private Product product;
     private int quantity;
