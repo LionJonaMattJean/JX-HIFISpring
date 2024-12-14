@@ -15,8 +15,4 @@ import java.util.List;
 public interface CustomerRepositery extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c WHERE c.id = ?1")
     Customer findCustomerById(String id);
-
-    @Query(value = "SELECT  new com.jxhifi.jxhifispring.DTO.customer.CustomerDTO(" +
-            "c.id, c.email, c.firstName, c.lastName, c.phone, c.role, c.isDeleted)" + " from Customer c")
-    List<CustomerDTO> findAllCustomerDTO();
 }

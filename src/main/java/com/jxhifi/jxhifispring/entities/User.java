@@ -37,7 +37,7 @@ public abstract class User {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne //Lazy fetch par default
     @JoinColumn(name = "address_id")
     private Address address;
 }

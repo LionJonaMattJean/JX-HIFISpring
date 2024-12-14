@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@AllArgsConstructor
 public class CustomerDTO {
     private String id;
     private String email;
@@ -14,4 +13,5 @@ public class CustomerDTO {
     private String phone;
     private String role;
     private boolean isDeleted;
+    private AddressDTO address;
 }
