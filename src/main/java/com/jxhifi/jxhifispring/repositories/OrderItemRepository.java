@@ -26,11 +26,11 @@ public interface OrderItemRepository extends CrudRepository<OrderItem, Integer> 
     void updateQuantity(@Param("id") String id, int newQuantity);
 
     //---Shopping Cart Service methods
-    List<OrderItem> findByCustomerId(String customerId);
+    List<OrderItem> findBycustomerId(String customerId);
 
-    OrderItem findByCustomerIdAndProductId(String customerId, String productId);
+    OrderItem findBycustomerIdAndProductId(String customerId, String productId);
 
-    void deleteByCustomerIdAndProductId(String customerId, String productId);
+    void deleteBycustomerIdAndProductId(String customerId, String productId);
 
 
 }

@@ -34,7 +34,7 @@ public class ShoppingCartService {
                 .orElseThrow(() -> new IllegalArgumentException("Produit introuvable"));
 
         // verify if item already exist
-        OrderItem existingItem = orderItemRepository.findByCustomerIdAndProductId(customerId, product.getId());
+        OrderItem existingItem = orderItemRepository.findBycustomerIdAndProductId(customerId, product.getId());
 
         if (existingItem != null) {
             //if it exists, update item
@@ -58,7 +58,7 @@ public class ShoppingCartService {
     // delete item from cart
     public ShoppingCart removeItem(String customerId, String productId) {
         // delete item from db
-        orderItemRepository.deleteByCustomerIdAndProductId(customerId, productId);
+        orderItemRepository.deleteBycustomerIdAndProductId(customerId, productId);
 
         // return cart
         return getCart(customerId);
@@ -66,7 +66,7 @@ public class ShoppingCartService {
 
     // get whole cart
     public ShoppingCart getCart(String customerId) {
-        List<OrderItem> items = orderItemRepository.findByCustomerId(customerId);
+        List<OrderItem> items = orderItemRepository.findBycustomerId(customerId);
         return new ShoppingCart(customerId);
     }
 

@@ -1,6 +1,7 @@
 package com.jxhifi.jxhifispring.entities;
 
 import lombok.Getter;
+import lombok.Setter;
 
 
 import java.util.ArrayList;
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class ShoppingCart {
 
-    @Getter
+    @Getter @Setter
     private String customerId;
-    @Getter
+    @Getter @Setter
     private List<OrderItem> items;
 
     /**Constructor with parameters
