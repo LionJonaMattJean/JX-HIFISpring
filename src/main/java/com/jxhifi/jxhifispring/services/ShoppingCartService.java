@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.services;
 
+import com.jxhifi.jxhifispring.DTO.product.OrderItemDTO;
 import com.jxhifi.jxhifispring.DTO.product.ShoppingCartItemDTO;
 import com.jxhifi.jxhifispring.entities.*;
 import com.jxhifi.jxhifispring.repositories.*;
@@ -7,15 +8,77 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
 public class ShoppingCartService {
 
     @Autowired
+    private OrderItemRepository orderItemRepository;
+    @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ProductRepository productRepository;
+
+
+    public List<OrderItemDTO> getItemsByCustomerId(String customerId){
+
+        List<Order> orders = orderRepository.getAllOrdersByCustomerId(customerId);
+
+        List<OrderItem> orderItems  = orders.stream()
+                                                    .flatMap(order ->order.getOrderItems().stream())
+                                                    .toList();
+
+        return orderItems.stream()
+                                .map(this::convertToDTO)
+                                .collect(Collectors.toList());
+    }
+
+    private OrderItemDTO convertToDTO(OrderItem orderItem) {
+        return new OrderItemDTO(orderItem.getId(),
+                                orderItem.getProduct().getName(),
+                                orderItem.getQuantity());
+    }
+
+    public void addItemToCart(String customerId, OrderItemDTO itemDTO) {
+        // Fetch order of customer
+        Order order = orderRepository.getAllOrdersByCustomerId(customerId)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No active order found for customer"));
+
+        // Créer un nouvel OrderItem et l'ajouter à la commande
+        Product product = productRepository.findById(itemDTO.getProductId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Créer un nouvel OrderItem et l'associer à l'Order
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProduct(productRepository.getReferenceById(orderItem.getProduct().getId()));
+        orderItem.setQuantity(orderItem.getQuantity());
+        orderItem.setOrder(order);
+
+        orderItemRepository.save(orderItem);
+    }
+
+    public void removeItemFromCart(String customerId, Integer itemId) {
+        // verify link between order and customer
+        OrderItem orderItem = orderItemRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        if (!orderItem.getOrder().getIdCustomer().equals(customerId)) {
+            throw new RuntimeException("Item does not belong to the customer");
+        }
+
+        orderItemRepository.delete(orderItem);
+    }
+
+
+
+/*
     @Autowired
     private CustomerRepositery customerRepository;
     @Autowired
@@ -23,10 +86,8 @@ public class ShoppingCartService {
     @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private OrderItemRepository orderItemRepository;
-    @Autowired
     private ProductRepository productRepository;
-    /*
+
     // Add item to cart
     public ShoppingCart addItem(String customerId, ShoppingCartItemDTO itemDTO) {
         // search for item
@@ -70,7 +131,7 @@ public class ShoppingCartService {
         return new ShoppingCart(customerId);
     }
 
-    */
+
     public Order checkout(ShoppingCart cart, String addressId, String cardId) {
 
         //Get for the customer
@@ -106,4 +167,6 @@ public class ShoppingCartService {
 
         return savedOrder;
     }
+
+*/
 }
