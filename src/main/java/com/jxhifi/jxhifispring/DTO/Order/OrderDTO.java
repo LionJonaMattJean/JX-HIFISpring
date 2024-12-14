@@ -1,4 +1,4 @@
-package com.jxhifi.jxhifispring.DTO.Order;
+package com.jxhifi.jxhifispring.DTO.order;
 
 import com.jxhifi.jxhifispring.entities.Address;
 import com.jxhifi.jxhifispring.entities.Card;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class OrderDTO  implements java.io.Serializable{
+public class OrderDTO {
     private String id;
     private String idCustomer;
     private Card card;

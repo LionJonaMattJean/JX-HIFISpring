@@ -1,4 +1,4 @@
-package com.jxhifi.jxhifispring.DTO.Order;
+package com.jxhifi.jxhifispring.DTO.order;
 
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.entities.Product;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class OderItemDTO implements java.io.Serializable {
+public class OderItemDTO  {
     private String id;
     private Product product;
     private int quantity;
