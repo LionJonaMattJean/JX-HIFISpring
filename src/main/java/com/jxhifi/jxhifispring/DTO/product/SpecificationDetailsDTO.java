@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class SpecificationDetailsDTO implements java.io.Serializable {
+public class SpecificationDetailsDTO  {
 
     // Getters and Setters
     private String title;

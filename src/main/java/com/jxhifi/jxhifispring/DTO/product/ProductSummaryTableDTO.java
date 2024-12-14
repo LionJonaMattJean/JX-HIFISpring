@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data @AllArgsConstructor
-public class ProductSummaryTableDTO implements java.io.Serializable {
+public class ProductSummaryTableDTO {
     private String id;
     private String name;
     private Double sellPrice;

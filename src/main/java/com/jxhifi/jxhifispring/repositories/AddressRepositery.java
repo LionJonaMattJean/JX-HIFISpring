@@ -15,4 +15,6 @@ public interface AddressRepositery extends JpaRepository<Address, Long> {
 
     @Query(value = "SELECT * FROM address ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED) DESC LIMIT 1", nativeQuery = true)
     Optional<Address> findTopByIdNumericPart();
+
+    Address findById(String id);
 }

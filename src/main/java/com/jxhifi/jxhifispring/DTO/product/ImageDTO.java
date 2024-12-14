@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ImageDTO implements java.io.Serializable {
+public class ImageDTO  {
 
     // Getters and Setters
     private String url;
