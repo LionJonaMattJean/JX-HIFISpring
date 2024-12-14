@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,6 @@ import java.util.List;
 @Table(name = "address")
 public class Address {
     @Id
-    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(nullable = false)
@@ -34,9 +34,11 @@ public class Address {
     @Column(nullable = false)
     private String country;
 
-    @OneToMany(mappedBy = "address",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Customer> customers;
 
-    @OneToOne(mappedBy = "address",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Store store;
 }

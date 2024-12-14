@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Card {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String id;
     @Column(length = 16, nullable = false)
     private int cardNumber;
@@ -35,7 +36,7 @@ public class Card {
      * je laisserai commenter ici au cas ou ce n'ai pas necessaire
      * */
 
-    // @OneToMany(mappedBy = "card")
-    // private List<Order> orders;
+    @OneToMany(mappedBy = "card")
+    private List<Order> orders;
 
 }

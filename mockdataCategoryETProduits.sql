@@ -1,25 +1,26 @@
-INSERT INTO category (id, name, description) VALUES
-                                                 ('CAT111','Sales','Every product in sales right now and for a limited time.'),
-                                                 ('CAT222', 'Desktop', 'Pre-built computer for your daily work from home or office.'),
-                                                 ('CAT333', 'Laptop', 'Powerful computer for your remote life.'),
-                                                 ('CAT444', 'Phone', 'Flagship from the biggest company in the world.'),
-                                                 ('CAT555', 'Monitor', 'Monitor to suit all your needs. Gaming, creating, working, we have it.'),
-                                                 ('CAT666', 'Headphone', 'Classic headphones or in-ear for the best sound.');
+INSERT INTO category (id, name, description)
+VALUES ('CAT111', 'Sales', 'Every product in sales right now and for a limited time.'),
+       ('CAT222', 'Desktop', 'Pre-built computer for your daily work from home or office.'),
+       ('CAT333', 'Laptop', 'Powerful computer for your remote life.'),
+       ('CAT444', 'Phone', 'Flagship from the biggest company in the world.'),
+       ('CAT555', 'Monitor', 'Monitor to suit all your needs. Gaming, creating, working, we have it.'),
+       ('CAT666', 'Headphone', 'Classic headphones or in-ear for the best sound.');
 
 
-INSERT INTO product (id, brand, cost_price, description, name, on_sale, sell_price, special_price, stock, category) VALUES
-                                                                                                                        ('PRO1', 'Dell', 800.00, 'High-performance desktop computer', 'Dell Inspiron', 1, 1200.00, 1000.00, 10, 'CAT222'),
-                                                                                                                        ('PRO2', 'HP', 700.00, 'Compact desktop with great features', 'HP Pavilion', 0, 900.00, 850.00, 15, 'CAT222'),
-                                                                                                                        ('PRO3', 'Apple', 1200.00, 'MacBook Air with M1 chip', 'MacBook Air', 1, 1500.00, 1400.00, 8, 'CAT333'),
-                                                                                                                        ('PRO4', 'Lenovo', 850.00, 'Affordable laptop for students', 'Lenovo IdeaPad', 0, 1000.00, 950.00, 20, 'CAT333'),
-                                                                                                                        ('PRO5', 'Samsung', 1000.00, 'Galaxy S22 Ultra with top-tier camera', 'Galaxy S22 Ultra', 1, 1300.00, 1200.00, 12, 'CAT444'),
-                                                                                                                        ('PRO6', 'Apple', 1100.00, 'iPhone 14 Pro with A16 Bionic', 'iPhone 14 Pro', 0, 1400.00, 1300.00, 6, 'CAT444'),
-                                                                                                                        ('PRO7', 'Dell', 200.00, '27-inch Full HD monitor', 'Dell UltraSharp', 1, 300.00, 250.00, 25, 'CAT555'),
-                                                                                                                        ('PRO8', 'LG', 250.00, '32-inch 4K monitor', 'LG UltraFine', 0, 400.00, 350.00, 18, 'CAT555'),
-                                                                                                                        ('PRO9', 'Sony', 100.00, 'Wireless noise-canceling headphones', 'Sony WH-1000XM4', 1, 300.00, 200.00, 30, 'CAT666'),
-                                                                                                                        ('PRO10', 'Bose', 150.00, 'Comfortable over-ear headphones', 'Bose QuietComfort 45', 0, 400.00, 350.00, 15, 'CAT666');
+INSERT INTO product (id, brand, cost_price, description, name, on_sale, sell_price, special_price, stock, category)
+VALUES ('PRO1', 'Dell', 800.00, 'High-performance desktop computer', 'Dell Inspiron', 1, 1200.00, 1000.00, 10, 'CAT222'),
+       ('PRO2', 'HP', 700.00, 'Compact desktop with great features', 'HP Pavilion', 0, 900.00, 850.00, 15, 'CAT222'),
+       ('PRO3', 'Apple', 1200.00, 'MacBook Air with M1 chip', 'MacBook Air', 1, 1500.00, 1400.00, 8, 'CAT333'),
+       ('PRO4', 'Lenovo', 850.00, 'Affordable laptop for students', 'Lenovo IdeaPad', 0, 1000.00, 950.00, 20, 'CAT333'),
+       ('PRO5', 'Samsung', 1000.00, 'Galaxy S22 Ultra with top-tier camera', 'Galaxy S22 Ultra', 1, 1300.00, 1200.00, 12, 'CAT444'),
+       ('PRO6', 'Apple', 1100.00, 'iPhone 14 Pro with A16 Bionic', 'iPhone 14 Pro', 0, 1400.00, 1300.00, 6, 'CAT444'),
+       ('PRO7', 'Dell', 200.00, '27-inch Full HD monitor', 'Dell UltraSharp', 1, 300.00, 250.00, 25, 'CAT555'),
+       ('PRO8', 'LG', 250.00, '32-inch 4K monitor', 'LG UltraFine', 0, 400.00, 350.00, 18, 'CAT555'),
+       ('PRO9', 'Sony', 100.00, 'Wireless noise-canceling headphones', 'Sony WH-1000XM4', 1, 300.00, 200.00, 30, 'CAT666'),
+       ('PRO10', 'Bose', 150.00, 'Comfortable over-ear headphones', 'Bose QuietComfort 45', 0, 400.00, 350.00, 15, 'CAT666');
 
-INSERT INTO specification_details (id, description, title, product_id) VALUES
+INSERT INTO specification_details (id, description, title, product_id)
+VALUES
 -- PRO1: Dell Inspiron
 ('SPE1', 'Intel i5 processor, 16GB RAM, 512GB SSD', 'Processor and Memory', 'PRO1'),
 ('SPE2', '1TB HDD, Windows 11', 'Storage and OS', 'PRO1'),
@@ -120,7 +121,8 @@ INSERT INTO specification_details (id, description, title, product_id) VALUES
 ('SPE79', 'Supports Alexa and Google Assistant', 'Smart Features', 'PRO10'),
 ('SPE80', 'Durable build for frequent use', 'Durability', 'PRO10');
 
-INSERT INTO short_specification (id, description, title, product_id) VALUES
+INSERT INTO short_specification (id, description, title, product_id)
+VALUES
 
 -- Specifications for PRO1
 ('QSPE5', 'Powerful performance with Intel i5', 'Key Features', 'PRO1'),
@@ -182,7 +184,8 @@ INSERT INTO short_specification (id, description, title, product_id) VALUES
 ('QSPE43', 'Elegant design with premium materials', 'Design Features', 'PRO10'),
 ('QSPE44', 'Advanced ANC for immersive sound', 'Noise-Canceling Features', 'PRO10');
 
-INSERT INTO review (id, review, star, title, product_id) VALUES
+INSERT INTO review (id, review, star, title, product_id)
+VALUES
 -- Reviews for PRO1
 ('REV3', 'Fast and reliable for daily use.', 4, 'Great Value', 'PRO1'),
 
@@ -221,7 +224,8 @@ INSERT INTO review (id, review, star, title, product_id) VALUES
 ('REV19', 'Excellent sound and build.', 5, 'Top Quality', 'PRO10'),
 ('REV20', 'Long-lasting battery life.', 4, 'Very Convenient', 'PRO10');
 
-INSERT INTO image (id, url, product_id) VALUES
+INSERT INTO image (id, url, product_id)
+VALUES
 -- Images for PRO1
 ('IMG1', 'https://picsum.photos/seed/desktop_1/300/300', 'PRO1'),
 ('IMG2', 'https://picsum.photos/seed/desktop_2/300/300', 'PRO1'),
@@ -272,7 +276,8 @@ INSERT INTO image (id, url, product_id) VALUES
 ('IMG29', 'https://picsum.photos/seed/desktop_29/300/300', 'PRO10'),
 ('IMG30', 'https://picsum.photos/seed/desktop_30/300/300', 'PRO10');
 
-INSERT INTO product_colors (product_id, colors) VALUES
+INSERT INTO product_colors (product_id, colors)
+VALUES
 -- Colors for PRO1
 ('PRO1', 'Black'),
 ('PRO1', 'Silver'),

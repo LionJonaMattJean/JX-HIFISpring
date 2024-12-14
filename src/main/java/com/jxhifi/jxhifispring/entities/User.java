@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ public abstract class User {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne //Lazy fetch par default
     @JoinColumn(name = "address_id")
     private Address address;
 }

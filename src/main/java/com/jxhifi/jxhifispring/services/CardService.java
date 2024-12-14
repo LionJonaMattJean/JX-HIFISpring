@@ -3,6 +3,7 @@ package com.jxhifi.jxhifispring.services;
 
 import com.jxhifi.jxhifispring.entities.Card;
 import com.jxhifi.jxhifispring.repositories.CardRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,15 @@ import java.time.LocalDate;
 @Service
 @Transactional
 public class CardService {
-    @Autowired
-    private CardRepository cardRepository;
+
+    private final CardRepository cardRepository;
+
+    private final EntityManager entityManager;
+
+    public CardService(CardRepository cardRepository, EntityManager entityManager) {
+        this.cardRepository = cardRepository;
+        this.entityManager = entityManager;
+    }
 
     public Card addCard(Card card) {
         return cardRepository.save(card);
@@ -26,8 +34,12 @@ public class CardService {
         return cardRepository.getCardByCardNumber(number);
     }
 
+    public void updateCard(Card card){
+        Card managedCard = entityManager.merge(card);
+        cardRepository.save(managedCard);
+    }
 
-    public void updateCardNumber(String id, int newNumber) {
+    /*public void updateCardNumber(String id, int newNumber) {
         cardRepository.updateCardNumber(id, newNumber);
     }
     public void updateCardExDate(String id, LocalDate newDate) {
@@ -41,9 +53,11 @@ public class CardService {
     }
     public void updatePaymentType(String id, String paymentType){
         cardRepository.updatePayMethod(id, paymentType);
+    }*/
+
+    public void deleteCard(Card card){
+        cardRepository.delete(card);
     }
-
-
 
     public void deleteCardbyId(String id){
         int converted = Integer.parseInt(id);

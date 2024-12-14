@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_items")
 public class OrderItem {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @OneToOne

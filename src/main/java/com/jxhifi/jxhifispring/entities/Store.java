@@ -10,7 +10,7 @@ import lombok.*;
 @Entity
 public class Store {
     @Id
-    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String id;
     @Column(nullable = false)
     private String name;

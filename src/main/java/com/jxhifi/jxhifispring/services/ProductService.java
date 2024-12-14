@@ -85,6 +85,7 @@ public class ProductService {
      * if found, or an empty Optional if no products are found for the given category.
      */
     public Optional<List<Product>> getProductByCategory(String categoryId) {
+        System.out.println();
         return productRepository.findByCategory_Id(categoryId);
     }
 
