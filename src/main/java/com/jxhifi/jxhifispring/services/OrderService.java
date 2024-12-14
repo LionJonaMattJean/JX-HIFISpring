@@ -22,11 +22,8 @@ public class OrderService {
     private final EntityManager entityManager;
 
 
-<<<<<<< Updated upstream
- /*   @PostConstruct
-=======
+
     /*@PostConstruct
->>>>>>> Stashed changes
     private void initNumber(){
         Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
         if(lastOrderOptional.isPresent()){
@@ -36,7 +33,7 @@ public class OrderService {
     }*/
 
     public synchronized String generateNewId() {
-        String id = "PRO"+idNumber;
+        String id = "ORD"+idNumber;
         idNumber++;
         return id ;
     }

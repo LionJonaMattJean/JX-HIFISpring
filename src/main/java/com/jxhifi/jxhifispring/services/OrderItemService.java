@@ -30,7 +30,7 @@ public class OrderItemService {
     }*/
 
     public synchronized String generateNewId() {
-        String id = "PRO"+idNumber;
+        String id = "ORI"+idNumber;
         idNumber++;
         return id ;
     }
@@ -40,19 +40,19 @@ public class OrderItemService {
         this.entityManager = entityManager;
     }
 
-    private OrderItem addOrderItem(OrderItem orderItem) {
+    public OrderItem addOrderItem(OrderItem orderItem) {
         return orderItemRepository.save(orderItem);
     }
 
-    private OrderItem getOrderItem(String id) {
+    public OrderItem getOrderItembyId(String id) {
         return orderItemRepository.findOrderItemById(id);
     }
 
-    private int getOrderItemQuantity(String id){
+    public int getOrderItemQuantity(String id){
         return orderItemRepository.getQuantity(id);
     }
 
-    private List<OrderItem> getAllItemsByOrderId(String id){
+    public List<OrderItem> getAllItemsByOrderId(String id){
         return orderItemRepository.findOrderItemByOrderId(id);
     }
 
@@ -60,16 +60,16 @@ public class OrderItemService {
 
 
 
-    private void updateOrderItem(OrderItem orderItem) {
+    public void updateOrderItem(OrderItem orderItem) {
         OrderItem managedOrderItem = entityManager.merge(orderItem);
         orderItemRepository.save(managedOrderItem);
     }
 
-    private void updateOrderItemQuantity(String id, int newQuantity) {
+    public void updateOrderItemQuantity(String id, int newQuantity) {
         orderItemRepository.updateQuantity(id, newQuantity);
     }
 
-    private void deleteOrderItem(OrderItem orderItem) {
+    public void deleteOrderItem(OrderItem orderItem) {
         orderItemRepository.delete(orderItem);
     }
 
