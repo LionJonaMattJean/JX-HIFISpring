@@ -1,5 +1,9 @@
 package com.jxhifi.jxhifispring.DTO.product;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class OrderItemDTO {
     private String id;
     private String productId;

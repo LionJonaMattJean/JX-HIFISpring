@@ -1,14 +1,12 @@
 package com.jxhifi.jxhifispring.services;
 
 import com.jxhifi.jxhifispring.DTO.product.OrderItemDTO;
-import com.jxhifi.jxhifispring.DTO.product.ShoppingCartItemDTO;
 import com.jxhifi.jxhifispring.entities.*;
 import com.jxhifi.jxhifispring.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,6 +21,12 @@ public class ShoppingCartService {
     private OrderRepository orderRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CustomerRepositery customerRepository;
+    @Autowired
+    private AddressRepositery addressRepository;
+    @Autowired
+    private CardRepository cardRepository;
 
 
     public List<OrderItemDTO> getItemsByCustomerId(String customerId){
@@ -51,11 +55,11 @@ public class ShoppingCartService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("No active order found for customer"));
 
-        // Créer un nouvel OrderItem et l'ajouter à la commande
+        // create an order
         Product product = productRepository.findById(itemDTO.getProductId())
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Créer un nouvel OrderItem et l'associer à l'Order
+        // links an orderItem to the order
         OrderItem orderItem = new OrderItem();
         orderItem.setProduct(productRepository.getReferenceById(orderItem.getProduct().getId()));
         orderItem.setQuantity(orderItem.getQuantity());
@@ -64,6 +68,7 @@ public class ShoppingCartService {
         orderItemRepository.save(orderItem);
     }
 
+    //remove an item from the cart
     public void removeItemFromCart(String customerId, Integer itemId) {
         // verify link between order and customer
         OrderItem orderItem = orderItemRepository.findById(itemId)
@@ -74,55 +79,6 @@ public class ShoppingCartService {
         }
 
         orderItemRepository.delete(orderItem);
-    }
-
-
-
-/*
-    @Autowired
-    private CustomerRepositery customerRepository;
-    @Autowired
-    private AddressRepositery addressRepository;
-    @Autowired
-    private CardRepository cardRepository;
-    @Autowired
-    private ProductRepository productRepository;
-
-    // Add item to cart
-    public ShoppingCart addItem(String customerId, ShoppingCartItemDTO itemDTO) {
-        // search for item
-        Product product = productRepository.findById(itemDTO.getProductId())
-                .orElseThrow(() -> new IllegalArgumentException("Produit introuvable"));
-
-        // verify if item already exist
-        OrderItem existingItem = orderItemRepository.findBycustomerIdAndProductId(customerId, product.getId());
-
-        if (existingItem != null) {
-            //if it exists, update item
-            int newQuantity = existingItem.getQuantity() + itemDTO.getQuantity();
-            existingItem.setQuantity(newQuantity);
-            existingItem.setSubTotal(newQuantity * product.getSellPrice());
-            orderItemRepository.save(existingItem);
-        } else {
-            //if not exist, add item
-            OrderItem newItem = new OrderItem();
-            newItem.setProduct(product);
-            newItem.setQuantity(itemDTO.getQuantity());
-            newItem.setSubTotal(itemDTO.getQuantity() * product.getSellPrice());
-            orderItemRepository.save(newItem);
-        }
-
-        // return cart
-        return getCart(customerId);
-    }
-
-    // delete item from cart
-    public ShoppingCart removeItem(String customerId, String productId) {
-        // delete item from db
-        orderItemRepository.deleteBycustomerIdAndProductId(customerId, productId);
-
-        // return cart
-        return getCart(customerId);
     }
 
     // get whole cart
@@ -168,5 +124,5 @@ public class ShoppingCartService {
         return savedOrder;
     }
 
-*/
+
 }

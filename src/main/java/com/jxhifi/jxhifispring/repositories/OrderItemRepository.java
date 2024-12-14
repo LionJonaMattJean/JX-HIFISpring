@@ -32,13 +32,12 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
     @Query("update OrderItem item set item.quantity = ?2 where item.id = ?1")
     void updateQuantity(@Param("id") String id, int newQuantity);
 
-    /*
+
     //---Shopping Cart Service methods
-    List<OrderItem> findBycustomerId(String customerId);
+    @Query("SELECT oi FROM OrderItem oi WHERE oi.order.idCustomer = :customerId")
+    List<OrderItem> findBycustomerId(@Param("customerID") String customerId);
 
-    OrderItem findBycustomerIdAndProductId(String customerId, String productId);
 
-    void deleteBycustomerIdAndProductId(String customerId, String productId);
 
-    */
+
 }
