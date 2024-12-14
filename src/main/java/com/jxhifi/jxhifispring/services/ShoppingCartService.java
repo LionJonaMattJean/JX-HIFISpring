@@ -37,7 +37,7 @@ public class ShoppingCartService {
         OrderItem existingItem = orderItemRepository.findByCustomerIdAndProductId(customerId, product.getId());
 
         if (existingItem != null) {
-            //if exist, update item
+            //if it exists, update item
             int newQuantity = existingItem.getQuantity() + itemDTO.getQuantity();
             existingItem.setQuantity(newQuantity);
             existingItem.setSubTotal(newQuantity * product.getSellPrice());
@@ -45,7 +45,6 @@ public class ShoppingCartService {
         } else {
             //if not exist, add item
             OrderItem newItem = new OrderItem();
-            newItem.setCustomerId(customerId);
             newItem.setProduct(product);
             newItem.setQuantity(itemDTO.getQuantity());
             newItem.setSubTotal(itemDTO.getQuantity() * product.getSellPrice());
@@ -68,7 +67,7 @@ public class ShoppingCartService {
     // get whole cart
     public ShoppingCart getCart(String customerId) {
         List<OrderItem> items = orderItemRepository.findByCustomerId(customerId);
-        return new ShoppingCart(customerId, items);
+        return new ShoppingCart(customerId);
     }
 
 
