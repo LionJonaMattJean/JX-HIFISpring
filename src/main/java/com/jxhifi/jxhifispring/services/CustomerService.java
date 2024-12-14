@@ -41,9 +41,9 @@ public class CustomerService {
         if (customer.getAddress() != null) {
             AddressDTO addressDTO = new AddressDTO();
 
-            addressDTO.setAddress(customer.getAddress().getStreet());
+            addressDTO.setAddress(customer.getAddress().getAddress());
             addressDTO.setCity(customer.getAddress().getCity());
-            addressDTO.setProvince(customer.getAddress().getState());
+            addressDTO.setProvince(customer.getAddress().getProvince());
             addressDTO.setPostalCode(customer.getAddress().getPostalCode());
             addressDTO.setCountry(customer.getAddress().getCountry());
 

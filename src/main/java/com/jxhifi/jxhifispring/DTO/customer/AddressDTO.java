@@ -3,7 +3,7 @@ package com.jxhifi.jxhifispring.DTO.customer;
 import lombok.Data;
 
 @Data
-public class AddressDTO {
+public class AddressDTO implements java.io.Serializable {
     private String address;
     private String city;
     private String province;

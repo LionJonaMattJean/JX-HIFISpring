@@ -1,11 +1,11 @@
 package com.jxhifi.jxhifispring.DTO.customer;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.ToString;
+
 
 @Data
-public class CustomerDTO {
+public class CustomerDTO implements java.io.Serializable{
     private String id;
     private String email;
     private String firstName;

@@ -5,18 +5,37 @@ import com.jxhifi.jxhifispring.entities.Card;
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.entities.OrderItem;
 import com.jxhifi.jxhifispring.repositories.OrderRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class OrderService {
 
+    private static long idNumber = 1L;
     private final OrderRepository orderRepository;
     private final EntityManager entityManager;
+
+
+ /*   @PostConstruct
+    private void initNumber(){
+        Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
+        if(lastOrderOptional.isPresent()){
+            String lastId = lastOrderOptional.get().getId();
+            idNumber = Long.parseLong(lastId.substring(3));
+        }
+    }*/
+
+    public synchronized String generateNewId() {
+        String id = "PRO"+idNumber;
+        idNumber++;
+        return id ;
+    }
 
     public OrderService(OrderRepository orderRepository, EntityManager entityManager) {
         this.orderRepository = orderRepository;
@@ -43,7 +62,7 @@ public class OrderService {
         return orderRepository.getOrderItemsByOrderId(id);
     }
 
-    private List<Order> getAllOrdersFromCustomerId(String id){
+    public List<Order> getAllOrdersFromCustomerId(String id){
         return orderRepository.getAllOrdersByCustomerId(id);
     }
 
