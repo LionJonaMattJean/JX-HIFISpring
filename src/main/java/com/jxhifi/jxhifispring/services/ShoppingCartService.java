@@ -27,23 +27,23 @@ public class ShoppingCartService {
     @Autowired
     private ProductRepository productRepository;
 
-    // Ajouter un article au panier
+    // Add item to cart
     public ShoppingCart addItem(String customerId, ShoppingCartItemDTO itemDTO) {
-        // Récupérer le produit
+        // search for item
         Product product = productRepository.findById(itemDTO.getProductId())
                 .orElseThrow(() -> new IllegalArgumentException("Produit introuvable"));
 
-        // Vérifier si un item avec ce produit existe déjà pour ce client
+        // verify if item already exist
         OrderItem existingItem = orderItemRepository.findByCustomerIdAndProductId(customerId, product.getId());
 
         if (existingItem != null) {
-            // Si l'article existe, mettez à jour la quantité
+            //if exist, update item
             int newQuantity = existingItem.getQuantity() + itemDTO.getQuantity();
             existingItem.setQuantity(newQuantity);
             existingItem.setSubTotal(newQuantity * product.getSellPrice());
             orderItemRepository.save(existingItem);
         } else {
-            // Si l'article n'existe pas, ajoutez-en un nouveau
+            //if not exist, add item
             OrderItem newItem = new OrderItem();
             newItem.setCustomerId(customerId);
             newItem.setProduct(product);
@@ -52,20 +52,20 @@ public class ShoppingCartService {
             orderItemRepository.save(newItem);
         }
 
-        // Reconstruire le panier
+        // return cart
         return getCart(customerId);
     }
 
-    // Supprimer un article du panier
+    // delete item from cart
     public ShoppingCart removeItem(String customerId, String productId) {
-        // Supprime l'article de la base de données
+        // delete item from db
         orderItemRepository.deleteByCustomerIdAndProductId(customerId, productId);
 
-        // Reconstruire le panier
+        // return cart
         return getCart(customerId);
     }
 
-    // Obtenir le panier complet pour un client
+    // get whole cart
     public ShoppingCart getCart(String customerId) {
         List<OrderItem> items = orderItemRepository.findByCustomerId(customerId);
         return new ShoppingCart(customerId, items);
