@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ReviewDTO implements java.io.Serializable {
+public class ReviewDTO  {
 
     // Getters and Setters
     private String UserId;

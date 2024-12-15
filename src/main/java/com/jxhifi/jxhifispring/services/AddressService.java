@@ -26,6 +26,9 @@ public Address addAddress(Address address){
         address.setId(generateId());
         return addressRepositery.save(address);
 }
+public Address getAddress(String id){
+        return addressRepositery.findById(id);
+}
     public synchronized String generateId(){
         String id="ADR"+idNumber;
         idNumber++;

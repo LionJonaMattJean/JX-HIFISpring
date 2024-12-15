@@ -3,7 +3,7 @@ package com.jxhifi.jxhifispring.DTO.product;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ShoppingCartItemDTO implements java.io.Serializable {
+public class ShoppingCartItemDTO {
 
     //Getters & Setters
     @Getter @Setter

@@ -1,9 +1,13 @@
 package com.jxhifi.jxhifispring.DTO.customer;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class AddressDTO implements java.io.Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class AddressDTO {
     private String address;
     private String city;
     private String province;

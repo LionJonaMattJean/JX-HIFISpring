@@ -25,7 +25,10 @@ public class StoreController {
     public ResponseEntity<List<Store>> getAllStores() {
         return ResponseEntity.ok(storeService.getAllStores());
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<Store> getStoreById(@PathVariable String id) {
+        return ResponseEntity.ok(storeService.getStore(id).orElseThrow(()->new RuntimeException("Store not found")));
+    }
     @PostMapping("/create")
     public ResponseEntity<Store> createStore(@RequestBody StoreDto storeDTO) {
         Store store=new Store();
@@ -39,6 +42,25 @@ public class StoreController {
 
         return ResponseEntity.ok(storeService.addStore(store));
     }
+    @Transactional
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Store> updateStore(@PathVariable String id, @RequestBody StoreDto storeDTO) {
+        Store store=storeService.getStore(id).orElseThrow(()->new RuntimeException("Store not found"));
+        store.setId(storeDTO.getId());
+        store.setName(storeDTO.getName());
+        store.setTelephone(storeDTO.getTelephone());
+        store.setEmail(storeDTO.getEmail());
+        store.setManager(storeDTO.getManager());
+        Address address=store.getAddress();
+        address.setAddress(storeDTO.getAddress().getAddress());
+        address.setProvince(storeDTO.getAddress().getProvince());
+        address.setCity(storeDTO.getAddress().getCity());
+        address.setCountry(storeDTO.getAddress().getCountry());
+        address.setPostalCode(storeDTO.getAddress().getPostalCode());
+        storeService.updateStore(store);
+        return ResponseEntity.ok(store);
+
+    }
 
     @DeleteMapping("/delete/{id}")
     @Transactional
@@ -47,6 +69,7 @@ public class StoreController {
 
         storeService.deleteStore(store);
     }
+
 
     private void addressDtoToAddress(StoreDto storeDTO, Address address) {
 

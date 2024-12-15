@@ -5,10 +5,7 @@ import com.jxhifi.jxhifispring.entities.Card;
 import com.jxhifi.jxhifispring.repositories.CardRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 @Transactional
@@ -27,13 +24,18 @@ public class CardService {
         return cardRepository.save(card);
     }
 
-    public Card getCardById(String id) {
+    public Card getCardById(String id){
         return cardRepository.getCardById(id);
+    }
+
+    public Card getCardByOrderId(String id) {
+        return cardRepository.findCardByOrderId(id);
     }
     public Card getCardByNumber(int number){
         return cardRepository.getCardByCardNumber(number);
     }
 
+    @Transactional
     public void updateCard(Card card){
         Card managedCard = entityManager.merge(card);
         cardRepository.save(managedCard);

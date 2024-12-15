@@ -1,6 +1,6 @@
 package com.jxhifi.jxhifispring.controlleur;
 
-import com.jxhifi.jxhifispring.DTO.Order.OrderDTO;
+import com.jxhifi.jxhifispring.DTO.order.OrderDTO;
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.services.CustomerService;
 import com.jxhifi.jxhifispring.services.OrderItemService;
@@ -29,6 +29,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));
     }
 
+
     @PostMapping("/createOrder")
     public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto){
         Order newOrder = new Order();
@@ -45,6 +46,7 @@ public class OrderController {
         newOrder.setStateTax(orderDto.getStateTax());
         newOrder.setTPS(orderDto.getTPS());
         newOrder.setTTC(orderDto.getTTC());
+        orderService.addOrder(newOrder);
         return ResponseEntity.ok(newOrder);
     }
 
@@ -61,6 +63,7 @@ public class OrderController {
         updatedOrder.setStateTax(orderDto.getStateTax());
         updatedOrder.setTPS(orderDto.getTPS());
         updatedOrder.setTTC(orderDto.getTTC());
+        orderService.updateOrder(updatedOrder);
         return ResponseEntity.ok(updatedOrder);
     }
 
