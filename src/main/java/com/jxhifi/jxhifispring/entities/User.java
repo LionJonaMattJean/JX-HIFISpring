@@ -1,6 +1,6 @@
 package com.jxhifi.jxhifispring.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -35,9 +35,18 @@ public abstract class User {
     private String role;
 
     @Column(nullable = false)
+    @JsonProperty("isDeleted")
     private boolean isDeleted;
 
     @ManyToOne //Lazy fetch par default
     @JoinColumn(name = "address_id", nullable = true)
     private Address address;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
+    }
 }

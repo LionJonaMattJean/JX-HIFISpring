@@ -25,6 +25,9 @@ public class CustomerService {
         Customer customer = customerRepositery.findCustomerById(id);
         return ToDTO(customer);
     }
+    public Customer getCustomer(String id) {
+        return customerRepositery.findCustomerById(id);
+    }
 
     public void createNewCustomer(Customer customer) {
         customerRepositery.save(customer);
@@ -55,6 +58,12 @@ public class CustomerService {
             customerDTO.setAddress(addressDTO);
         }
         return customerDTO;
+    }
+    public void updateCustomer(Customer customer) {
+        customerRepositery.save(customer);
+    }
+    public void deleteCustomer(Customer customer) {
+        customerRepositery.delete(customer);
     }
 
     public String generateNewId() {

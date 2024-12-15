@@ -72,4 +72,21 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
 
         return ResponseEntity.ok(customer);
     }
+    @PutMapping("/customer/update/{id}")
+    public ResponseEntity<Customer> updateCustomer(@RequestBody CustomerDTO updateCustomerDTO, @PathVariable String id) {
+        Customer customer=customerService.getCustomer(id);
+        if(customer!=null){
+            customer.setLastName(updateCustomerDTO.getLastName());
+            customer.setFirstName(updateCustomerDTO.getFirstName());
+            customer.setEmail(updateCustomerDTO.getEmail());
+            customer.setPhone(updateCustomerDTO.getPhone());
+            customer.setAddress(addressDTOToAddress(updateCustomerDTO.getAddress()));
+
+            customer.setDeleted(updateCustomerDTO.isDeleted());
+
+            customerService.updateCustomer(customer);
+        }
+
+        return ResponseEntity.ok(customer);
+    }
 }

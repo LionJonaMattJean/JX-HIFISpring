@@ -1,16 +1,16 @@
 package com.jxhifi.jxhifispring.controlleur;
 
 import com.jxhifi.jxhifispring.DTO.ConvertAddressDTO_To_Address;
-import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
+
 import com.jxhifi.jxhifispring.DTO.customer.AdminDTO;
-import com.jxhifi.jxhifispring.entities.Address;
+
 import com.jxhifi.jxhifispring.entities.Admin;
 import com.jxhifi.jxhifispring.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AdminController extends ConvertAddressDTO_To_Address {
@@ -36,4 +36,13 @@ public class AdminController extends ConvertAddressDTO_To_Address {
 
         return ResponseEntity.ok(admin);
     }
+    @GetMapping("/admin")
+    public ResponseEntity<List<Admin>> getAllAdmin(){
+        return ResponseEntity.ok(adminService.getAdmins());
+    }
+    @GetMapping("/admin/{id}")
+    public ResponseEntity<Admin> getAdminById(@PathVariable String id){
+       return ResponseEntity.ok(adminService.getAdminById(id).orElseThrow(()->new RuntimeException("Admin not found")));
+    }
+
 }
