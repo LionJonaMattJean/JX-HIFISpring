@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.DTO.customer;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
@@ -11,4 +12,7 @@ public class AdminDTO {
     private String lastName;
     private String phone;
     private AddressDTO address;
+    @JsonProperty("isDeleted")
+    private boolean isDeleted;
+
 }

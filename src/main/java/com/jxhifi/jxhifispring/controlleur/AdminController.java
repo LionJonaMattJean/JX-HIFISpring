@@ -18,7 +18,7 @@ public class AdminController extends ConvertAddressDTO_To_Address {
     private AdminService adminService;
 
     @PostMapping("/admin/new")
-    public ResponseEntity<Admin> createCustomer(@RequestBody AdminDTO adminDTO) {
+    public ResponseEntity<Admin> createAdmin(@RequestBody AdminDTO adminDTO) {
 
         Admin admin = new Admin();
 
@@ -28,7 +28,7 @@ public class AdminController extends ConvertAddressDTO_To_Address {
         admin.setFirstName(adminDTO.getFirstName());
         admin.setLastName(adminDTO.getLastName());
         admin.setPhone(adminDTO.getPhone());
-        admin.setRole("admin");
+        admin.setRole("administrator");
         admin.setDeleted(false);
         admin.setAddress(addressDTOToAddress(adminDTO.getAddress()));
 
@@ -43,6 +43,23 @@ public class AdminController extends ConvertAddressDTO_To_Address {
     @GetMapping("/admin/{id}")
     public ResponseEntity<Admin> getAdminById(@PathVariable String id){
        return ResponseEntity.ok(adminService.getAdminById(id).orElseThrow(()->new RuntimeException("Admin not found")));
+    }
+    @PutMapping("/admin/update/{id}")
+      public ResponseEntity<Admin> updateAdmin(@RequestBody AdminDTO updateAdminDTO, @PathVariable String id){
+        Admin admin=adminService.getAdminById(id).orElseThrow(()->new RuntimeException("Admin not found"));
+        if(admin!=null){
+            admin.setLastName(updateAdminDTO.getLastName());
+            admin.setFirstName(updateAdminDTO.getFirstName());
+            admin.setEmail(updateAdminDTO.getEmail());
+            admin.setPhone(updateAdminDTO.getPhone());
+            admin.setAddress(addressDTOToAddress(updateAdminDTO.getAddress()));
+            admin.setRole("administrator");
+            admin.setDeleted(updateAdminDTO.isDeleted());
+
+            adminService.updateAdmin(admin);
+
+        }
+        return ResponseEntity.ok(admin);
     }
 
 }

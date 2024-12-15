@@ -29,4 +29,8 @@ public class AdminService {
     public Optional<Admin>getAdminById(String id){
         return adminRepositery.findById(id);
     }
+
+    public void updateAdmin(Admin admin) {
+        adminRepositery.save(admin);
+    }
 }
