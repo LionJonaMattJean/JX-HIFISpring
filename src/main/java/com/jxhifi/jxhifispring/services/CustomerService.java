@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class CustomerService {
     @Autowired
     private CustomerRepositery customerRepositery;
+    private static int idNumber = 2000;
 
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepositery.findAll();
@@ -23,6 +24,10 @@ public class CustomerService {
     public CustomerDTO getCustomerById(String id) {
         Customer customer = customerRepositery.findCustomerById(id);
         return ToDTO(customer);
+    }
+
+    public void createNewAccountCustomer(Customer customer) {
+        customerRepositery.save(customer);
     }
 
     //Converti chaque Customer en ObjetDTO pour faciliter le transfert de data.
@@ -50,5 +55,9 @@ public class CustomerService {
             customerDTO.setAddress(addressDTO);
         }
         return customerDTO;
+    }
+
+    public String generateNewId() {
+        return "USE" + (idNumber+37);
     }
 }

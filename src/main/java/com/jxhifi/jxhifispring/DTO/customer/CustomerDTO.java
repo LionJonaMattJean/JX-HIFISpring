@@ -1,8 +1,6 @@
 package com.jxhifi.jxhifispring.DTO.customer;
 
-
 import lombok.Data;
-
 
 @Data
 public class CustomerDTO implements java.io.Serializable{

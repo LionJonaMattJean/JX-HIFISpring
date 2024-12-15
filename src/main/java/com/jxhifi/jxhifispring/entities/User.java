@@ -26,10 +26,10 @@ public abstract class User {
     private String firstName;
 
     @Column(nullable = false)
-    private String lastName;
+    private String lastName = "";
 
     @Column(nullable = false)
-    private String phone;
+    private String phone = "";
 
     @Column(nullable = false)
     private String role;
@@ -38,6 +38,6 @@ public abstract class User {
     private boolean isDeleted;
 
     @ManyToOne //Lazy fetch par default
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = true)
     private Address address;
 }
