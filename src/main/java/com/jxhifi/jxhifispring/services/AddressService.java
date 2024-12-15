@@ -16,22 +16,24 @@ public class AddressService {
 
     @PostConstruct
     public void init() {
-        Optional<Address> optionalAddress=addressRepositery.findTopByIdNumericPart();
-        if(optionalAddress.isPresent()){
-            String lastId=optionalAddress.get().getId();
-            idNumber=Long.parseLong(lastId.substring(3))+1;
+        Optional<Address> optionalAddress = addressRepositery.findTopByIdNumericPart();
+        if (optionalAddress.isPresent()) {
+            String lastId = optionalAddress.get().getId();
+            idNumber = Long.parseLong(lastId.substring(3)) + 1;
         }
     }
-public Address addAddress(Address address){
-        address.setId(generateId());
+
+    public Address addAddress(Address address) {
         return addressRepositery.save(address);
-}
-public Address getAddress(String id){
+    }
+
+    public Address getAddress(String id) {
         return addressRepositery.findById(id);
-}
-    public synchronized String generateId(){
-        String id="ADR"+idNumber;
-        idNumber++;
+    }
+
+    public synchronized String generateId() {
+        String id = "ADR" + idNumber;
+        idNumber += 963;
         return id;
     }
 }

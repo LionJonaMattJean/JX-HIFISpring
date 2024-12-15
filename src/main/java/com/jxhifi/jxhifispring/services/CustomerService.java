@@ -26,7 +26,7 @@ public class CustomerService {
         return ToDTO(customer);
     }
 
-    public void createNewAccountCustomer(Customer customer) {
+    public void createNewCustomer(Customer customer) {
         customerRepositery.save(customer);
     }
 

@@ -3,14 +3,12 @@ package com.jxhifi.jxhifispring.DTO.customer;
 import lombok.Data;
 
 @Data
-public class CustomerDTO implements java.io.Serializable{
+public class AdminDTO {
     private String id;
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String phone;
-    private String role;
-    private boolean isDeleted;
     private AddressDTO address;
 }
