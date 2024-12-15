@@ -4,10 +4,12 @@ import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
 import com.jxhifi.jxhifispring.DTO.customer.CustomerDTO;
 import com.jxhifi.jxhifispring.entities.Customer;
 import com.jxhifi.jxhifispring.repositories.CustomerRepositery;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -16,6 +18,14 @@ public class CustomerService {
     private CustomerRepositery customerRepositery;
     private static int idNumber = 2000;
 
+    @PostConstruct
+    public void init() {
+        Optional<Customer> optionalCustomer = customerRepositery.findTopByIdNumericPart();
+        if (optionalCustomer.isPresent()) {
+            String lastId = optionalCustomer.get().getId();
+            idNumber = Integer.parseInt(lastId.substring(3));
+        }
+    }
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepositery.findAll();
         return customers.stream() .map(this::ToDTO).collect(Collectors.toList()); // Conversion du customer
@@ -67,6 +77,8 @@ public class CustomerService {
     }
 
     public String generateNewId() {
-        return "USE" + (idNumber+37);
+        idNumber=idNumber+37;
+
+        return "CUS" + idNumber;
     }
 }

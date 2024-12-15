@@ -81,7 +81,9 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
             customer.setEmail(updateCustomerDTO.getEmail());
             customer.setPhone(updateCustomerDTO.getPhone());
             customer.setAddress(addressDTOToAddress(updateCustomerDTO.getAddress()));
-
+            if(updateCustomerDTO.getPassword()!=null){
+                customer.setPassword(updateCustomerDTO.getPassword());
+            }
             customer.setDeleted(updateCustomerDTO.isDeleted());
 
             customerService.updateCustomer(customer);

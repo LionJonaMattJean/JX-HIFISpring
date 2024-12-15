@@ -3,8 +3,10 @@ package com.jxhifi.jxhifispring.DTO.customer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+
+
 @Data
-public class AdminDTO {
+public class AdminDTO implements java.io.Serializable {
     private String id;
     private String email;
     private String password;

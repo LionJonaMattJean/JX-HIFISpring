@@ -55,7 +55,9 @@ public class AdminController extends ConvertAddressDTO_To_Address {
             admin.setAddress(addressDTOToAddress(updateAdminDTO.getAddress()));
             admin.setRole("administrator");
             admin.setDeleted(updateAdminDTO.isDeleted());
-
+            if(updateAdminDTO.getPassword()!=null){
+                admin.setPassword(updateAdminDTO.getPassword());
+            }
             adminService.updateAdmin(admin);
 
         }
