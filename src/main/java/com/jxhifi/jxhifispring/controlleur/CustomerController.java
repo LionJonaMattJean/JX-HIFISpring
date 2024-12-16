@@ -61,6 +61,7 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
 
         customer.setId(customerService.generateNewId());
         customer.setEmail(newCustomerDTO.getEmail());
+        customer.setPhone(newCustomerDTO.getPhone());
         customer.setPassword(newCustomerDTO.getPassword());
         customer.setFirstName(newCustomerDTO.getFirstName());
         customer.setLastName(newCustomerDTO.getLastName());
@@ -91,4 +92,20 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
 
         return ResponseEntity.ok(customer);
     }
+    @DeleteMapping("/customer/delete/{id}")
+    public void deleteCustomer(@PathVariable String id) {
+        Customer customer=customerService.getCustomer(id);
+        if(customer!=null){
+            customerService.deleteCustomer(customer);
+        }
+    }
+    @PutMapping("customer/deactivate/{id}")
+    public void deactivateCustomer(@PathVariable String id) {
+        Customer customer=customerService.getCustomer(id);
+        if(customer!=null){
+            customer.setDeleted(true);
+            customerService.updateCustomer(customer);
+        }
+    }
+
 }

@@ -1,6 +1,6 @@
 package com.jxhifi.jxhifispring.controlleur;
 
-import com.jxhifi.jxhifispring.DTO.order.OrderDTO;
+import com.jxhifi.jxhifispring.DTO.Order.OrderDTO;
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.services.CustomerService;
 import com.jxhifi.jxhifispring.services.OrderItemService;

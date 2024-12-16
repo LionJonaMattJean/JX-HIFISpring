@@ -1,4 +1,4 @@
-package com.jxhifi.jxhifispring.DTO.order;
+package com.jxhifi.jxhifispring.DTO.Order;
 
 import com.jxhifi.jxhifispring.entities.Address;
 import com.jxhifi.jxhifispring.entities.Card;

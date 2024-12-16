@@ -5,6 +5,7 @@ import com.jxhifi.jxhifispring.DTO.ConvertAddressDTO_To_Address;
 import com.jxhifi.jxhifispring.DTO.customer.AdminDTO;
 
 import com.jxhifi.jxhifispring.entities.Admin;
+
 import com.jxhifi.jxhifispring.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,9 @@ public class AdminController extends ConvertAddressDTO_To_Address {
         return ResponseEntity.ok(adminService.getAdmins());
     }
     @GetMapping("/admin/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable String id){
-       return ResponseEntity.ok(adminService.getAdminById(id).orElseThrow(()->new RuntimeException("Admin not found")));
+    public ResponseEntity<AdminDTO> getAdminById(@PathVariable String id){
+        AdminDTO admin=adminService.getAdminByIdDTO(id);
+       return ResponseEntity.ok(admin);
     }
     @PutMapping("/admin/update/{id}")
       public ResponseEntity<Admin> updateAdmin(@RequestBody AdminDTO updateAdminDTO, @PathVariable String id){
@@ -62,6 +64,22 @@ public class AdminController extends ConvertAddressDTO_To_Address {
 
         }
         return ResponseEntity.ok(admin);
+    }
+
+    @DeleteMapping("/admin/delete/{id}")
+    public void deleteAdmin(@PathVariable String id) {
+        Admin admin=adminService.getAdminById(id).orElseThrow(()->new RuntimeException("Admin not found"));
+        if(admin!=null){
+            adminService.deleteAdmin(admin);
+        }
+    }
+    @PutMapping("admin/deactivate/{id}")
+    public void deactivateCustomer(@PathVariable String id) {
+        Admin admin=adminService.getAdminById(id).orElseThrow(()->new RuntimeException("Admin not found"));
+        if(admin!=null){
+            admin.setDeleted(true);
+            adminService.updateAdmin(admin);
+        }
     }
 
 }
