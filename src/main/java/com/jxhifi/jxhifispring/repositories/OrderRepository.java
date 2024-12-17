@@ -25,42 +25,30 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 
     @Query("select order from Order order where order.id =: id")
-     Order findOrderById(@Param("id") String id);
+    Order findOrderById(@Param("id") String id);
 
     @Query("select order.idCustomer from Order order where order.id =: id")
-     String findIdCustomerByOrder(@Param("id") String id);
+    String findIdCustomerByOrder(@Param("id") String id);
 
     @Query("select order.card from Order order where order.id =:id")
-     Card findCardByOrderId(@Param("id")String orderId);
+    Card findCardByOrderId(@Param("id") String orderId);
 
     @Query("select order.orderItems from Order order where order.id =: id")
-     List<OrderItem> getOrderItemsByOrderId(@Param("id") String id);
+    List<OrderItem> getOrderItemsByOrderId(@Param("id") String id);
 
     @Query("select order from Order order where order.idCustomer =:id")
-     List<Order> getAllOrdersByCustomerId(@Param("id") String id);
-
-
+    List<Order> getAllOrdersByCustomerId(@Param("id") String id);
 
 
     //TBD si je cree des get et update pour le reste, je ne vois pas l'utilitee
 
     @Modifying
     @Query("update Order order set order.status =?2 where order.id =?1")
-     void updateOrderStatus(@Param("id") String id, @Param("status") String status);
+    void updateOrderStatus(@Param("id") String id, @Param("status") String status);
 
     @Modifying
     @Query("update Order order set order.shippingAddress =?2 where order.id =?1")
-     void updateShippingAddress(@Param("id") String id, @Param("shippingAddress") Address newAddress);
-
-
-
-
-
-
-
-
-
-
+    void updateShippingAddress(@Param("id") String id, @Param("shippingAddress") Address newAddress);
 
 
 }

@@ -28,7 +28,7 @@ public class CustomerService {
     }
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepositery.findAll();
-        return customers.stream() .map(this::ToDTO).collect(Collectors.toList()); // Conversion du customer
+        return customers.stream().map(this::ToDTO).collect(Collectors.toList()); // Conversion du customer
     }
 
     public CustomerDTO getCustomerById(String id) {
@@ -79,6 +79,6 @@ public class CustomerService {
     public String generateNewId() {
         idNumber=idNumber+37;
 
-        return "CUS" + idNumber;
+        return "USE" + idNumber;
     }
 }

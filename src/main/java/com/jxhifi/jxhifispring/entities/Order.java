@@ -16,7 +16,6 @@ import java.util.List;
 public class Order {
     @Id
     private String id;
-    private String idCustomer;
 
     @ManyToOne
     @JoinColumn(name = "card_id")
@@ -26,6 +25,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
+    //TODO Clarifier nom attribut TPS != StateTax
     @Column(nullable = false)
     private double TPS;
     @Column(nullable = false)
@@ -34,8 +34,6 @@ public class Order {
     private double TTC;
     @Column(nullable = false)
     private String status;
-
-    //order should probably have a Coupon attribute
 
     /*  j'ai utiliser LocalDate psq ce type d'objet peu etre utiliser pour juste des dates
        sans temps, ce qui est plus proche de ce qu'on veut pour les dates d'expiration
@@ -52,5 +50,6 @@ public class Order {
     @JoinColumn
     private Customer customer;
 
-
+    // TODO Supprimer et déplacer dans OrderDTO
+    private String idCustomer;
 }

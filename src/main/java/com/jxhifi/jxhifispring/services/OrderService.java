@@ -22,6 +22,9 @@ public class OrderService {
     private final EntityManager entityManager;
 
 
+    public List<Order> getAllOrders(){
+        return orderRepository.findAll();
+    }
 
     /*@PostConstruct
     private void initNumber(){
@@ -31,12 +34,6 @@ public class OrderService {
             idNumber = Long.parseLong(lastId.substring(3));
         }
     }*/
-
-    public synchronized String generateNewId() {
-        String id = "ORD"+idNumber;
-        idNumber++;
-        return id ;
-    }
 
     public OrderService(OrderRepository orderRepository, EntityManager entityManager) {
         this.orderRepository = orderRepository;
@@ -83,5 +80,11 @@ public class OrderService {
     public void deleteOrder(String id){
         int converted = Integer.parseInt(id);
         orderRepository.deleteById(converted);
+    }
+
+    public synchronized String generateNewId() {
+        String id = "ORD"+idNumber;
+        idNumber++;
+        return id ;
     }
 }
