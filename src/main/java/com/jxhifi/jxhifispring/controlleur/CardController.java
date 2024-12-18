@@ -1,15 +1,25 @@
 package com.jxhifi.jxhifispring.controlleur;
 
 import com.jxhifi.jxhifispring.entities.Card;
+import com.jxhifi.jxhifispring.repositories.CardRepository;
 import com.jxhifi.jxhifispring.services.CardService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/cards")
 public class CardController {
 
     private final CardService cardService;
+
+    private CardRepository cardRepository;
+
+    @PostMapping
+    public ResponseEntity<Card> SaveCard(@RequestBody Card card) {
+        cardRepository.save(card);
+        return ResponseEntity.ok(card);
+    }
 
     public CardController(CardService cardService) {
         this.cardService = cardService;
