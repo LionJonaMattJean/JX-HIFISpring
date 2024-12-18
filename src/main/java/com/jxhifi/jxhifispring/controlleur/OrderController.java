@@ -1,5 +1,7 @@
 package com.jxhifi.jxhifispring.controlleur;
 
+import com.jxhifi.jxhifispring.DTO.Order.DashboardDetail_OrderDTO;
+import com.jxhifi.jxhifispring.DTO.Order.DashboardVersion_OrderDTO;
 import com.jxhifi.jxhifispring.DTO.Order.OrderDTO;
 import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.services.CustomerService;
@@ -22,19 +24,25 @@ public class OrderController {
 
 
     @GetMapping("/orders")
-    public ResponseEntity<List<Order>> getOrders(){
+    public ResponseEntity<List<DashboardVersion_OrderDTO>> getAllOrders() {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
 
-    //tempCustomerid pourait etre a la fin du URL, TBD
-    @GetMapping("/{tempCustomerId}/account-details/orders")
-    public ResponseEntity<List<Order>> getOrdersFromCustomer(@PathVariable String tempCustomerId){
-        return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));
+    @GetMapping("/order-detail_dshb/{id}")
+    public ResponseEntity<DashboardDetail_OrderDTO> getOrderByIdForDashboardDetail(@PathVariable String id) {
+        return ResponseEntity.ok(orderService.getOrderByIdForDashboardDetail(id));
     }
 
 
+
+    //tempCustomerid pourait etre a la fin du URL, TBD
+    @GetMapping("/{tempCustomerId}/account-details/orders")
+    public ResponseEntity<List<Order>> getOrdersFromCustomer(@PathVariable String tempCustomerId) {
+        return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));
+    }
+
     @PostMapping("/createOrder")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto){
+    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto) {
         Order newOrder = new Order();
         newOrder.setId(orderService.generateNewId());
         newOrder.setOrderDate(orderDto.getOrderDate());
@@ -44,7 +52,7 @@ public class OrderController {
         newOrder.setCard(orderDto.getCard());
         newOrder.setStatus(orderDto.getStatus());
         newOrder.setCustomer(orderDto.getCustomer());
-        newOrder.setIdCustomer(orderDto.getIdCustomer());
+//        newOrder.setIdCustomer(orderDto.getIdCustomer());
         newOrder.setShippingAddress(orderDto.getShippingAddress());
         newOrder.setStateTax(orderDto.getStateTax());
         newOrder.setTPS(orderDto.getTPS());
@@ -54,7 +62,7 @@ public class OrderController {
     }
 
     @PutMapping("order/modify/{id}")
-    public ResponseEntity<Order> modifyOrder(@PathVariable String id, @RequestBody OrderDTO orderDto){
+    public ResponseEntity<Order> modifyOrder(@PathVariable String id, @RequestBody OrderDTO orderDto) {
         Order updatedOrder = orderService.getOrderById(id);
         updatedOrder.setOrderDate(orderDto.getOrderDate());
         updatedOrder.setOrderItems(orderDto.getOrderItems());
@@ -69,7 +77,4 @@ public class OrderController {
         orderService.updateOrder(updatedOrder);
         return ResponseEntity.ok(updatedOrder);
     }
-
-
-
 }

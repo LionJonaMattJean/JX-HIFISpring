@@ -4,14 +4,12 @@ import com.jxhifi.jxhifispring.entities.Address;
 import com.jxhifi.jxhifispring.entities.Card;
 import com.jxhifi.jxhifispring.entities.Customer;
 import com.jxhifi.jxhifispring.entities.OrderItem;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 public class OrderDTO {
     private String id;
     private String idCustomer;
@@ -24,5 +22,4 @@ public class OrderDTO {
     private LocalDate orderDate;
     private Address shippingAddress;
     private Customer customer;
-
 }

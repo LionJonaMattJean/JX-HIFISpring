@@ -17,7 +17,7 @@ public class Card {
 
     private String id;
     @Column(length = 16, nullable = false)
-    private int cardNumber;
+    private Long cardNumber;
 
     /*  j'ai utiliser LocalDate psq ce type d'objet peu etre utiliser pour juste des dates
         sans temps, ce qui est plus proche de ce qu'on veut pour les dates d'expiration

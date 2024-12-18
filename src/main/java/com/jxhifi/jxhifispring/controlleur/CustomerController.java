@@ -22,7 +22,7 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
         return ResponseEntity.ok(customersDTO);
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/customer/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable String id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }

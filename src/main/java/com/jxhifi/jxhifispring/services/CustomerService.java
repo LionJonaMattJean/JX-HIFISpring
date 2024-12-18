@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.services;
 
+import com.jxhifi.jxhifispring.DTO.ConvertAddress_To_AddressDTO;
 import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
 import com.jxhifi.jxhifispring.DTO.customer.CustomerDTO;
 import com.jxhifi.jxhifispring.entities.Customer;
@@ -13,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomerService {
+public class CustomerService extends ConvertAddress_To_AddressDTO {
     @Autowired
     private CustomerRepositery customerRepositery;
     private static int idNumber = 2000;
@@ -57,15 +58,7 @@ public class CustomerService {
 
         // Convertir l'adresse si elle existe
         if (customer.getAddress() != null) {
-            AddressDTO addressDTO = new AddressDTO();
-
-            addressDTO.setAddress(customer.getAddress().getAddress());
-            addressDTO.setCity(customer.getAddress().getCity());
-            addressDTO.setProvince(customer.getAddress().getProvince());
-            addressDTO.setPostalCode(customer.getAddress().getPostalCode());
-            addressDTO.setCountry(customer.getAddress().getCountry());
-
-            customerDTO.setAddress(addressDTO);
+            customerDTO.setAddress(addressToAddressDTO(customer.getAddress()));
         }
         return customerDTO;
     }

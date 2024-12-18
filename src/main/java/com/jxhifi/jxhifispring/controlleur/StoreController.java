@@ -27,13 +27,15 @@ public class StoreController extends ConvertAddressDTO_To_Address {
     public ResponseEntity<List<Store>> getAllStores() {
         return ResponseEntity.ok(storeService.getAllStores());
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Store> getStoreById(@PathVariable String id) {
-        return ResponseEntity.ok(storeService.getStore(id).orElseThrow(()->new RuntimeException("Store not found")));
+        return ResponseEntity.ok(storeService.getStore(id).orElseThrow(() -> new RuntimeException("Store not found")));
     }
+
     @PostMapping("/create")
     public ResponseEntity<Store> createStore(@RequestBody StoreDto storeDTO) {
-        Store store=new Store();
+        Store store = new Store();
         store.setAddress(addressDTOToAddress(storeDTO.getAddress()));
         store.setName(storeDTO.getName());
         store.setTelephone(storeDTO.getTelephone());
@@ -42,21 +44,27 @@ public class StoreController extends ConvertAddressDTO_To_Address {
 
         return ResponseEntity.ok(storeService.addStore(store));
     }
+
     @Transactional
     @PutMapping("/update/{id}")
     public ResponseEntity<Store> updateStore(@PathVariable String id, @RequestBody StoreDto storeDTO) {
-        Store store=storeService.getStore(id).orElseThrow(()->new RuntimeException("Store not found"));
+        Store store = storeService.getStore(id).orElseThrow(() -> new RuntimeException("Store not found"));
         store.setId(storeDTO.getId());
         store.setName(storeDTO.getName());
         store.setTelephone(storeDTO.getTelephone());
         store.setEmail(storeDTO.getEmail());
         store.setManager(storeDTO.getManager());
-        Address address=store.getAddress();
-        address.setAddress(storeDTO.getAddress().getAddress());
-        address.setProvince(storeDTO.getAddress().getProvince());
-        address.setCity(storeDTO.getAddress().getCity());
-        address.setCountry(storeDTO.getAddress().getCountry());
-        address.setPostalCode(storeDTO.getAddress().getPostalCode());
+
+        Address address = addressDTOToAddress(storeDTO.getAddress());
+        store.setAddress(address);
+
+        //TODO supprimer si la convertion est utile
+//        address.setAddress(storeDTO.getAddress().getAddress());
+//        address.setProvince(storeDTO.getAddress().getProvince());
+//        address.setCity(storeDTO.getAddress().getCity());
+//        address.setCountry(storeDTO.getAddress().getCountry());
+//        address.setPostalCode(storeDTO.getAddress().getPostalCode());
+
         storeService.updateStore(store);
         return ResponseEntity.ok(store);
 
@@ -65,7 +73,7 @@ public class StoreController extends ConvertAddressDTO_To_Address {
     @DeleteMapping("/delete/{id}")
     @Transactional
     public void deleteStore(@PathVariable String id) {
-        Store store=storeService.getStore(id).orElseThrow(()->new RuntimeException("Store not found"));
+        Store store = storeService.getStore(id).orElseThrow(() -> new RuntimeException("Store not found"));
 
         storeService.deleteStore(store);
     }

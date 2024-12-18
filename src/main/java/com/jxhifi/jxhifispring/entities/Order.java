@@ -37,7 +37,7 @@ public class Order {
 
     /*  j'ai utiliser LocalDate psq ce type d'objet peu etre utiliser pour juste des dates
        sans temps, ce qui est plus proche de ce qu'on veut pour les dates d'expiration
-       open to change back to Date type if needed
+       open to change back to Date type if needed,
     */
     @Column(nullable = false)
     private LocalDate orderDate;
