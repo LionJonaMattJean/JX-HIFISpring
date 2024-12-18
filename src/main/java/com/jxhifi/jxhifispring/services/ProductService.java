@@ -1,6 +1,7 @@
 package com.jxhifi.jxhifispring.services;
 
 
+import com.jxhifi.jxhifispring.DTO.product.ProductSearchDTO;
 import com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO;
 import com.jxhifi.jxhifispring.entities.Product;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
@@ -131,4 +132,7 @@ public class ProductService {
     }
 
 
+    public List<ProductSearchDTO> getProductsForSearch() {
+        return productRepository.getProductsForSearch();
+    }
 }

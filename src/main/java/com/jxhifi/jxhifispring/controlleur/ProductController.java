@@ -1,10 +1,6 @@
 package com.jxhifi.jxhifispring.controlleur;
 
-import com.jxhifi.jxhifispring.DTO.product.ProductSummaryTableDTO;
-import com.jxhifi.jxhifispring.DTO.product.ImageDTO;
-import com.jxhifi.jxhifispring.DTO.product.ProductDTO;
-import com.jxhifi.jxhifispring.DTO.product.ShortSpecificationDTO;
-import com.jxhifi.jxhifispring.DTO.product.SpecificationDetailsDTO;
+import com.jxhifi.jxhifispring.DTO.product.*;
 import com.jxhifi.jxhifispring.entities.*;
 import com.jxhifi.jxhifispring.services.*;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +37,10 @@ public class ProductController {
         List<ProductSummaryTableDTO> productSummaries = productService.getProductsTable();
         return ResponseEntity.ok(productSummaries);
     }
-
+    @GetMapping("/products-search")
+    public ResponseEntity<List<ProductSearchDTO>> getProductsForSearch() {
+      return ResponseEntity.ok(productService.getProductsForSearch());
+    }
     @GetMapping("/products/{id}")
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable String id) {
         return ResponseEntity.ok(productService.getProductById(id));
