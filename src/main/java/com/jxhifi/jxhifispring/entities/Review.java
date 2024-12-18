@@ -18,8 +18,10 @@ public class Review {
     @Getter
     private int star;
     private String title;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonIgnore
     private Customer customer;
     @Column(length = 2000)
     private String Review;
