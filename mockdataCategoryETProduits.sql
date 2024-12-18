@@ -184,45 +184,45 @@ VALUES
 ('QSPE43', 'Elegant design with premium materials', 'Design Features', 'PRO10'),
 ('QSPE44', 'Advanced ANC for immersive sound', 'Noise-Canceling Features', 'PRO10');
 
-INSERT INTO review (id, review, star, title, product_id)
+INSERT INTO review (id, review, star, title, product_id,customer_id)
 VALUES
 -- Reviews for PRO1
-('REV3', 'Fast and reliable for daily use.', 4, 'Great Value', 'PRO1'),
+('REV3', 'Fast and reliable for daily use.', 4, 'Great Value', 'PRO1','USE1000'),
 
 -- Reviews for PRO2
-('REV4', 'Compact and perfect for small spaces.', 4, 'Good Design', 'PRO2'),
-('REV5', 'Runs smoothly with no lags.', 5, 'Excellent Choice', 'PRO2'),
+('REV4', 'Compact and perfect for small spaces.', 4, 'Good Design', 'PRO2','USE1518'),
+('REV5', 'Runs smoothly with no lags.', 5, 'Excellent Choice', 'PRO2','USE1222'),
 
 -- Reviews for PRO3
-('REV6', 'The M1 chip is revolutionary!', 5, 'Amazing Performance', 'PRO3'),
-('REV7', 'Lightweight and very portable.', 4, 'Perfect for Travel', 'PRO3'),
+('REV6', 'The M1 chip is revolutionary!', 5, 'Amazing Performance', 'PRO3','USE1481'),
+('REV7', 'Lightweight and very portable.', 4, 'Perfect for Travel', 'PRO3','USE1518'),
 
 -- Reviews for PRO4
-('REV8', 'Affordable yet powerful.', 5, 'Best for Students', 'PRO4'),
-('REV9', 'Handles multitasking well.', 4, 'Solid Build', 'PRO4'),
+('REV8', 'Affordable yet powerful.', 5, 'Best for Students', 'PRO4','USE1481'),
+('REV9', 'Handles multitasking well.', 4, 'Solid Build', 'PRO4','USE1370'),
 
 -- Reviews for PRO5
-('REV10', 'Excellent display and features.', 5, 'Highly Recommended', 'PRO5'),
+('REV10', 'Excellent display and features.', 5, 'Highly Recommended', 'PRO5','USE1222'),
 
 -- Reviews for PRO6
-('REV11', 'Camera quality is unmatched.', 5, 'Fantastic Smartphone', 'PRO6'),
-('REV12', 'Expensive but worth it.', 4, 'Premium Feel', 'PRO6'),
+('REV11', 'Camera quality is unmatched.', 5, 'Fantastic Smartphone', 'PRO6','USE1481'),
+('REV12', 'Expensive but worth it.', 4, 'Premium Feel', 'PRO6','USE1111'),
 
 -- Reviews for PRO7
-('REV13', 'Crystal clear display for work.', 5, 'Best Monitor', 'PRO7'),
-('REV14', 'Affordable and functional.', 4, 'Value for Money', 'PRO7'),
+('REV13', 'Crystal clear display for work.', 5, 'Best Monitor', 'PRO7','USE1370'),
+('REV14', 'Affordable and functional.', 4, 'Value for Money', 'PRO7','USE1222'),
 
 -- Reviews for PRO8
-('REV15', 'Amazing 4K resolution.', 5, 'Top-Notch', 'PRO8'),
-('REV16', 'Sleek and elegant design.', 4, 'Modern Aesthetic', 'PRO8'),
+('REV15', 'Amazing 4K resolution.', 5, 'Top-Notch', 'PRO8','USE1259'),
+('REV16', 'Sleek and elegant design.', 4, 'Modern Aesthetic', 'PRO8','USE1111'),
 
 -- Reviews for PRO9
-('REV17', 'Best noise-canceling headphones.', 5, 'Superb Audio', 'PRO9'),
-('REV18', 'Comfortable for long hours.', 4, 'Great Comfort', 'PRO9'),
+('REV17', 'Best noise-canceling headphones.', 5, 'Superb Audio', 'PRO9','USE1259'),
+('REV18', 'Comfortable for long hours.', 4, 'Great Comfort', 'PRO9','USE1370'),
 
 -- Reviews for PRO10
-('REV19', 'Excellent sound and build.', 5, 'Top Quality', 'PRO10'),
-('REV20', 'Long-lasting battery life.', 4, 'Very Convenient', 'PRO10');
+('REV19', 'Excellent sound and build.', 5, 'Top Quality', 'PRO10','USE1111'),
+('REV20', 'Long-lasting battery life.', 4, 'Very Convenient', 'PRO10','USE1222');
 
 INSERT INTO image (id, url, product_id)
 VALUES
