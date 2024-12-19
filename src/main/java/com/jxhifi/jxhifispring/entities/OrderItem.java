@@ -1,6 +1,7 @@
 package com.jxhifi.jxhifispring.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,5 +28,6 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(nullable = false)
+    @JsonBackReference
     private Order order;
 }

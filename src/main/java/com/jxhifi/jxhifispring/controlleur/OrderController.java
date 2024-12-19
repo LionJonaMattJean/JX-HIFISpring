@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.controlleur;
 
+
 import com.jxhifi.jxhifispring.DTO.Order.DashboardVersion_OrderDTO;
 import com.jxhifi.jxhifispring.DTO.Order.OrderDTO;
 import com.jxhifi.jxhifispring.entities.Order;
@@ -37,9 +38,14 @@ public class OrderController {
     }
 
     @PutMapping("/order/modify/{id}")
-    public ResponseEntity<Order> modifyOrder(@PathVariable String id, @RequestBody OrderDTO oDTO) {
-        System.out.println("Response: " + oDTO.toString());
-        return ResponseEntity.ok(orderService.updateOrder(id, oDTO));
+    public ResponseEntity<OrderDTO> modifyOrder(@PathVariable String id, @RequestBody OrderDTO oDTO) {
+
+        Order updatedOrder = orderService.updateOrder(id,oDTO);
+
+        // Convert the updated Order entity to an OrderDTO
+        OrderDTO updatedOrderDTO = orderService.orderToDTO(updatedOrder);
+
+        return ResponseEntity.ok(updatedOrderDTO);
     }
 
 

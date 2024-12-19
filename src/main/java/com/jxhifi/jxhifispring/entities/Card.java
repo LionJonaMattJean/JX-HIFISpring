@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,7 +37,8 @@ public class Card {
      * je laisserai commenter ici au cas ou ce n'ai pas necessaire
      * */
 
-    @OneToMany(mappedBy = "card")
+    @OneToMany(mappedBy = "card",fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Order> orders;
 
 }

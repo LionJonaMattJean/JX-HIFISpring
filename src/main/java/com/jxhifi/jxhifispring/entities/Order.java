@@ -1,9 +1,11 @@
 package com.jxhifi.jxhifispring.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,9 +24,11 @@ public class Order {
     private Card card;
 
     //je laisserai ceci en commentaire au cas ou on ne l'utilisera pas
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @ToString.Exclude
+    private List<OrderItem> orderItems;
     //TODO Clarifier nom attribut TPS != StateTax
     @Column(nullable = false)
     private double TPS;

@@ -27,6 +27,8 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
     private static long idNumber = 1L;
     private final OrderRepository orderRepository;
     private final EntityManager entityManager;
+    @Autowired
+    private OrderItemService orderItemService;
 
 
     public List<OrderDTO> getAllOrders() {
@@ -105,10 +107,19 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
                 // Mettre à jour les valeurs si l'élément existe déjà
                 OrderItem orderItem = existingItem.get();
                 orderItem.setQuantity(dto.getQuantity());
-                orderItem.setSubTotal(dto.getSousTotal());
+                double subTotal = dto.getSousTotal();
+                if (subTotal == 0) {
+                    if (dto.getProduct().isOnSale()) {
+                        subTotal = dto.getProduct().getSpecialPrice();
+                    } else {
+                        subTotal = dto.getQuantity() * dto.getProduct().getSellPrice();
+                    }
+                }
+                orderItem.setSubTotal(subTotal);
             } else {
                 // Ajouter un nouvel élément si non présent
                 OrderItem newItem = convertToOrderItem(dto, order);
+
                 order.getOrderItems().add(newItem);
             }
 
@@ -129,7 +140,17 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         dto.setId(order.getId());
         dto.setOrderDate(order.getOrderDate());
         dto.setStatus(order.getStatus());
-        dto.setTotal(order.getTTC());
+        double tps = order.getTPS();
+        double stateTax = order.getStateTax();
+        double total=0;
+        for (OrderItem item : order.getOrderItems()) {
+            total+=item.getSubTotal();
+        }
+        if(total>0){
+            order.setTTC((total*(tps+stateTax)/100)+total);
+            dto.setTotal(order.getTTC());
+        }
+
 
         //passe au traver chaque OrderItem pour fetch les qty total de chaque produit commander
         dto.setNbrProducts(order.getOrderItems().stream()
@@ -146,7 +167,7 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
      * @param order
      * @return une version tranferable d'une instance de Order
      */
-    private OrderDTO orderToDTO(Order order) {
+    public OrderDTO orderToDTO(Order order) {
         OrderDTO dto = new OrderDTO();
 
         dto.setId(order.getId());
@@ -232,10 +253,20 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
 
     private OrderItem convertToOrderItem(DashboardDetail_OrderItemDTO dto, Order order) {
         OrderItem orderItem = new OrderItem();
-        orderItem.setId(generateNewId());
+        orderItem.setId(orderItemService.generateNewId());
         orderItem.setProduct(productDTOToProduct(dto.getProduct(), dto.getQuantity()));
         orderItem.setQuantity(dto.getQuantity());
-        orderItem.setSubTotal(dto.getSousTotal());
+        double subTotal = dto.getSousTotal();
+
+        if (subTotal == 0) {
+            if(dto.getProduct().isOnSale()){
+                subTotal = dto.getProduct().getSpecialPrice();
+
+            }else
+                subTotal = dto.getQuantity() * dto.getProduct().getSellPrice();
+        }
+
+        orderItem.setSubTotal(subTotal);
         orderItem.setOrder(order);
         return orderItem;
     }

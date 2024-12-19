@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
-    @Query(value = "select * from OrderItem ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED) DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM order_items ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED) DESC LIMIT 1", nativeQuery = true)
     Optional<OrderItem> findFirstByOrderById();
 
 

@@ -5,7 +5,6 @@ import com.jxhifi.jxhifispring.repositories.OrderItemRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +18,15 @@ public class OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final EntityManager entityManager;
 
-/*
+
     @PostConstruct
     private void initNumber(){
         Optional<OrderItem> lastOrderItemOptional = this.orderItemRepository.findFirstByOrderById();
         if(lastOrderItemOptional.isPresent()){
             String lastId = lastOrderItemOptional.get().getId();
-            idNumber = Long.parseLong(lastId.substring(3));
+            idNumber = Long.parseLong(lastId.substring(3))+1;
         }
-    }*/
+    }
 
     public synchronized String generateNewId() {
         String id = "ORI"+idNumber;
