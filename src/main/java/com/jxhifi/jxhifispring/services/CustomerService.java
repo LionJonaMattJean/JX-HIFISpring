@@ -74,4 +74,10 @@ public class CustomerService extends ConvertAddress_To_AddressDTO {
 
         return "USE" + idNumber;
     }
+
+    public Customer authenticate(String email, String password) {
+
+        return customerRepositery.findByEmailAndPassword(email, password);
+    }
+
 }

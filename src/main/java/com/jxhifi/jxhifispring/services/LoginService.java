@@ -12,7 +12,7 @@ public class LoginService {
     private CustomerRepositery customerRepositery;
 
     public boolean validateCustomerCredentials(String email, String password) {
-        Customer customer = customerRepositery.findByEmail(email);
+        Customer customer = customerRepositery.findByEmailAndPassword(email, password);
 
         if (customer != null && customer.getPassword() != null) {
             // Comparaison en clair
@@ -20,9 +20,4 @@ public class LoginService {
         }
         return false;
     }
-
-
-
-
-
 }
