@@ -8,16 +8,14 @@ import lombok.Data;
 @Data
 public class DashboardDetail_OrderDTO {
     private String id;
-    private LocalDate orderDate; // String pour formater directement la date
+    private LocalDate orderDate;
     private String status;
     private double totalAmount;
 
     private List<DashboardDetail_OrderItemDTO> orderItems;
 
-    private String customerFirstName;
-    private String customerLastName;
+    private String customerId;
     private String customerEmail;
-    private String customerPhone;
 
     private AddressDTO shippingAddress;
 }

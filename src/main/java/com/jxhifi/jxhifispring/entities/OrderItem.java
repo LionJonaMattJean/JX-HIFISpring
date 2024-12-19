@@ -25,8 +25,6 @@ public class OrderItem {
     @Column(nullable = false)
     private double subTotal;
 
-    /*Je laisserai ca ici commenter au cas ou ce n'est pas necessaire*/
-
     @ManyToOne
     @JoinColumn(nullable = false)
     private Order order;

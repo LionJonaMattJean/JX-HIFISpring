@@ -3,10 +3,13 @@ package com.jxhifi.jxhifispring.DTO.Order;
 import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
 import com.jxhifi.jxhifispring.DTO.customer.CustomerDTO;
 import lombok.Data;
+import lombok.ToString;
+
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@ToString
 public class OrderDTO {
     private String id;
     private CardDTO card;

@@ -4,12 +4,17 @@ import com.jxhifi.jxhifispring.DTO.ConvertAddress_To_AddressDTO;
 import com.jxhifi.jxhifispring.DTO.Order.*;
 import com.jxhifi.jxhifispring.entities.*;
 import com.jxhifi.jxhifispring.repositories.OrderRepository;
+import com.jxhifi.jxhifispring.repositories.ProductRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,22 +22,24 @@ import java.util.stream.Collectors;
 public class OrderService extends ConvertAddress_To_AddressDTO {
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private ProductRepository productRepository;
     private static long idNumber = 1L;
     private final OrderRepository orderRepository;
     private final EntityManager entityManager;
 
 
-    public List<DashboardVersion_OrderDTO> getAllOrders() {
+    public List<OrderDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(this::orderToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<DashboardVersion_OrderDTO> getAllOrdersTable() {
         List<Order> orders = orderRepository.findAll();
         return orders.stream().map(this::orderToDashboardDTO)
                 .collect(Collectors.toList());
     }
-
-    //TODO a supprimer si la version OrderDTO uniquement et suffisante.
-//    public DashboardDetail_OrderDTO getOrderByIdForDashboardDetail(String id) {
-//        Order order = orderRepository.findOrderById(id);
-//        return orderToDashboardDTO_Detail(order);
-//    }
 
     public OrderDTO getOrderById(String id) {
         Order order = orderRepository.findOrderById(id);
@@ -42,6 +49,74 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
     public Order getExistingOrder(String id) {
         Order order = orderRepository.findOrderById(id);
         return order;
+    }
+
+    public Order updateOrder(String id, OrderDTO oDTO) {
+        //Recup l'order existant a partir de l'id
+        Order order = orderRepository.findOrderById(id);
+
+        order.setTPS(oDTO.getTPS());
+        order.setStateTax(oDTO.getStateTax());
+        order.setTTC(oDTO.getTotalAmount());
+        order.setStatus(oDTO.getStatus());
+        order.setOrderDate(oDTO.getOrderDate());
+
+
+        if (oDTO.getCard() != null) {
+            order.getCard().setPaymentMethod(oDTO.getCard().getPaymentMethod());
+            order.getCard().setCardNumber(oDTO.getCard().getCardNumber());
+            order.getCard().setExpiryDate(oDTO.getCard().getExpiryDate());
+            order.getCard().setCvc(oDTO.getCard().getCvc());
+        }
+
+        if (oDTO.getShippingAddress() != null) {
+            order.getShippingAddress().setAddress(oDTO.getShippingAddress().getAddress());
+            order.getShippingAddress().setCity(oDTO.getShippingAddress().getCity());
+            order.getShippingAddress().setProvince(oDTO.getShippingAddress().getProvince());
+            order.getShippingAddress().setPostalCode(oDTO.getShippingAddress().getPostalCode());
+            order.getShippingAddress().setCountry(oDTO.getShippingAddress().getCountry());
+        }
+
+        if (oDTO.getCustomer() != null) {
+            order.getCustomer().setEmail(oDTO.getCustomer().getEmail());
+            order.getCustomer().setPhone(oDTO.getCustomer().getPhone());
+        }
+
+        // MàJ des items
+        if (oDTO.getOrderItems() != null)
+            updateOrderItem(order, oDTO);
+
+        return orderRepository.save(order);
+    }
+
+    private void updateOrderItem(Order order, OrderDTO oDTO) {
+        // Liste pour suivre les IDs existants
+        Set<String> existingIds = new HashSet<>();
+
+        // Mettre à jour ou ajouter les éléments
+        for (DashboardDetail_OrderItemDTO dto : oDTO.getOrderItems()) {
+            // Trouver l'élément correspondant dans la liste actuelle
+            Optional<OrderItem> existingItem = order.getOrderItems().stream()
+                    .filter(item -> item.getProduct().getId().equals(dto.getProduct().getId()))
+                    .findFirst();
+
+            if (existingItem.isPresent()) {
+                // Mettre à jour les valeurs si l'élément existe déjà
+                OrderItem orderItem = existingItem.get();
+                orderItem.setQuantity(dto.getQuantity());
+                orderItem.setSubTotal(dto.getSousTotal());
+            } else {
+                // Ajouter un nouvel élément si non présent
+                OrderItem newItem = convertToOrderItem(dto, order);
+                order.getOrderItems().add(newItem);
+            }
+
+            // Ajouter l'ID au set d'éléments existants
+            existingIds.add(dto.getProduct().getId());
+        }
+
+        // Supprimer les éléments qui ne sont plus dans la liste DTO
+        order.getOrderItems().removeIf(item -> !existingIds.contains(item.getProduct().getId()));
     }
 
 
@@ -64,38 +139,39 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
 
         return dto;
     }
-//    private DashboardDetail_OrderDTO orderToDashboardDTO_Detail(Order order) {
-//        DashboardDetail_OrderDTO dto = new DashboardDetail_OrderDTO();
-//        dto.setId(order.getId());
-//        dto.setOrderDate(order.getOrderDate());
-//        dto.setStatus(order.getStatus());
-//        dto.setTotalAmount(order.getTTC());
-//        dto.setOrderItems(order.getOrderItems()
-//                .stream().map(this::convertAllOderItem_ToDTO).collect(Collectors.toList()));
-//        dto.setCustomerFirstName(order.getCustomer().getFirstName());
-//        dto.setCustomerLastName(order.getCustomer().getLastName());
-//        dto.setCustomerEmail(order.getCustomer().getEmail());
-//        dto.setCustomerPhone(order.getCustomer().getPhone());
-//        dto.setShippingAddress(addressToAddressDTO(order.getShippingAddress()));
-//        return dto;
-//    }
+
+    /**
+     * convertion de l'entité order en DTO
+     * @param order
+     * @return une version tranferable d'une instance de Order
+     */
     private OrderDTO orderToDTO(Order order) {
         OrderDTO dto = new OrderDTO();
+
         dto.setId(order.getId());
         dto.setTPS(order.getTPS());
         dto.setStateTax(order.getStateTax());
         dto.setTotalAmount(order.getTTC());
         dto.setStatus(order.getStatus());
+        dto.setOrderDate(order.getOrderDate());
+
         dto.setOrderItems(order.getOrderItems()
                 .stream().map(this::convertAllOderItem_ToDTO).collect(Collectors.toList()));
+
         dto.setCard(convertCardToCardDTO(order.getCard()));
+
         dto.setShippingAddress(addressToAddressDTO(order.getShippingAddress()));
-        dto.setOrderDate(order.getOrderDate());
+
         dto.setCustomer(customerService.ToDTO(order.getCustomer()));
+
         return dto;
     }
 
-
+    /**
+     * converti une instance de product en ProductDTO version light (attribut selectionné)
+     * @param product
+     * @return un produitDTO light pour les modif d'un order
+     */
     private DD_OrderItem_ProductDTO productToDDOIProductDTO(Product product) {
         DD_OrderItem_ProductDTO dto = new DD_OrderItem_ProductDTO();
         dto.setId(product.getId());
@@ -109,7 +185,23 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
     }
 
     /**
+     * si lors de la modification d'un order un produit est ajout a la list de OrderItem
+     * il est convertit en entité pour le back tout en mettant a jours son stock.
+     * Aussi valable pour la creation d'un order complet
+     * @param dto
+     * @param qtyItem
+     * @return la version entité du produitDTO venu du front
+     */
+    private Product productDTOToProduct(DD_OrderItem_ProductDTO dto, int qtyItem) {
+        Product product = productRepository.findById(dto.getId()).get();
+        // déduction de la quantité en stock du product
+        product.setStock(product.getStock() - qtyItem);
+        return product;
+    }
+
+    /**
      * converti chaque item d'une liste OrderItem pour sa version transferable
+     *
      * @param item
      * @return un item pret pour le front
      */
@@ -124,6 +216,7 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
 
     /**
      * converti Une entité Card pour le tranfert de donnée
+     *
      * @param card
      * @return un model de Card pour le front
      */
@@ -136,71 +229,38 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         return cDTO;
     }
 
+    private OrderItem convertToOrderItem(DashboardDetail_OrderItemDTO dto, Order order) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setId(generateNewId());
+        orderItem.setProduct(productDTOToProduct(dto.getProduct(), dto.getQuantity()));
+        orderItem.setQuantity(dto.getQuantity());
+        orderItem.setSubTotal(dto.getSousTotal());
+        orderItem.setOrder(order);
+        return orderItem;
+    }
 
-
-    /*
-        @PostConstruct
-        private void initNumber(){
-            Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
-            if(lastOrderOptional.isPresent()){
-                String lastId = lastOrderOptional.get().getId();
-                idNumber = Long.parseLong(lastId.substring(3));
-            }
+    @PostConstruct
+    private void initNumber(){
+        Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
+        if(lastOrderOptional.isPresent()){
+            String lastId = lastOrderOptional.get().getId();
+            idNumber = Long.parseLong(lastId.substring(3));
         }
-    */
+    }
 
     public OrderService(OrderRepository orderRepository, EntityManager entityManager) {
         this.orderRepository = orderRepository;
         this.entityManager = entityManager;
     }
 
-//    public void addOrder(Order order) {
-//        orderRepository.save(order);
-//    }
-//
-//    public Order getOrderById(String id) {
-//        return orderRepository.findOrderById(id);
-//    }
-//
-//    public String getIdCustomerByOrderId(String id) {
-//        return orderRepository.findIdCustomerByOrder(id);
-//    }
-//
-//    public Card getCardByOrderId(String id) {
-//        return orderRepository.findCardByOrderId(id);
-//    }
-//
-//    public List<OrderItem> getOrderItemsByOrderId(String id) {
-//        return orderRepository.getOrderItemsByOrderId(id);
-//    }
-
     public List<Order> getAllOrdersFromCustomerId(String id) {
         return orderRepository.getAllOrdersByCustomerId(id);
     }
-
-//    public void updateShippingAddress(String id, Address address) {
-//        orderRepository.updateShippingAddress(id, address);
-//    }
-//
-//    public void updateOrderStatus(String id, String newStatus) {
-//        orderRepository.updateOrderStatus(id, newStatus);
-//    }
-//
-//    public void updateOrder(Order order) {
-//        Order managedOrder = entityManager.merge(order);
-//        orderRepository.save(managedOrder);
-//    }
-//
-//    public void deleteOrder(String id) {
-//        int converted = Integer.parseInt(id);
-//        orderRepository.deleteById(converted);
-//    }
 
     public synchronized String generateNewId() {
         String id = "ORD" + idNumber;
         idNumber++;
         return id;
     }
-
 
 }
