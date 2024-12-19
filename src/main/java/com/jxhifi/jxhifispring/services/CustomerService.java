@@ -27,6 +27,7 @@ public class CustomerService extends ConvertAddress_To_AddressDTO {
             idNumber = Integer.parseInt(lastId.substring(3));
         }
     }
+
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepositery.findAll();
         return customers.stream().map(this::ToDTO).collect(Collectors.toList()); // Conversion du customer
@@ -42,6 +43,10 @@ public class CustomerService extends ConvertAddress_To_AddressDTO {
 
     public void createNewCustomer(Customer customer) {
         customerRepositery.save(customer);
+    }
+
+    public CustomerDTO getCustomerByMail(String mail) {
+        return ToDTO(customerRepositery.findByMail(mail));
     }
 
     //Converti chaque Customer en ObjetDTO pour faciliter le transfert de data.
@@ -76,8 +81,6 @@ public class CustomerService extends ConvertAddress_To_AddressDTO {
     }
 
     public Customer authenticate(String email, String password) {
-
         return customerRepositery.findByEmailAndPassword(email, password);
     }
-
 }

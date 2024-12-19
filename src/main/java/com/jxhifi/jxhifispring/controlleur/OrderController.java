@@ -37,6 +37,15 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
+    @PostMapping("/order/new/")
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
+        Order newOrder = new Order();
+        // Convert the updated Order entity to an OrderDTO
+        OrderDTO updatedOrderDTO = orderService.orderToDTO(newOrder);
+
+        return ResponseEntity.ok(updatedOrderDTO);
+    }
+
     @PutMapping("/order/modify/{id}")
     public ResponseEntity<OrderDTO> modifyOrder(@PathVariable String id, @RequestBody OrderDTO oDTO) {
 
@@ -48,8 +57,6 @@ public class OrderController {
         return ResponseEntity.ok(updatedOrderDTO);
     }
 
-
-    //tempCustomerid pourait etre a la fin du URL, TBD
     @GetMapping("/{tempCustomerId}/account-details/orders")
     public ResponseEntity<List<Order>> getOrdersFromCustomer(@PathVariable String tempCustomerId) {
         return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));

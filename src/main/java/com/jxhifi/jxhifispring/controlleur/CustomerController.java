@@ -27,8 +27,14 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
+    @GetMapping("/customer/get-by-mail/{mail}")
+    public ResponseEntity<CustomerDTO> getCustomerByMail(@PathVariable String mail) {
+        return ResponseEntity.ok(customerService.getCustomerByMail(mail));
+    }
+
     /**
      * Cette methode est appeler si c'est le formulaire du createAccount btn qui est remplis et soumis
+     *
      * @param newCustomerDTO l'objet recu du front
      * @return une instance de Customer pret a etre inserer dans la DB
      */
@@ -45,12 +51,14 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
         customer.setDeleted(false);
 
         customerService.createNewCustomer(customer);
+        //TODO maybe qu'il faut retourner un customer DTO SI il y aun error de retour
 
         return ResponseEntity.ok(customer);
     }
 
     /**
      * Cette methode est appeler si c'est le formulaire du dasboard qui est remplis et soumis
+     *
      * @param newCustomerDTO l'objet recu du front
      * @return une instance de Customer pret a etre inserer dans la DB
      */
@@ -71,18 +79,20 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
 
         customerService.createNewCustomer(customer);
 
+        //TODO maybe qu'il faut retourner un customer DTO SI il y aun error de retour
         return ResponseEntity.ok(customer);
     }
+
     @PutMapping("/customer/update/{id}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody CustomerDTO updateCustomerDTO, @PathVariable String id) {
-        Customer customer=customerService.getCustomer(id);
-        if(customer!=null){
+        Customer customer = customerService.getCustomer(id);
+        if (customer != null) {
             customer.setLastName(updateCustomerDTO.getLastName());
             customer.setFirstName(updateCustomerDTO.getFirstName());
             customer.setEmail(updateCustomerDTO.getEmail());
             customer.setPhone(updateCustomerDTO.getPhone());
             customer.setAddress(addressDTOToAddress(updateCustomerDTO.getAddress()));
-            if(updateCustomerDTO.getPassword()!=null){
+            if (updateCustomerDTO.getPassword() != null) {
                 customer.setPassword(updateCustomerDTO.getPassword());
             }
             customer.setDeleted(updateCustomerDTO.isDeleted());
@@ -92,17 +102,19 @@ public class CustomerController extends ConvertAddressDTO_To_Address {
 
         return ResponseEntity.ok(customer);
     }
+
     @DeleteMapping("/customer/delete/{id}")
     public void deleteCustomer(@PathVariable String id) {
-        Customer customer=customerService.getCustomer(id);
-        if(customer!=null){
+        Customer customer = customerService.getCustomer(id);
+        if (customer != null) {
             customerService.deleteCustomer(customer);
         }
     }
+
     @PutMapping("customer/deactivate/{id}")
     public void deactivateCustomer(@PathVariable String id) {
-        Customer customer=customerService.getCustomer(id);
-        if(customer!=null){
+        Customer customer = customerService.getCustomer(id);
+        if (customer != null) {
             customer.setDeleted(true);
             customerService.updateCustomer(customer);
         }

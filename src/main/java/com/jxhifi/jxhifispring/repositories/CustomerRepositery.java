@@ -1,8 +1,6 @@
 package com.jxhifi.jxhifispring.repositories;
 
-
 import com.jxhifi.jxhifispring.entities.Customer;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -21,6 +19,9 @@ public interface CustomerRepositery extends JpaRepository<Customer, Long> {
     @Query("SELECT c FROM Customer c WHERE c.id = ?1")
     Customer findCustomerById(String id);
 
+    @Query("SELECT c FROM Customer c WHERE c.email = ?1")
+    Customer findByMail(String mail);
 
     Customer findByEmailAndPassword(String email, String password);
+
 }
