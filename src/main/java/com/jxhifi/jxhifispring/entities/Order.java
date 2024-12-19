@@ -51,5 +51,5 @@ public class Order {
     private Customer customer;
 
     // TODO Supprimer et déplacer dans OrderDTO
-    private String idCustomer;
+//    private String idCustomer;
 }

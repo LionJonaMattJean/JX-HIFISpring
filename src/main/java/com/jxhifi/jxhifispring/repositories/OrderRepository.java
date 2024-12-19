@@ -27,7 +27,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.id = :id")
     Order findOrderById(@Param("id") String id);
 
-    @Query("SELECT order.idCustomer FROM Order order WHERE order.id =: id")
+    @Query("SELECT order.customer.id FROM Order order WHERE order.id =: id")
     String findIdCustomerByOrder(@Param("id") String id);
 
     @Query("SELECT order.card FROM Order order WHERE order.id =:id")
@@ -36,7 +36,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT order.orderItems FROM Order order WHERE order.id =: id")
     List<OrderItem> getOrderItemsByOrderId(@Param("id") String id);
 
-    @Query("SELECT order FROM Order order WHERE order.idCustomer =:id")
+    @Query("SELECT order FROM Order order WHERE order.customer.id =:id")
     List<Order> getAllOrdersByCustomerId(@Param("id") String id);
 
 

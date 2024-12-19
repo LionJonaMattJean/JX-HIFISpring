@@ -1,7 +1,6 @@
 package com.jxhifi.jxhifispring.DTO.Order;
 
 import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
-import com.jxhifi.jxhifispring.DTO.customer.CustomerDTO;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.Data;

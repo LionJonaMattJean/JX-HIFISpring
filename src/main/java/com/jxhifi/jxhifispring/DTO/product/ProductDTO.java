@@ -1,17 +1,10 @@
 package com.jxhifi.jxhifispring.DTO.product;
 
-
-
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
 import java.util.List;
-@Setter
-@Getter
 
+@Data
 public class ProductDTO  {
-
-
     private String id;
     private String brand;
     private String name;

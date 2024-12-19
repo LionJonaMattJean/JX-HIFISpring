@@ -1,25 +1,21 @@
 package com.jxhifi.jxhifispring.DTO.Order;
 
-import com.jxhifi.jxhifispring.entities.Address;
-import com.jxhifi.jxhifispring.entities.Card;
-import com.jxhifi.jxhifispring.entities.Customer;
-import com.jxhifi.jxhifispring.entities.OrderItem;
+import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
+import com.jxhifi.jxhifispring.DTO.customer.CustomerDTO;
 import lombok.Data;
-
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
 public class OrderDTO {
     private String id;
-    private String idCustomer;
-    private Card card;
-    private List<OrderItem> orderItems;
+    private CardDTO card;
+    private List<DashboardDetail_OrderItemDTO> orderItems;
     private double TPS;
     private double stateTax;
-    private double TTC;
+    private double totalAmount;
     private String status;
     private LocalDate orderDate;
-    private Address shippingAddress;
-    private Customer customer;
+    private AddressDTO shippingAddress;
+    private CustomerDTO customer;
 }

@@ -30,6 +30,4 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Order order;
-
-
 }

@@ -16,7 +16,6 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
     Optional<OrderItem> findFirstByOrderById();
 
 
-
     //-FIND QUERIES--------------------------
     @Query("select oItem from OrderItem oItem where oItem.id = :id")
      OrderItem findOrderItemById(@Param("id") String id);
@@ -34,10 +33,7 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
 
 
     //---Shopping Cart Service methods
-    @Query("SELECT oi FROM OrderItem oi WHERE oi.order.idCustomer = :customerId")
+//    @Query("SELECT oi FROM OrderItem oi WHERE oi.order.idCustomer = :customerId")
+    @Query("SELECT oi FROM OrderItem oi WHERE oi.order.customer.id = :customerId")
     List<OrderItem> findBycustomerId(@Param("customerID") String customerId);
-
-
-
-
 }

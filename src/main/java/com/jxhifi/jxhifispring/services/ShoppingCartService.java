@@ -73,10 +73,11 @@ public class ShoppingCartService {
         // verify link between order and customer
         OrderItem orderItem = orderItemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found"));
-
-        if (!orderItem.getOrder().getIdCustomer().equals(customerId)) {
-            throw new RuntimeException("Item does not belong to the customer");
-        }
+        //TODO a verifier si on peut changer la logique parce qu'on ne devrait pas avoir un idCustomer
+        // dans la class Order mais un objet Customer . L'id devrait etre dans orderDTO comme discuter
+//        if (!orderItem.getOrder().getIdCustomer().equals(customerId)) {
+//            throw new RuntimeException("Item does not belong to the customer");
+//        }
 
         orderItemRepository.delete(orderItem);
     }

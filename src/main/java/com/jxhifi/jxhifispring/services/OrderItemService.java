@@ -40,41 +40,41 @@ public class OrderItemService {
         this.entityManager = entityManager;
     }
 
-    public OrderItem addOrderItem(OrderItem orderItem) {
-        return orderItemRepository.save(orderItem);
-    }
-
-    public OrderItem getOrderItembyId(String id) {
-        return orderItemRepository.findOrderItemById(id);
-    }
-
-    public int getOrderItemQuantity(String id){
-        return orderItemRepository.getQuantity(id);
-    }
-
-    public List<OrderItem> getAllItemsByOrderId(String id){
-        return orderItemRepository.findOrderItemByOrderId(id);
-    }
-
-
-
-
-
-    public void updateOrderItem(OrderItem orderItem) {
-        OrderItem managedOrderItem = entityManager.merge(orderItem);
-        orderItemRepository.save(managedOrderItem);
-    }
-
-    public void updateOrderItemQuantity(String id, int newQuantity) {
-        orderItemRepository.updateQuantity(id, newQuantity);
-    }
-
-    public void deleteOrderItem(OrderItem orderItem) {
-        orderItemRepository.delete(orderItem);
-    }
-
-    public void deleteOrderItem(String id) {
-        int converted = Integer.parseInt(id);
-        orderItemRepository.deleteById(converted);
-    }
+//    public OrderItem addOrderItem(OrderItem orderItem) {
+//        return orderItemRepository.save(orderItem);
+//    }
+//
+//    public OrderItem getOrderItembyId(String id) {
+//        return orderItemRepository.findOrderItemById(id);
+//    }
+//
+//    public int getOrderItemQuantity(String id){
+//        return orderItemRepository.getQuantity(id);
+//    }
+//
+//    public List<OrderItem> getAllItemsByOrderId(String id){
+//        return orderItemRepository.findOrderItemByOrderId(id);
+//    }
+//
+//
+//
+//
+//
+//    public void updateOrderItem(OrderItem orderItem) {
+//        OrderItem managedOrderItem = entityManager.merge(orderItem);
+//        orderItemRepository.save(managedOrderItem);
+//    }
+//
+//    public void updateOrderItemQuantity(String id, int newQuantity) {
+//        orderItemRepository.updateQuantity(id, newQuantity);
+//    }
+//
+//    public void deleteOrderItem(OrderItem orderItem) {
+//        orderItemRepository.delete(orderItem);
+//    }
+//
+//    public void deleteOrderItem(String id) {
+//        int converted = Integer.parseInt(id);
+//        orderItemRepository.deleteById(converted);
+//    }
 }

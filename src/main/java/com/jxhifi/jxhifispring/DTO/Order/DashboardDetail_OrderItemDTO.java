@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class DashboardDetail_OrderItemDTO {
-    private String productName;
+    private DD_OrderItem_ProductDTO product;
     private int quantity;
     private double sousTotal;
 }

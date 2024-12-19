@@ -28,11 +28,57 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAllOrders());
     }
 
-    @GetMapping("/order-detail_dshb/{id}")
-    public ResponseEntity<DashboardDetail_OrderDTO> getOrderByIdForDashboardDetail(@PathVariable String id) {
-        return ResponseEntity.ok(orderService.getOrderByIdForDashboardDetail(id));
+    //TODO a supprimer si la version OrderDTO uniquement et suffisante.
+//    @GetMapping("/order-detail_dshb/{id}")
+//    public ResponseEntity<DashboardDetail_OrderDTO> getOrderByIdForDashboardDetail(@PathVariable String id) {
+//        return ResponseEntity.ok(orderService.getOrderByIdForDashboardDetail(id));
+//    }
+
+    @GetMapping("/order/{id}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable String id) {
+        return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
+    @PutMapping("/order/modify/{id}")
+    public ResponseEntity<Order> modifyOrder(@PathVariable String id, @RequestBody OrderDTO oDTO) {
+        //Recup l'order existant a partir de l'id
+        Order order = orderService.getExistingOrder(id);
+
+        order.setTPS(oDTO.getTPS());
+        order.setStateTax(oDTO.getStateTax());
+        order.setTTC(oDTO.getTotalAmount());
+        order.setStatus(oDTO.getStatus());
+        order.setOrderDate(oDTO.getOrderDate());
+
+
+        if (oDTO.getCard() != null) {
+            order.getCard().setCardNumber(oDTO.getCard().getCardNumber());
+            order.getCard().setExpiryDate(oDTO.getCard().getExpiryDate());
+            order.getCard().setCvc(oDTO.getCard().getCvc());
+        }
+
+        if (oDTO.getShippingAddress() != null) {
+            order.getShippingAddress().setAddress(oDTO.getShippingAddress().getAddress());
+            order.getShippingAddress().setCity(oDTO.getShippingAddress().getCity());
+            order.getShippingAddress().setProvince(oDTO.getShippingAddress().getProvince());
+            order.getShippingAddress().setPostalCode(oDTO.getShippingAddress().getPostalCode());
+            order.getShippingAddress().setCountry(oDTO.getShippingAddress().getCountry());
+        }
+
+        if (oDTO.getCustomer() != null) {
+            order.getCustomer().setEmail(oDTO.getCustomer().getEmail());
+            order.getCustomer().setPhone(oDTO.getCustomer().getPhone());
+        }
+
+        // MàJ des items
+//        if (oDTO.getOrderItems() != null) {
+//            order.getOrderItems().clear();
+//
+//            order.getOrderItems().addAll(oDTO.getOrderItems());
+//        }
+
+        return ResponseEntity.ok(order);
+    }
 
 
     //tempCustomerid pourait etre a la fin du URL, TBD
@@ -41,40 +87,23 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));
     }
 
-    @PostMapping("/createOrder")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto) {
-        Order newOrder = new Order();
-        newOrder.setId(orderService.generateNewId());
-        newOrder.setOrderDate(orderDto.getOrderDate());
-
-        newOrder.setOrderItems(orderDto.getOrderItems());
-
-        newOrder.setCard(orderDto.getCard());
-        newOrder.setStatus(orderDto.getStatus());
-        newOrder.setCustomer(orderDto.getCustomer());
-//        newOrder.setIdCustomer(orderDto.getIdCustomer());
-        newOrder.setShippingAddress(orderDto.getShippingAddress());
-        newOrder.setStateTax(orderDto.getStateTax());
-        newOrder.setTPS(orderDto.getTPS());
-        newOrder.setTTC(orderDto.getTTC());
-        orderService.addOrder(newOrder);
-        return ResponseEntity.ok(newOrder);
-    }
-
-    @PutMapping("order/modify/{id}")
-    public ResponseEntity<Order> modifyOrder(@PathVariable String id, @RequestBody OrderDTO orderDto) {
-        Order updatedOrder = orderService.getOrderById(id);
-        updatedOrder.setOrderDate(orderDto.getOrderDate());
-        updatedOrder.setOrderItems(orderDto.getOrderItems());
-        updatedOrder.setCard(orderDto.getCard());
-        updatedOrder.setStatus(orderDto.getStatus());
-        updatedOrder.setCustomer(orderDto.getCustomer());
-        updatedOrder.setIdCustomer(id);
-        updatedOrder.setShippingAddress(orderDto.getShippingAddress());
-        updatedOrder.setStateTax(orderDto.getStateTax());
-        updatedOrder.setTPS(orderDto.getTPS());
-        updatedOrder.setTTC(orderDto.getTTC());
-        orderService.updateOrder(updatedOrder);
-        return ResponseEntity.ok(updatedOrder);
-    }
+//    @PostMapping("/createOrder")
+//    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto) {
+//        Order newOrder = new Order();
+//        newOrder.setId(orderService.generateNewId());
+//        newOrder.setOrderDate(orderDto.getOrderDate());
+//
+//        newOrder.setOrderItems(orderDto.getOrderItems());
+//
+//        newOrder.setCard(orderDto.getCard());
+//        newOrder.setStatus(orderDto.getStatus());
+//        newOrder.setCustomer(orderDto.getCustomer());
+////        newOrder.setIdCustomer(orderDto.getIdCustomer());
+//        newOrder.setShippingAddress(orderDto.getShippingAddress());
+//        newOrder.setStateTax(orderDto.getStateTax());
+//        newOrder.setTPS(orderDto.getTPS());
+//        newOrder.setTTC(orderDto.getTTC());
+//        orderService.addOrder(newOrder);
+//        return ResponseEntity.ok(newOrder);
+//    }
 }
