@@ -1,6 +1,7 @@
 package com.jxhifi.jxhifispring.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,12 @@ public class Review {
     @JoinColumn(name = "customer_id")
     @JsonIgnore
     private Customer customer;
+
+    @JsonProperty("customer_firstName")
+    public String getCustomerName() {
+        return customer != null ? customer.getFirstName() : null;
+    }
+
     @Column(length = 2000)
     private String Review;
 

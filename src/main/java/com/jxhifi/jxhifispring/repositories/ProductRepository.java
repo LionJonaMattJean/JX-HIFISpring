@@ -52,5 +52,4 @@ public interface ProductRepository extends JpaRepository<Product, String> {
   @Query(value = "select new com.jxhifi.jxhifispring.DTO.product.ProductSearchDTO(p.id,p.name) " +
           "from Product p")
     List<ProductSearchDTO> getProductsForSearch();
-
 }

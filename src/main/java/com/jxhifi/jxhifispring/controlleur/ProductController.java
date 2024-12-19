@@ -41,6 +41,7 @@ public class ProductController {
     public ResponseEntity<List<ProductSearchDTO>> getProductsForSearch() {
       return ResponseEntity.ok(productService.getProductsForSearch());
     }
+
     @GetMapping("/products/{id}")
     public ResponseEntity<Optional<Product>> getProduct(@PathVariable String id) {
         return ResponseEntity.ok(productService.getProductById(id));
