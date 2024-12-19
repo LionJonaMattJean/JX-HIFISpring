@@ -20,4 +20,7 @@ public interface CustomerRepositery extends JpaRepository<Customer, Long> {
 
     @Query("SELECT c FROM Customer c WHERE c.id = ?1")
     Customer findCustomerById(String id);
+
+
+    Customer findByEmailAndPassword(String email, String password);
 }

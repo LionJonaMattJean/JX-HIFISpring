@@ -1,7 +1,7 @@
 package com.jxhifi.jxhifispring.services;
 
 import com.jxhifi.jxhifispring.DTO.ConvertAddress_To_AddressDTO;
-import com.jxhifi.jxhifispring.DTO.customer.AddressDTO;
+
 import com.jxhifi.jxhifispring.DTO.customer.CustomerDTO;
 import com.jxhifi.jxhifispring.entities.Customer;
 import com.jxhifi.jxhifispring.repositories.CustomerRepositery;
@@ -74,4 +74,10 @@ public class CustomerService extends ConvertAddress_To_AddressDTO {
 
         return "USE" + idNumber;
     }
+
+    public Customer authenticate(String email, String password) {
+
+        return customerRepositery.findByEmailAndPassword(email, password);
+    }
+
 }

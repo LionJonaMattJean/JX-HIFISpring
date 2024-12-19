@@ -120,7 +120,7 @@ VALUES
 ('SPE78', 'Simple buttons for easy controls', 'Controls', 'PRO10'),
 ('SPE79', 'Supports Alexa and Google Assistant', 'Smart Features', 'PRO10'),
 ('SPE80', 'Durable build for frequent use', 'Durability', 'PRO10');
-
+/*
 INSERT INTO short_specification (id, description, title, product_id)
 VALUES
 
@@ -182,47 +182,110 @@ VALUES
 ('QSPE41', 'Superior sound quality for audiophiles', 'Audio Features', 'PRO10'),
 ('QSPE42', 'Long-lasting battery with quick charge', 'Battery Features', 'PRO10'),
 ('QSPE43', 'Elegant design with premium materials', 'Design Features', 'PRO10'),
-('QSPE44', 'Advanced ANC for immersive sound', 'Noise-Canceling Features', 'PRO10');
+('QSPE44', 'Advanced ANC for immersive sound', 'Noise-Canceling Features', 'PRO10');*/
 
-INSERT INTO review (id, review, star, title, product_id)
+INSERT INTO short_specification (id, description, title, product_id)
+VALUES
+-- Specifications for PRO1
+('QSPE5', 'Powerful performance with Intel i5', 'Performance', 'PRO1'),
+('QSPE6', 'Compact design with easy setup', 'Design', 'PRO1'),
+('QSPE7', 'Energy-efficient and durable', 'Sustainability', 'PRO1'),
+('QSPE8', 'Comes with pre-installed Windows 10', 'Software', 'PRO1'),
+
+-- Specifications for PRO2
+('QSPE9', 'AMD Ryzen processor for multitasking', 'Performance', 'PRO2'),
+('QSPE10', 'Elegant and slim design', 'Design', 'PRO2'),
+('QSPE11', 'Integrated graphics for casual gaming', 'Graphics', 'PRO2'),
+('QSPE12', 'Pre-installed with essential software', 'Software', 'PRO2'),
+
+-- Specifications for PRO3
+('QSPE13', 'M1 chip optimized for macOS', 'Processor', 'PRO3'),
+('QSPE14', 'Long-lasting battery with fast charging', 'Battery', 'PRO3'),
+('QSPE15', 'High-resolution Retina display', 'Display', 'PRO3'),
+('QSPE16', 'Supports latest Wi-Fi and Bluetooth versions', 'Connectivity', 'PRO3'),
+
+-- Specifications for PRO4
+('QSPE17', 'Affordable with premium features', 'Value', 'PRO4'),
+('QSPE18', 'Durable chassis and sleek design', 'Build', 'PRO4'),
+('QSPE19', 'Advanced cooling for longer sessions', 'Cooling', 'PRO4'),
+('QSPE20', 'Pre-installed Office suite for students', 'Software', 'PRO4'),
+
+-- Specifications for PRO5
+('QSPE21', 'High-performance chipset for multitasking', 'Performance', 'PRO5'),
+('QSPE22', 'Stylus support for creative tasks', 'Accessory', 'PRO5'),
+('QSPE23', 'Supports 5G for ultra-fast connectivity', 'Connectivity', 'PRO5'),
+('QSPE24', 'Dynamic AMOLED display for vivid colors', 'Display', 'PRO5'),
+
+-- Specifications for PRO6
+('QSPE25', 'A16 Bionic chip for top performance', 'Processor', 'PRO6'),
+('QSPE26', 'Durable ceramic shield', 'Build', 'PRO6'),
+('QSPE27', '120Hz ProMotion display for smooth visuals', 'Display', 'PRO6'),
+('QSPE28', 'Professional-grade camera system', 'Camera', 'PRO6'),
+
+-- Specifications for PRO7
+('QSPE29', 'Adjustable stand for comfort', 'Ergonomics', 'PRO7'),
+('QSPE30', 'Anti-glare coating on the screen', 'Display', 'PRO7'),
+('QSPE31', 'Energy-saving mode included', 'Power', 'PRO7'),
+('QSPE32', 'Multiple ports for connectivity', 'Connectivity', 'PRO7'),
+
+-- Specifications for PRO8
+('QSPE33', 'High refresh rate for smooth visuals', 'Gaming', 'PRO8'),
+('QSPE34', 'HDR support for vibrant colors', 'Display', 'PRO8'),
+('QSPE35', 'Sleek and slim design', 'Design', 'PRO8'),
+('QSPE36', 'Multiple input options available', 'Connectivity', 'PRO8'),
+
+-- Specifications for PRO9
+('QSPE37', 'Wireless design with quick pairing', 'Connectivity', 'PRO9'),
+('QSPE38', '30-hour battery life with ANC enabled', 'Battery', 'PRO9'),
+('QSPE39', 'Customizable sound profiles', 'Audio', 'PRO9'),
+('QSPE40', 'Folds flat for easy storage', 'Portability', 'PRO9'),
+
+-- Specifications for PRO10
+('QSPE41', 'Superior sound quality for audiophiles', 'Audio', 'PRO10'),
+('QSPE42', 'Long-lasting battery with quick charge', 'Battery', 'PRO10'),
+('QSPE43', 'Elegant design with premium materials', 'Design', 'PRO10'),
+('QSPE44', 'Advanced ANC for immersive sound', 'Noise Canceling', 'PRO10');
+
+
+INSERT INTO review (id, review, star, title, product_id,customer_id)
 VALUES
 -- Reviews for PRO1
-('REV3', 'Fast and reliable for daily use.', 4, 'Great Value', 'PRO1'),
+('REV3', 'Fast and reliable for daily use.', 4, 'Great Value', 'PRO1','USE1000'),
 
 -- Reviews for PRO2
-('REV4', 'Compact and perfect for small spaces.', 4, 'Good Design', 'PRO2'),
-('REV5', 'Runs smoothly with no lags.', 5, 'Excellent Choice', 'PRO2'),
+('REV4', 'Compact and perfect for small spaces.', 4, 'Good Design', 'PRO2','USE1518'),
+('REV5', 'Runs smoothly with no lags.', 5, 'Excellent Choice', 'PRO2','USE1222'),
 
 -- Reviews for PRO3
-('REV6', 'The M1 chip is revolutionary!', 5, 'Amazing Performance', 'PRO3'),
-('REV7', 'Lightweight and very portable.', 4, 'Perfect for Travel', 'PRO3'),
+('REV6', 'The M1 chip is revolutionary!', 5, 'Amazing Performance', 'PRO3','USE1481'),
+('REV7', 'Lightweight and very portable.', 4, 'Perfect for Travel', 'PRO3','USE1518'),
 
 -- Reviews for PRO4
-('REV8', 'Affordable yet powerful.', 5, 'Best for Students', 'PRO4'),
-('REV9', 'Handles multitasking well.', 4, 'Solid Build', 'PRO4'),
+('REV8', 'Affordable yet powerful.', 5, 'Best for Students', 'PRO4','USE1481'),
+('REV9', 'Handles multitasking well.', 4, 'Solid Build', 'PRO4','USE1370'),
 
 -- Reviews for PRO5
-('REV10', 'Excellent display and features.', 5, 'Highly Recommended', 'PRO5'),
+('REV10', 'Excellent display and features.', 5, 'Highly Recommended', 'PRO5','USE1222'),
 
 -- Reviews for PRO6
-('REV11', 'Camera quality is unmatched.', 5, 'Fantastic Smartphone', 'PRO6'),
-('REV12', 'Expensive but worth it.', 4, 'Premium Feel', 'PRO6'),
+('REV11', 'Camera quality is unmatched.', 5, 'Fantastic Smartphone', 'PRO6','USE1481'),
+('REV12', 'Expensive but worth it.', 4, 'Premium Feel', 'PRO6','USE1111'),
 
 -- Reviews for PRO7
-('REV13', 'Crystal clear display for work.', 5, 'Best Monitor', 'PRO7'),
-('REV14', 'Affordable and functional.', 4, 'Value for Money', 'PRO7'),
+('REV13', 'Crystal clear display for work.', 5, 'Best Monitor', 'PRO7','USE1370'),
+('REV14', 'Affordable and functional.', 4, 'Value for Money', 'PRO7','USE1222'),
 
 -- Reviews for PRO8
-('REV15', 'Amazing 4K resolution.', 5, 'Top-Notch', 'PRO8'),
-('REV16', 'Sleek and elegant design.', 4, 'Modern Aesthetic', 'PRO8'),
+('REV15', 'Amazing 4K resolution.', 5, 'Top-Notch', 'PRO8','USE1259'),
+('REV16', 'Sleek and elegant design.', 4, 'Modern Aesthetic', 'PRO8','USE1111'),
 
 -- Reviews for PRO9
-('REV17', 'Best noise-canceling headphones.', 5, 'Superb Audio', 'PRO9'),
-('REV18', 'Comfortable for long hours.', 4, 'Great Comfort', 'PRO9'),
+('REV17', 'Best noise-canceling headphones.', 5, 'Superb Audio', 'PRO9','USE1259'),
+('REV18', 'Comfortable for long hours.', 4, 'Great Comfort', 'PRO9','USE1370'),
 
 -- Reviews for PRO10
-('REV19', 'Excellent sound and build.', 5, 'Top Quality', 'PRO10'),
-('REV20', 'Long-lasting battery life.', 4, 'Very Convenient', 'PRO10');
+('REV19', 'Excellent sound and build.', 5, 'Top Quality', 'PRO10','USE1111'),
+('REV20', 'Long-lasting battery life.', 4, 'Very Convenient', 'PRO10','USE1222');
 
 INSERT INTO image (id, url, product_id)
 VALUES

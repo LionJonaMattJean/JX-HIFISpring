@@ -1,7 +1,9 @@
 package com.jxhifi.jxhifispring.DTO.customer;
 
+
 import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
+
 
 @Data
 public class NewAccountCustomerDTO {
@@ -11,4 +13,5 @@ public class NewAccountCustomerDTO {
     private String password;
     @NotNull
     private String email;
+
 }
