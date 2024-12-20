@@ -1,5 +1,6 @@
 package com.jxhifi.jxhifispring.repositories;
 import com.jxhifi.jxhifispring.entities.Card;
+import com.jxhifi.jxhifispring.entities.Order;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,8 +10,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.time.LocalDate;
+import java.util.Optional;
+
 @RepositoryRestResource
 public interface CardRepository extends JpaRepository<Card, Integer> {
+
+    @Query(value = "SELECT * FROM `card` ORDER BY CAST(SUBSTRING(id, 4) AS UNSIGNED) DESC LIMIT 1", nativeQuery = true)
+    Optional<Card> findTopByIdNumericPart();
 
     //-FIND QUERRIES------------------------------------------------
     @Query("select c from Card c where c.id = : id")

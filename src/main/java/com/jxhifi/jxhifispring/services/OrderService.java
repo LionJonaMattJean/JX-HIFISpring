@@ -3,6 +3,7 @@ package com.jxhifi.jxhifispring.services;
 import com.jxhifi.jxhifispring.DTO.ConvertAddress_To_AddressDTO;
 import com.jxhifi.jxhifispring.DTO.Order.*;
 import com.jxhifi.jxhifispring.entities.*;
+import com.jxhifi.jxhifispring.repositories.CardRepository;
 import com.jxhifi.jxhifispring.repositories.OrderRepository;
 import com.jxhifi.jxhifispring.repositories.ProductRepository;
 import jakarta.annotation.PostConstruct;
@@ -11,10 +12,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,8 +26,14 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
     private final OrderRepository orderRepository;
     @Autowired
     private OrderItemService orderItemService;
+    @Autowired
+    private CardService cardService;
+    @Autowired
+    private AddressService addressService;
     private static long idNumber = 1L;
     private final EntityManager entityManager;
+    @Autowired
+    private CardRepository cardRepository;
 
 
     public List<OrderDTO> getAllOrders() {
@@ -47,12 +51,6 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
     public OrderDTO getOrderById(String id) {
         Order order = orderRepository.findOrderById(id);
         return orderToDTO(order);
-    }
-
-    //TODO appelé dans l'update de Order
-    public Order getExistingOrder(String id) {
-        Order order = orderRepository.findOrderById(id);
-        return order;
     }
 
     public Order updateOrder(String id, OrderDTO oDTO) {
@@ -77,15 +75,14 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         // Liste pour suivre les IDs existants
         Set<String> existingIds = new HashSet<>();
 
-        // Mettre à jour ou ajouter les éléments
         for (DashboardDetail_OrderItemDTO dto : oDTO.getOrderItems()) {
-            // Trouver l'élément correspondant dans la liste actuelle
+            // Trouver item correspondant
             Optional<OrderItem> existingItem = order.getOrderItems().stream()
                     .filter(item -> item.getProduct().getId().equals(dto.getProduct().getId()))
                     .findFirst();
 
             if (existingItem.isPresent()) {
-                // Mettre à jour les valeurs si l'élément existe déjà
+                // Màj des valeurs deja existantes
                 OrderItem orderItem = existingItem.get();
                 orderItem.setQuantity(dto.getQuantity());
                 double subTotal = dto.getSousTotal();
@@ -98,7 +95,6 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
                 }
                 orderItem.setSubTotal(subTotal);
             } else {
-                // Ajouter un nouvel élément si non présent
                 OrderItem newItem = convertToOrderItem(dto, order);
 
                 order.getOrderItems().add(newItem);
@@ -108,15 +104,89 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
             existingIds.add(dto.getProduct().getId());
         }
 
-        // Supprimer les éléments qui ne sont plus dans la liste DTO
+        // Supprime les items qui ont ete removed dans le front
         order.getOrderItems().removeIf(item -> !existingIds.contains(item.getProduct().getId()));
+    }
+
+    public Order createNewOrder(OrderDTO orderDTO) {
+        for (DashboardDetail_OrderItemDTO dto : orderDTO.getOrderItems())
+            System.out.println(dto.toString());
+
+        Order newOrder = new Order();
+
+        //Genere l'id
+        newOrder.setId(generateNewId());
+
+        //mets a jour les attribut propre a la classe order
+        OrderDTO_To_Order(orderDTO, newOrder);
+
+        //Fetch le customer lié a la commande
+        newOrder.setCustomer(customerService.getCustomer(orderDTO.getCustomer().getId()));
+
+        if (orderDTO.getOrderItems() != null) {
+            List<OrderItem> orderItems = newOrder.getOrderItems();
+            if (orderItems == null) {
+                orderItems = new ArrayList<>();
+            }
+            //initialise la liste des produit acheté
+            for (DashboardDetail_OrderItemDTO dto : orderDTO.getOrderItems()) {
+                OrderItem newItem = convertToOrderItem(dto, newOrder);
+
+                newItem = orderItemService.addOrderItem(newItem);
+                orderItems.add(newItem);
+            }
+
+            newOrder.setOrderItems(orderItems);
+        }
+
+        //TODO verifier si la card existe deja dans la db.
+        // si oui associer ces deux card
+        // sinon creer une nouvelle card
+        if (orderDTO.getCard() != null) {
+            Card card = newOrder.getCard();
+            if (card == null) {
+                card = new Card();
+            }
+            card.setId(cardService.generateNewId());
+            card.setPaymentMethod(orderDTO.getCard().getPaymentMethod());
+            card.setCardNumber(orderDTO.getCard().getCardNumber());
+            card.setExpiryDate(orderDTO.getCard().getExpiryDate());
+            card.setCvc(orderDTO.getCard().getCvc());
+            card.setNameHolder(orderDTO.getCustomer().getFirstName() + " " + orderDTO.getCustomer().getLastName());
+
+            card = cardService.addCard(card);
+            newOrder.setCard(card);
+        }
+
+        //TODO verifier si l'adresse shipping et la meme que l'adresse du customer.
+        // si oui associer ces deux address
+        // sinon creer une nouvelle adresse
+        if (orderDTO.getShippingAddress() != null) {
+            Address shippingAddress = newOrder.getShippingAddress();
+            if (shippingAddress == null) {
+                shippingAddress = new Address();
+            }
+            shippingAddress.setId(addressService.generateId());
+            shippingAddress.setAddress(orderDTO.getShippingAddress().getAddress());
+            shippingAddress.setCity(orderDTO.getShippingAddress().getCity());
+            shippingAddress.setProvince(orderDTO.getShippingAddress().getProvince());
+            shippingAddress.setPostalCode(orderDTO.getShippingAddress().getPostalCode());
+            shippingAddress.setCountry(orderDTO.getShippingAddress().getCountry());
+
+            shippingAddress = addressService.addAddress(shippingAddress);
+            newOrder.setShippingAddress(shippingAddress);
+        }
+
+        return orderRepository.save(newOrder);
     }
 
 
     //*********************************************** Methode de converstion en DTO ou inversement ***************************************************
 
+
     /**
-     * Prend un objet OrderDTO et le converti en Order pour la db.
+     * Prend un objet OrderDTO et converti les valeurs principal en Order pour la db.
+     *
      * @param oDTO
      * @param order
      */
@@ -126,21 +196,6 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         order.setTTC(oDTO.getTotalAmount());
         order.setStatus(oDTO.getStatus());
         order.setOrderDate(oDTO.getOrderDate());
-
-        if (oDTO.getCard() != null) {
-            order.getCard().setPaymentMethod(oDTO.getCard().getPaymentMethod());
-            order.getCard().setCardNumber(oDTO.getCard().getCardNumber());
-            order.getCard().setExpiryDate(oDTO.getCard().getExpiryDate());
-            order.getCard().setCvc(oDTO.getCard().getCvc());
-        }
-
-        if (oDTO.getShippingAddress() != null) {
-            order.getShippingAddress().setAddress(oDTO.getShippingAddress().getAddress());
-            order.getShippingAddress().setCity(oDTO.getShippingAddress().getCity());
-            order.getShippingAddress().setProvince(oDTO.getShippingAddress().getProvince());
-            order.getShippingAddress().setPostalCode(oDTO.getShippingAddress().getPostalCode());
-            order.getShippingAddress().setCountry(oDTO.getShippingAddress().getCountry());
-        }
     }
 
     private DashboardVersion_OrderDTO orderToDashboardDTO(Order order) {
@@ -283,6 +338,11 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         return orderItem;
     }
 
+    public OrderService(OrderRepository orderRepository, EntityManager entityManager) {
+        this.orderRepository = orderRepository;
+        this.entityManager = entityManager;
+    }
+
     @PostConstruct
     private void initNumber() {
         Optional<Order> lastOrderOptional = this.orderRepository.findTopByIdNumericPart();
@@ -290,11 +350,6 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
             String lastId = lastOrderOptional.get().getId();
             idNumber = Long.parseLong(lastId.substring(3));
         }
-    }
-
-    public OrderService(OrderRepository orderRepository, EntityManager entityManager) {
-        this.orderRepository = orderRepository;
-        this.entityManager = entityManager;
     }
 
     public List<Order> getAllOrdersFromCustomerId(String id) {
@@ -306,5 +361,4 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         idNumber++;
         return id;
     }
-
 }

@@ -39,10 +39,10 @@ public class OrderItemService {
         this.entityManager = entityManager;
     }
 
-//    public OrderItem addOrderItem(OrderItem orderItem) {
-//        return orderItemRepository.save(orderItem);
-//    }
-//
+    public OrderItem addOrderItem(OrderItem orderItem) {
+        return orderItemRepository.save(orderItem);
+    }
+
 //    public OrderItem getOrderItembyId(String id) {
 //        return orderItemRepository.findOrderItemById(id);
 //    }

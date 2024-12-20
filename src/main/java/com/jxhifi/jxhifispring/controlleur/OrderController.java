@@ -39,11 +39,9 @@ public class OrderController {
 
     @PostMapping("/order/new/")
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
-        Order newOrder = new Order();
-        // Convert the updated Order entity to an OrderDTO
-        OrderDTO updatedOrderDTO = orderService.orderToDTO(newOrder);
+        Order newOrder = orderService.createNewOrder(orderDTO);
 
-        return ResponseEntity.ok(updatedOrderDTO);
+        return ResponseEntity.ok(orderService.orderToDTO(newOrder));
     }
 
     @PutMapping("/order/modify/{id}")

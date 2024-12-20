@@ -76,7 +76,6 @@ public class CustomerService extends ConvertAddress_To_AddressDTO {
 
     public String generateNewId() {
         idNumber=idNumber+37;
-
         return "USE" + idNumber;
     }
 

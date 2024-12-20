@@ -2,15 +2,19 @@ package com.jxhifi.jxhifispring.services;
 
 
 import com.jxhifi.jxhifispring.entities.Card;
+import com.jxhifi.jxhifispring.entities.Order;
 import com.jxhifi.jxhifispring.repositories.CardRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class CardService {
-
+    private static long idNumber = 1L;
     private final CardRepository cardRepository;
 
     private final EntityManager entityManager;
@@ -69,4 +73,16 @@ public class CardService {
         cardRepository.deleteById(cardNumber);
     }
 
+    @PostConstruct
+    private void initNumber() {
+        Optional<Card> lastCardOptional = cardRepository.findTopByIdNumericPart();
+        if (lastCardOptional.isPresent()) {
+            String lastId = lastCardOptional.get().getId();
+            idNumber = Long.parseLong(lastId.substring(3));
+        }
+    }
+
+    public String generateNewId() {
+        return "CAR" + idNumber++;
+    }
 }

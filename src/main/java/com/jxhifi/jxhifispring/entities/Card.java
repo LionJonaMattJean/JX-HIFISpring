@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Card {
     @Id
-
     private String id;
     @Column(length = 16, nullable = false)
     private Long cardNumber;
