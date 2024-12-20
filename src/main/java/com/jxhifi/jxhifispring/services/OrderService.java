@@ -107,7 +107,8 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         // Supprime les items qui ont ete removed dans le front
         order.getOrderItems().removeIf(item -> !existingIds.contains(item.getProduct().getId()));
     }
-
+/*
+    @Transactional
     public Order createNewOrder(OrderDTO orderDTO) {
         for (DashboardDetail_OrderItemDTO dto : orderDTO.getOrderItems())
             System.out.println(dto.toString());
@@ -115,7 +116,9 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         Order newOrder = new Order();
 
         //Genere l'id
-        newOrder.setId(generateNewId());
+        String id = generateNewId();
+        System.out.println("id : " + id);
+        newOrder.setId(id);
 
         //mets a jour les attribut propre a la classe order
         OrderDTO_To_Order(orderDTO, newOrder);
@@ -177,10 +180,90 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
             newOrder.setShippingAddress(shippingAddress);
         }
 
+
         return orderRepository.save(newOrder);
+    }*/
+
+    @Transactional
+    public Order createNewOrder(OrderDTO orderDTO) {
+        for (DashboardDetail_OrderItemDTO dto : orderDTO.getOrderItems()) {
+            System.out.println(dto.toString());
+        }
+
+        Order newOrder = new Order();
+
+        // Generate the ID and set it
+        String id = generateNewId();
+        System.out.println("id : " + id);
+        newOrder.setId(id);
+
+        // Update attributes of the order
+        OrderDTO_To_Order(orderDTO, newOrder);
+
+        // Fetch the customer and associate it with the order
+        newOrder.setCustomer(customerService.getCustomer(orderDTO.getCustomer().getId()));
+
+        // Save the new order BEFORE anything else
+        newOrder = orderRepository.save(newOrder);
+
+        // Initialize the list of purchased products
+        if (orderDTO.getOrderItems() != null) {
+            List<OrderItem> orderItems = newOrder.getOrderItems();
+            if (orderItems == null) {
+                orderItems = new ArrayList<>();
+            }
+
+            for (DashboardDetail_OrderItemDTO dto : orderDTO.getOrderItems()) {
+                // Create the order item
+                OrderItem newItem = convertToOrderItem(dto, newOrder);
+
+                // Save the order item (it will now reference an already persisted order)
+                newItem = orderItemService.addOrderItem(newItem);
+
+                // Add the order item to the order's collection
+                orderItems.add(newItem);
+            }
+
+            // Update the order items list
+            newOrder.setOrderItems(orderItems);
+        }
+
+        // Handle card (if necessary)
+        if (orderDTO.getCard() != null) {
+            Card card = newOrder.getCard();
+            if (card == null) {
+                card = new Card();
+            }
+            card.setId(cardService.generateNewId());
+            card.setPaymentMethod(orderDTO.getCard().getPaymentMethod());
+            card.setCardNumber(orderDTO.getCard().getCardNumber());
+            card.setExpiryDate(orderDTO.getCard().getExpiryDate());
+            card.setCvc(orderDTO.getCard().getCvc());
+            card.setNameHolder(orderDTO.getCustomer().getFirstName() + " " + orderDTO.getCustomer().getLastName());
+
+            card = cardService.addCard(card);
+            newOrder.setCard(card);
+        }
+
+        // Handle shipping address (if necessary)
+        if (orderDTO.getShippingAddress() != null) {
+            Address shippingAddress = newOrder.getShippingAddress();
+            if (shippingAddress == null) {
+                shippingAddress = new Address();
+            }
+            shippingAddress.setId(addressService.generateId());
+            shippingAddress.setAddress(orderDTO.getShippingAddress().getAddress());
+            shippingAddress.setCity(orderDTO.getShippingAddress().getCity());
+            shippingAddress.setProvince(orderDTO.getShippingAddress().getProvince());
+            shippingAddress.setPostalCode(orderDTO.getShippingAddress().getPostalCode());
+            shippingAddress.setCountry(orderDTO.getShippingAddress().getCountry());
+
+            shippingAddress = addressService.addAddress(shippingAddress);
+            newOrder.setShippingAddress(shippingAddress);
+        }
+
+        return newOrder;
     }
-
-
     //*********************************************** Methode de converstion en DTO ou inversement ***************************************************
 
 
@@ -349,6 +432,8 @@ public class OrderService extends ConvertAddress_To_AddressDTO {
         if (lastOrderOptional.isPresent()) {
             String lastId = lastOrderOptional.get().getId();
             idNumber = Long.parseLong(lastId.substring(3));
+            idNumber++;
+            System.out.println("idNumber : " + idNumber);
         }
     }
 
