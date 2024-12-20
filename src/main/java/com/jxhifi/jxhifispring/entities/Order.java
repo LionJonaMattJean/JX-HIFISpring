@@ -29,7 +29,7 @@ public class Order {
     @JsonManagedReference
     @ToString.Exclude
     private List<OrderItem> orderItems;
-    //TODO Clarifier nom attribut TPS != StateTax
+
     @Column(nullable = false)
     private double TPS;
     @Column(nullable = false)
@@ -53,7 +53,4 @@ public class Order {
     @ManyToOne
     @JoinColumn
     private Customer customer;
-
-    // TODO Supprimer et déplacer dans OrderDTO
-//    private String idCustomer;
 }

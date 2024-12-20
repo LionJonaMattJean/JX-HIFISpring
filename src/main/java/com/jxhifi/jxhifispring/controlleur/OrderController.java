@@ -34,7 +34,7 @@ public class OrderController {
 
     @GetMapping("/order/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable String id) {
-        return ResponseEntity.ok(orderService.getOrderById(id));
+        return ResponseEntity.ok(orderService.getOrderDTO_ById(id));
     }
 
     @PostMapping("/order/new/")
@@ -42,6 +42,14 @@ public class OrderController {
         Order newOrder = orderService.createNewOrder(orderDTO);
 
         return ResponseEntity.ok(orderService.orderToDTO(newOrder));
+    }
+
+    @DeleteMapping("/order/delete/{id}")
+    public void deleteOrder(@PathVariable String id) {
+        System.out.println("Suppression de la commande avec l'ID : " + id);
+        Order order = orderService.getOrderById(id);
+        if (order != null)
+            orderService.deleteOrder(order);
     }
 
     @PutMapping("/order/modify/{id}")
@@ -59,24 +67,4 @@ public class OrderController {
     public ResponseEntity<List<Order>> getOrdersFromCustomer(@PathVariable String tempCustomerId) {
         return ResponseEntity.ok(orderService.getAllOrdersFromCustomerId(tempCustomerId));
     }
-
-//    @PostMapping("/createOrder")
-//    public ResponseEntity<Order> createOrder(@RequestBody OrderDTO orderDto) {
-//        Order newOrder = new Order();
-//        newOrder.setId(orderService.generateNewId());
-//        newOrder.setOrderDate(orderDto.getOrderDate());
-//
-//        newOrder.setOrderItems(orderDto.getOrderItems());
-//
-//        newOrder.setCard(orderDto.getCard());
-//        newOrder.setStatus(orderDto.getStatus());
-//        newOrder.setCustomer(orderDto.getCustomer());
-////        newOrder.setIdCustomer(orderDto.getIdCustomer());
-//        newOrder.setShippingAddress(orderDto.getShippingAddress());
-//        newOrder.setStateTax(orderDto.getStateTax());
-//        newOrder.setTPS(orderDto.getTPS());
-//        newOrder.setTTC(orderDto.getTTC());
-//        orderService.addOrder(newOrder);
-//        return ResponseEntity.ok(newOrder);
-//    }
 }
