@@ -110,8 +110,9 @@ public class ProductService {
      * @return a String value representing the new unique product identifier.
      */
     public synchronized String generateNewId() {
-        String id = "PRO"+idNumber;
         idNumber++;
+        String id = "PRO"+idNumber;
+
         return id ;
     }
 
